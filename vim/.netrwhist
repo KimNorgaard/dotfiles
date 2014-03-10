@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/kn/src/puppet_modules/role/manifests/fmk/nsitest2/fmk'
+let g:netrw_dirhist_2='/Users/kn/src/puppet_modules/role/manifests/fmk/bemddv'
+let g:netrw_dirhist_3='/Users/kn/src/puppet_modules/profile/manifests/fmk/recept'
+let g:netrw_dirhist_4='/Users/kn/src/fmk/fmk-vagrant-puppet/puppet/modules/vagrant_user'
+let g:netrw_dirhist_5='/Users/kn/src/fmk/fmk-vagrant-puppet/puppet/modules/apt/manifests'
