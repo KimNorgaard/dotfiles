@@ -1,0 +1,5 @@
+alias t=task
+alias kb='twkb show -b work'
+alias ka='twkb add -b work'
+alias km='twkb move -i $1'
+alias ki='/usr/bin/kinit'
