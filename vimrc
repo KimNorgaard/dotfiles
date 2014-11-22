@@ -98,3 +98,6 @@ endif
 
 set t_Co=256
 colorscheme summerfruit256
+" sudo-trick.. Save precious changes as root, fuck yeah
+command W w !sudo tee % > /dev/null 
+

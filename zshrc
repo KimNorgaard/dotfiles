@@ -67,3 +67,5 @@ zstyle ':completion:*' menu select yes
 zstyle ':completion:*:default' list-colors ''
 
 REPORTTIME=5
+
+export POOLPL_SERVER="https://stingray01.netic.dk:9090"
