@@ -286,3 +286,5 @@ let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_f
 let g:NERDCustomDelimiters = {
       \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
       \ }
+
+setl keywordprg=pi
