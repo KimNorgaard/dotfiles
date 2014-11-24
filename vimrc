@@ -9,6 +9,7 @@ filetype off
 execute pathogen#infect()
 filetype plugin indent on
 
+
 "Mapleader
 let mapleader = ","
 
@@ -287,4 +288,17 @@ let g:NERDCustomDelimiters = {
       \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
       \ }
 
-setl keywordprg=pi
+let g:tagbar_type_puppet = {
+  \ 'ctagstype': 'puppet',
+  \ 'kinds': [
+    \'c:class',
+    \'s:site',
+    \'n:node',  
+    \'d:definition',
+    \'r:resource',
+    \'f:default'
+  \]
+\}
+
+set tags=./tags;
+au FileType puppet setlocal isk+=:
