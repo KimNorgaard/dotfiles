@@ -1,0 +1,3 @@
+function pi() {
+  puppet describe --providers $1|less -F
+}

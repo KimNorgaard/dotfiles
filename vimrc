@@ -25,7 +25,7 @@ endif
 
 "Color
 set t_Co=256
-colorscheme Mustang_Vim_Colorscheme_by_hcalves
+colorscheme mustang
 
 "Leader+command timeout
 set notimeout
@@ -150,7 +150,7 @@ set backup
 set undodir=~/.vim/tmp/undo         " persistent undo storage
 set undofile                        " persistent undo on
 set autowrite
-au FocusLost * :wa                  " Save after loosing focus
+au BufLeave,FocusLost * silent! wall     " Save after loosing focus
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -280,3 +280,9 @@ augroup END
 noremap <leader>p mz:r!pbpaste<cr>`z
 noremap <leader>y :.w !pbcopy<CR><CR>
 vnoremap <leader>y :w !pbcopy<CR><CR>
+
+let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
+
+let g:NERDCustomDelimiters = {
+      \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
+      \ }
