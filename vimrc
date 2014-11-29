@@ -26,7 +26,15 @@ endif
 
 "Color
 set t_Co=256
-colorscheme mustang
+set background=dark
+"let g:solarized_termtrans=0
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+"let g:solarized_visibility="normal"
+colorscheme solarized
+" Solarized change bg switch
+call togglebg#map("<F5>")
+"colorscheme mustang
 
 "Leader+command timeout
 set notimeout
@@ -282,6 +290,12 @@ noremap <leader>p mz:r!pbpaste<cr>`z
 noremap <leader>y :.w !pbcopy<CR><CR>
 vnoremap <leader>y :w !pbcopy<CR><CR>
 
+" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+" <leader>v select the text just pasted
+nnoremap <leader>v V`]
+
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
 
 let g:NERDCustomDelimiters = {
@@ -302,3 +316,4 @@ let g:tagbar_type_puppet = {
 
 set tags=./tags;
 au FileType puppet setlocal isk+=:
+

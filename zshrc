@@ -71,3 +71,7 @@ zstyle ':completion:*:default' list-colors ''
 REPORTTIME=5
 
 export POOLPL_SERVER="https://stingray01.netic.dk:9090"
+
+eval $(/usr/bin/perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)
+
+export ANSIBLE_NOCOWS=1
