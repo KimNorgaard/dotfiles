@@ -19,9 +19,13 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 if has("gui_running")
-  set guifont=Menlo:h12
+  set guifont=Cousine:h12
   set linespace=3
   set noicon
+  "set macmeta
+  set guioptions-=r
+  set guioptions-=L
+  set guioptions-=T
 endif
 
 "Color
@@ -109,11 +113,47 @@ vmap <leader>j xp`[V`]
 " Select pasted text
 nnoremap <leader>v V`]
 
-" Easy buffer navigation
+" Easy buffer/window/tab navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+nnoremap <leader>l :ls<CR>:b<space>
+noremap <M-k> :bn<cr>
+noremap <M-j> :bp<cr>
+
+inoremap <M-1> <Esc>:tabn 1<CR>i
+inoremap <M-2> <Esc>:tabn 2<CR>i
+inoremap <M-3> <Esc>:tabn 3<CR>i
+inoremap <M-4> <Esc>:tabn 4<CR>i
+inoremap <M-5> <Esc>:tabn 5<CR>i
+inoremap <M-6> <Esc>:tabn 6<CR>i
+inoremap <M-7> <Esc>:tabn 7<CR>i
+inoremap <M-8> <Esc>:tabn 8<CR>i
+inoremap <M-9> <Esc>:tabn 9<CR>i
+
+noremap <M-1> :tabn 1<CR>
+noremap <M-2> :tabn 2<CR>
+noremap <M-3> :tabn 3<CR>
+noremap <M-4> :tabn 4<CR>
+noremap <M-5> :tabn 5<CR>
+noremap <M-6> :tabn 6<CR>
+noremap <M-7> :tabn 7<CR>
+noremap <M-8> :tabn 8<CR>
+noremap <M-9> :tabn 9<CR>
+
+noremap <D-Right> :tabnext<CR>
+noremap <D-Left> :tabprevious<CR>
+
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
 
 "------------------------"
 "NERDTREE PLUGIN SETTINGS
@@ -250,7 +290,6 @@ cnoremap w!! w !sudo tee % >/dev/null
 
 " Don't display intro message
 set shortmess+=I
-
 set mouse=a
 
 " Toggle paste
@@ -268,7 +307,7 @@ nnoremap <Space> za
 vnoremap <Space> za
 
 augroup ft_puppet
-    au!
+  au!
 
     au Filetype puppet setlocal foldmethod=marker
     au Filetype puppet setlocal foldmarker={,}
@@ -317,3 +356,17 @@ let g:tagbar_type_puppet = {
 set tags=./tags;
 au FileType puppet setlocal isk+=:
 
+let g:fullscreen_colorscheme = "iawriter"
+let g:fullscreen_font = "Cousine:h14"
+let g:normal_colorscheme = "solarized"
+let g:normal_font="Menlo:h12"
+
+let g:vim_markdown_folding_disabled=1
+
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline_enable_tagbar = 0
+
+" snippets
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
