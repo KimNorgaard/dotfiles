@@ -143,8 +143,21 @@ noremap <M-7> :tabn 7<CR>
 noremap <M-8> :tabn 8<CR>
 noremap <M-9> :tabn 9<CR>
 
-noremap <D-Right> :tabnext<CR>
-noremap <D-Left> :tabprevious<CR>
+noremap ø :tabnext<CR>
+noremap æ :tabprevious<CR>
+
+" Bind gb to toggle between the last two tabs
+map å :exe "tabn ".g:ltv<CR>
+function! Setlasttabpagevisited()
+    let g:ltv = tabpagenr()
+endfunction
+
+augroup localtl
+    autocmd!
+    autocmd TabLeave * call Setlasttabpagevisited()
+augroup END
+autocmd VimEnter * let g:ltv = 1
+
 
 nnoremap th  :tabfirst<CR>
 nnoremap tj  :tabnext<CR>
@@ -182,15 +195,6 @@ let NERDTreeMapJumpFirstChild = 'gK'
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 
-"------------------------"
-"Command-T SETTINGS
-"------------------------"
-
-if &term =~ "xterm" || &term =~ "screen"
-  let g:CommandTCancelMap = ['<ESC>', '<C-c>']
-  let g:CommandTSelectNextMap = ['<C-j>', '<ESC>OB']
-  let g:CommandTSelectPrevMap = ['<C-k>', '<ESC>OA']
-endif
 
 " Backup
 set backupdir=~/.vim/tmp/backup//
@@ -356,6 +360,7 @@ let g:tagbar_type_puppet = {
 set tags=./tags;
 au FileType puppet setlocal isk+=:
 
+" distraction-free-writing-vim
 let g:fullscreen_colorscheme = "iawriter"
 let g:fullscreen_font = "Cousine:h14"
 let g:normal_colorscheme = "solarized"
