@@ -35,7 +35,10 @@ set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_contrast="high"
 "let g:solarized_visibility="normal"
-colorscheme solarized
+"colorscheme solarized
+let g:molokai_original = 1
+let g:rehash256 = 1
+colorscheme molokai
 " Solarized change bg switch
 call togglebg#map("<F5>")
 "colorscheme mustang
@@ -100,6 +103,9 @@ set completeopt=longest,menuone,preview
 set wildmode=longest,list,full           " complete longest common prefix first
 set wildignore+=.*.sw*,__pycache__,*.pyc " ignore junk files
 set wildmenu                             " show a menu of completions like zsh
+
+"More completion
+set omnifunc=syntaxcomplete#Complete
 
 "Bubble single lines (kicks butt)
 ""http://vimcasts.org/episodes/bubbling-text/
@@ -190,6 +196,12 @@ let NERDChristmasTree = 1
 let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 
+"ctrlp
+let g:ctrlp_max_files = 50000
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_dotfiles = 1
+let g:ctrlp_lazy_update = 100
+
 
 "autopen NERDTree and focus cursor in new document
 "autocmd VimEnter * NERDTree
@@ -203,7 +215,7 @@ set backup
 set undodir=~/.vim/tmp/undo         " persistent undo storage
 set undofile                        " persistent undo on
 set autowrite
-au BufLeave,FocusLost * silent! wall     " Save after loosing focus
+"au BufLeave,FocusLost * silent! wall     " Save after loosing focus
 
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
@@ -375,3 +387,12 @@ let g:airline_enable_tagbar = 0
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
+
+" pymode
+" Don't autofold code. It sucks.
+let g:pymode_folding = 0
+" Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" No rope. It hurts us.
+let g:pymode_rope = 0
