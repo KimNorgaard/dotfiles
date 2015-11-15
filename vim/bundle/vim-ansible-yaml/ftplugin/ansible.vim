@@ -22,4 +22,9 @@ setlocal commentstring=#\ %s
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
+" Remap user-specified binding to look in ansible-doc for keyword under cursor
+if exists('g:ansible_options["documentation_mapping"]')
+  exec 'nmap ' . g:ansible_options["documentation_mapping"] . ' :!ansible-doc <C-R><C-W> *<CR>'
+endif
+
 " vim:sts=2:sw=2:

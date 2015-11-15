@@ -396,3 +396,6 @@ let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 " No rope. It hurts us.
 let g:pymode_rope = 0
+
+" crontab
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
