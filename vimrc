@@ -30,18 +30,20 @@ endif
 
 "Color
 set t_Co=256
-set background=dark
+"set background=dark
 "let g:solarized_termtrans=0
 "let g:solarized_termcolors=256
 "let g:solarized_contrast="high"
 "let g:solarized_visibility="normal"
 "colorscheme solarized
-let g:molokai_original = 1
-let g:rehash256 = 1
-colorscheme molokai
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme molokai
 " Solarized change bg switch
-call togglebg#map("<F5>")
+"call togglebg#map("<F5>")
 "colorscheme mustang
+
+colorscheme gotham
 
 "Leader+command timeout
 set notimeout
