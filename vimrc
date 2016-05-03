@@ -7,8 +7,8 @@ set nocompatible
 " Enable filetypes
 filetype off
 execute pathogen#infect()
+execute pathogen#helptags()
 filetype plugin indent on
-
 
 "Mapleader
 let mapleader = ","
@@ -19,7 +19,8 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 if has("gui_running")
-  set guifont=Cousine:h12
+  set macligatures
+  set guifont=Fira\ Code:h12
   set linespace=3
   set noicon
   "set macmeta
@@ -28,22 +29,14 @@ if has("gui_running")
   set guioptions-=T
 endif
 
-"Color
-set t_Co=256
-"set background=dark
-"let g:solarized_termtrans=0
-"let g:solarized_termcolors=256
-"let g:solarized_contrast="high"
-"let g:solarized_visibility="normal"
-"colorscheme solarized
-"let g:molokai_original = 1
-"let g:rehash256 = 1
-"colorscheme molokai
-" Solarized change bg switch
-"call togglebg#map("<F5>")
-"colorscheme mustang
 
-colorscheme gotham
+"Color and themes
+set t_Co=256
+let g:airline_theme = "raven"
+let g:nofrils_heavycomments = 1
+let g:nofrils_strbackgrounds = 1
+"colorscheme dracula
+colorscheme nofrils-dark
 
 "Leader+command timeout
 set notimeout
@@ -63,6 +56,7 @@ set expandtab                   " never use hard tabs
 "Indentation
 set autoindent                  " keep indenting on <CR>
 set smartindent
+"set breakindent
 
 "Wrapping
 set wrap
@@ -319,7 +313,9 @@ map <tab> %
 
 
 " Folding
-set foldlevelstart=0
+"set foldlevelstart=0
+set foldlevel=100
+set foldmethod=indent
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
@@ -401,3 +397,4 @@ let g:pymode_rope = 0
 
 " crontab
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+

@@ -8,7 +8,10 @@ ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="kardan"
 #ZSH_THEME="philips"
-ZSH_THEME="nicoulaj"
+#ZSH_THEME="nicoulaj"
+#ZSH_THEME="minimal"
+ZSH_THEME="simple"
+ZSH_THEME="dracula"
 
 source ~/.shell/aliases
 # Example aliases
@@ -77,3 +80,6 @@ if [ -d $HOME/perl5 ]; then
 fi
 
 export ANSIBLE_NOCOWS=1
+#export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
