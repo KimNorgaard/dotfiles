@@ -58,25 +58,40 @@ function! Mode()
   return g:currentmode[mode]
 endfunction
 
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[WS]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
+autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
 let &stl=''
-"let &stl.='%1* %{toupper(g:currentmode[mode()])} %0*'
 let &stl.='%1* %{toupper(Mode())} %0*'
 let &stl.='>'
 let &stl.=' '                   " separator
 let &stl.='%{&paste?"PASTE > ":""}'
 let &stl.='%{exists("b:git_dir")?fugitive#head()." > ":""}'  " git branch
-let &stl.='%([%M%R%H%W] %)'        " modified, read-only, help, preview
+let &stl.='%([%M%R%H%W] %)'     " modified, read-only, help, preview
 let &stl.='%<'                  " truncate
 let &stl.='%t'                  " short file name
 
 let &stl.='%='                  " align right
 let &stl.=' '                   " separator
 
-let &stl.='%{&ft!=""?&ft." < ":""}'              " file type
+let &stl.='%{&ft!=""?&ft." < ":""}'          " file type
 let &stl.='%{&fenc!=""?&fenc."":&enc.""}'    " file encoding
-let &stl.='%{&ff!=""?"[".&ff."]":""}'              " file format
-"let &stl.='%{FileSize()}'       " Output buffer's file size
-"let &stl.=']'                   " closing bracket
+let &stl.='%{&ff!=""?"[".&ff."]":""}'        " file format
+"let &stl.='%{FileSize()}'      " Output buffer's file size
+let &stl.=' '                   " separator
+let &stl.='%#warningmsg#'
+let &stl.='%{SyntasticStatuslineFlag()}'
+let &stl.='%*'
+let &stl.='%#warningmsg#%{StatuslineTrailingSpaceWarning()}%*' 
 let &stl.=' '                   " separator
 let &stl.='%03c'                  " column
 let &stl.='-'                   " separator
