@@ -56,7 +56,7 @@
 	path = vim/bundle2/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle2/SyntaxRange"]
-	path = vim/bundle2/SyntaxRange
+	path = vim/bundle/SyntaxRange
 	url = https://github.com/vim-scripts/SyntaxRange.git
 [submodule "vim/bundle2/ansible-vim"]
 	path = vim/bundle2/ansible-vim
