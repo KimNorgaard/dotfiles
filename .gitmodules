@@ -1,5 +1,5 @@
-[submodule "vim/bundle2/vim-surround"]
-	path = vim/bundle2/vim-surround
+[submodule "vim/bundle/vim-surround"]
+	path = vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule "vim/bundle2/vim-snippets"]
 	path = vim/bundle2/vim-snippets
