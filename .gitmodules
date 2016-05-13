@@ -2,62 +2,62 @@
 	path = vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule "vim/bundle2/vim-snippets"]
-	path = vim/bundle2/vim-snippets
+	path = vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
 [submodule "vim/bundle2/vim-snipmate"]
-	path = vim/bundle2/vim-snipmate
+	path = vim/bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate.git
 [submodule "vim/bundle2/vim-repeat"]
-	path = vim/bundle2/vim-repeat
+	path = vim/bundle/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
 [submodule "vim/bundle2/vim-puppet"]
-	path = vim/bundle2/vim-puppet
+	path = vim/bundle/vim-puppet
 	url = https://github.com/rodjek/vim-puppet.git
 [submodule "vim/bundle2/vim-polyglot"]
-	path = vim/bundle2/vim-polyglot
+	path = vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
 [submodule "vim/bundle2/vim-markdown"]
-	path = vim/bundle2/vim-markdown
+	path = vim/bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
 [submodule "vim/bundle2/vim-fugitive"]
-	path = vim/bundle2/vim-fugitive
+	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle2/vim-addon-mw-utils"]
-	path = vim/bundle2/vim-addon-mw-utils
+	path = vim/bundle/vim-addon-mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/bundle2/tlib_vim"]
-	path = vim/bundle2/tlib_vim
+	path = vim/bundle/tlib_vim
 	url = https://github.com/tomtom/tlib_vim.git
 [submodule "vim/bundle2/tcomment_vim"]
-	path = vim/bundle2/tcomment_vim
+	path = vim/bundle/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
 [submodule "vim/bundle2/tagbar"]
-	path = vim/bundle2/tagbar
+	path = vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar
 [submodule "vim/bundle2/tabular"]
-	path = vim/bundle2/tabular
+	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
 [submodule "vim/bundle2/syntastic"]
-	path = vim/bundle2/syntastic
+	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
 [submodule "vim/bundle2/supertab"]
-	path = vim/bundle2/supertab
+	path = vim/bundle/supertab
 	url = https://github.com/ervandew/supertab.git
 [submodule "vim/bundle2/python-mode"]
-	path = vim/bundle2/python-mode
+	path = vim/bundle/python-mode
 	url = https://github.com/klen/python-mode.git
 [submodule "vim/bundle2/jedi-vim"]
 	path = vim/bundle2/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
 [submodule "vim/bundle2/ingo-library"]
-	path = vim/bundle2/ingo-library
+	path = vim/bundle/ingo-library
 	url = https://github.com/vim-scripts/ingo-library.git
 [submodule "vim/bundle2/ctrlp.vim"]
-	path = vim/bundle2/ctrlp.vim
+	path = vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle2/SyntaxRange"]
 	path = vim/bundle/SyntaxRange
 	url = https://github.com/vim-scripts/SyntaxRange.git
 [submodule "vim/bundle2/ansible-vim"]
-	path = vim/bundle2/ansible-vim
+	path = vim/bundle/ansible-vim
 	url = https://github.com/KimNorgaard/ansible-vim.git
