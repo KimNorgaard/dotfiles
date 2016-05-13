@@ -61,7 +61,7 @@ endfunction
 function! StatuslineTrailingSpaceWarning()
     if !exists("b:statusline_trailing_space_warning")
         if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[WS]'
+            let b:statusline_trailing_space_warning = '[TR]'
         else
             let b:statusline_trailing_space_warning = ''
         endif
@@ -91,7 +91,7 @@ let &stl.=' '                   " separator
 let &stl.='%#warningmsg#'
 let &stl.='%{SyntasticStatuslineFlag()}'
 let &stl.='%*'
-let &stl.='%#warningmsg#%{StatuslineTrailingSpaceWarning()}%*' 
+let &stl.='%{StatuslineTrailingSpaceWarning()}'
 let &stl.=' '                   " separator
 let &stl.='%03c'                  " column
 let &stl.='-'                   " separator
