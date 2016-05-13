@@ -11,5 +11,5 @@ ln -s .dotfiles/zshrc .zshrc
 ln -s .dotfiles/zshenv .zshenv
 ln -s .dotfiles/shell .shell
 
-mkdir -p .oh-my-ssh/custom/themes
-cp .shell/zsh-themes/dracula.zsh-theme .oh-my-ssh/custom/themes/
+mkdir -p .oh-my-zsh/custom/themes
+cp .shell/zsh-themes/dracula.zsh-theme .oh-my-zsh/custom/themes/
