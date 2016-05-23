@@ -96,7 +96,7 @@ execute pathogen#infect()
     set showcmd                     " display incomplete commands
     set cursorline                  " highlight current line
     set scrolloff=3                 " keep at lest N lines while scrolling
-    set noshowmode                  " Do not show mode on bottom line
+    "set noshowmode                  " Do not show mode on bottom line
     set noerrorbells                " Do not use bells on errors
     set helpheight=0                " Height of help screen is 50%
     set list

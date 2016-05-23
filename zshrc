@@ -5,23 +5,12 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="kardan"
-#ZSH_THEME="philips"
-#ZSH_THEME="nicoulaj"
 #ZSH_THEME="minimal"
-ZSH_THEME="simple"
+#ZSH_THEME="simple"
 ZSH_THEME="dracula"
 
 source ~/.shell/aliases
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 source ~/.shell/func
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
@@ -53,13 +42,13 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
 PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH
+
 
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
@@ -81,5 +70,7 @@ fi
 
 export ANSIBLE_NOCOWS=1
 #export VIRTUAL_ENV_DISABLE_PROMPT=1
+#
+export PYTHONSTARTUP="$HOME/.pystartup"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

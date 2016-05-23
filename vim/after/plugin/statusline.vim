@@ -1,103 +1,59 @@
-" Free from: https://github.com/Greduan/dotfiles/blob/76e16dd8a04501db29989824af512c453550591d/vim/after/plugin/statusline.vim#L3-L42
+function! WindowNumber()
+    return tabpagewinnr(tabpagenr())
+endfunction
 
-" Define all the different modes
-let g:currentmode={
-    \ 'n'  : 'Normal',
-    \ 'no' : 'N·Operator Pending',
-    \ 'v'  : 'Visual',
-    \ 'V'  : 'V·Line',
-    \ '' : 'V·Block',
-    \ 's'  : 'Select',
-    \ 'S'  : 'S·Line',
-    \ '' : 'S·Block',
-    \ 'i'  : 'Insert',
-    \ 'R'  : 'Replace',
-    \ 'Rv' : 'V·Replace',
-    \ 'c'  : 'Command',
-    \ 'cv' : 'Vim Ex',
-    \ 'ce' : 'Ex',
-    \ 'r'  : 'Prompt',
-    \ 'rm' : 'More',
-    \ 'r?' : 'Confirm',
-    \ '!'  : 'Shell',
-    \}
-
-" Find out current buffer's size and output it.
-function! FileSize() "{{{
-    let bytes = getfsize(expand('%:p'))
-    if (bytes >= 1024)
-        let kbytes = bytes / 1024
-    endif
-    if (exists('kbytes') && kbytes >= 1000)
-        let mbytes = kbytes / 1000
-    endif
-
-    if bytes <= 0
-        return 'null'
-    endif
-
-    if (exists('mbytes'))
-        return mbytes . 'MB'
-    elseif (exists('kbytes'))
-        return kbytes . 'KB'
+function! TrailingSpaceWarning()
+  if !exists("b:statline_trailing_space_warning")
+    let lineno = search('\s$', 'nw')
+    if lineno != 0
+      let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
     else
-        return bytes . 'B'
+      let b:statline_trailing_space_warning = ''
     endif
-endfunction "}}}
-
-function! Mode()
-  "redraw
-  let l:mode = mode()
-  if mode ==# "n" | exec 'hi User1 ctermfg=White'
-    elseif mode ==# "i" | exec 'hi User1 ctermfg=Cyan'
-    elseif mode ==# "R" | exec 'hi User1 ctermfg=Red'
-    elseif mode ==# "v" | exec 'hi User1 ctermfg=Yellow'
-    elseif mode ==# "V" | exec 'hi User1 ctermfg=Yellow'
-    elseif mode ==# "" | exec 'hi User1 ctermfg=Yellow'
   endif
-  return g:currentmode[mode]
+  return b:statline_trailing_space_warning
 endfunction
 
-function! StatuslineTrailingSpaceWarning()
-    if !exists("b:statusline_trailing_space_warning")
-        if search('\s\+$', 'nw') != 0
-            let b:statusline_trailing_space_warning = '[TR]'
-        else
-            let b:statusline_trailing_space_warning = ''
-        endif
-    endif
-    return b:statusline_trailing_space_warning
-endfunction
-autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+" recalculate when idle, and after saving
+augroup statline_trail
+  autocmd!
+  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+augroup END
 
-let &stl=''
-let &stl.='%1* %{toupper(Mode())} %0*'
-let &stl.='>'
-let &stl.=' '                   " separator
-let &stl.='%{&paste?"PASTE > ":""}'
-let &stl.='%{exists("b:git_dir")?fugitive#head()." > ":""}'  " git branch
-let &stl.='%([%M%R%H%W] %)'     " modified, read-only, help, preview
-let &stl.='%<'                  " truncate
-let &stl.='%t'                  " short file name
 
-let &stl.='%='                  " align right
-let &stl.=' '                   " separator
 
-let &stl.='%{&ft!=""?&ft." < ":""}'          " file type
-let &stl.='%{&fenc!=""?&fenc."":&enc.""}'    " file encoding
-let &stl.='%{&ff!=""?"[".&ff."]":""}'        " file format
-"let &stl.='%{FileSize()}'      " Output buffer's file size
-let &stl.=' '                   " separator
-let &stl.='%#warningmsg#'
-let &stl.='%{SyntasticStatuslineFlag()}'
-let &stl.='%*'
-let &stl.='%{StatuslineTrailingSpaceWarning()}'
-let &stl.=' '                   " separator
-let &stl.='%03c'                  " column
-let &stl.='-'                   " separator
-let &stl.='%03v'                  " virtual column
-let &stl.=' '                   " separator
-let &stl.='%3p%%'              " pct
+set statusline=
+set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
+set statusline+=%5*%{expand('%:h')}/       " relative path
+set statusline+=%1*%t%*                    " file name
+set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
+set statusline+=%<                            " truncate if needed
+set statusline+=%#warningmsg# " warning color
+set statusline+=%{TrailingSpaceWarning()}
+set statusline+=%*
+set statusline+=\ 
+set statusline+=%#warningmsg# " warning color
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+set statusline+=%=                         " align right
+
+set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
+set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
+set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
+
+set statusline+=\ 
+
+"set statusline+=%2*buf:%-3n%* " buffer number
+"set statusline+=\ 
+"set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
+
+set statusline+=%03c " column
+set statusline+=-
+set statusline+=%03v " virtual column
+set statusline+=\ 
+set statusline+=%3p%% " pct
 
 hi User1 guifg=White
 hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+
