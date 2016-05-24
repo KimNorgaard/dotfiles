@@ -38,7 +38,7 @@ source ~/.shell/func
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git jira)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -72,5 +72,7 @@ export ANSIBLE_NOCOWS=1
 #export VIRTUAL_ENV_DISABLE_PROMPT=1
 #
 export PYTHONSTARTUP="$HOME/.pystartup"
+
+export JIRA_URL=https://jira.netic.dk
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
