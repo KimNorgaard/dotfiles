@@ -176,7 +176,13 @@ noremap <C-l> <C-w>l
 
 nnoremap <leader>l :ls<CR>:b<space>
 noremap <M-k> :bn<cr>
+noremap <A-k> :bn<r>
+noremap ∆ :bn<cr>
+noremap k :bn<cr>
+noremap ‹ :bp<cr>
+noremap j :bp<cr>
 noremap <M-j> :bp<cr>
+noremap <A-j> :bp<cr>
 
 inoremap <M-1> <Esc>:tabn 1<CR>i
 inoremap <M-2> <Esc>:tabn 2<CR>i
