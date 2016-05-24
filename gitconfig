@@ -38,3 +38,5 @@
     co = checkout
     df = diff
     lg = log --oneline --graph --decorate
+[credential]
+	helper = osxkeychain
