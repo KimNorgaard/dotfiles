@@ -13,6 +13,7 @@ ln -s .dotfiles/shell .shell
 ln -s .dotfiles/pystartup .pystartup
 ln -s .dotfiles/gitignore_global .gitignore_global
 ln -s .dotfiles/gitconfig .gitconfig
+ln -s .dotfiles/pylintrc .pylintrc
 
 mkdir -p .oh-my-zsh/custom/themes
 cp .shell/zsh-themes/dracula.zsh-theme .oh-my-zsh/custom/themes/
