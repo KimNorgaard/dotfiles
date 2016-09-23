@@ -1,7 +1,4 @@
-alias t=task
-alias kb='twkb show -b work'
-alias ka='twkb add -b work'
-alias km='twkb move -i $1'
+alias t=todo.sh
 alias ki='/usr/bin/kinit -f'
 alias use_zxtm='export POOLPL_SERVER="https://zxtm01.netic.dk:9090"'
 alias use_stingray='export POOLPL_SERVER="https://stingray01.netic.dk:9090"'

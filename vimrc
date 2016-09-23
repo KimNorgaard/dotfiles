@@ -103,7 +103,9 @@ execute pathogen#infect()
     set listchars=tab:▸\ ,extends:>,precedes:<,nbsp:␠,trail:⌴,eol:¬
 
     set fileformats=unix,dos,mac    " unix linebreaks in new files please
-    set encoding=utf-8              " best default encoding
+    if !has('nvim')
+      set encoding=utf-8              " best default encoding
+    endif
     setglobal fileencoding=utf-8    " ...
     set nobomb                      " do not write utf-8 BOM!
     set fileencodings=utf-8,iso-8859-1
@@ -140,6 +142,11 @@ execute pathogen#infect()
 " }
 
 let mapleader = ","                   " map leader
+
+" Edit vimrc
+:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+:nnoremap <leader>sv :source $MYVIMRC<cr>
+
 
 " clear search highlight
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
@@ -212,6 +219,7 @@ map å :exe "tabn ".g:ltv<CR>
 function! Setlasttabpagevisited()
     let g:ltv = tabpagenr()
 endfunction
+
 
 augroup localtl
     autocmd!
@@ -286,6 +294,9 @@ let g:ctrlp_max_files = 50000
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_dotfiles = 1
 let g:ctrlp_lazy_update = 100
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/](\.git|venv)$'
+"  \ }
 
 
 " Make those folders automatically if they don't already exist.
@@ -342,6 +353,11 @@ augroup ft_ruby
     au Filetype ruby setlocal foldmethod=syntax
 augroup END
 
+augroup ft_ansible
+    au!
+    au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
+augroup END
+
 let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
 " use python-mode, not syntastic
 let g:syntastic_ignore_files = ['\.py$']
@@ -374,7 +390,7 @@ let g:tagbar_type_puppet = {
 let g:vim_markdown_folding_disabled=1
 
 " snippets
-let g:snipMate = {}
+let g:snipMate = get(g:, 'snipMate', {})
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
 
@@ -383,9 +399,75 @@ let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
 let g:pymode_folding = 0
 " Linting
 let g:pymode_lint = 1
-let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_checkers = "pyflakes,pep257,pep8,mccabe"
+let g:pymode_lint_options_pep8 = {'max_line_length': 120}
+let g:pymode_lint_ignore = 'D102'
 " No rope. It hurts us.
 let g:pymode_rope = 0
 
+
+
 " Use separate plugin
 let g:polyglot_disabled = ['ansible', 'python']
+
+" Statusline
+
+function! WindowNumber()
+    return tabpagewinnr(tabpagenr())
+endfunction
+
+function! TrailingSpaceWarning()
+  if !exists("b:statline_trailing_space_warning")
+    let lineno = search('\s$', 'nw')
+    if lineno != 0
+      let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
+    else
+      let b:statline_trailing_space_warning = ''
+    endif
+  endif
+  return b:statline_trailing_space_warning
+endfunction
+
+" recalculate when idle, and after saving
+augroup statline_trail
+  autocmd!
+  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+augroup END
+
+
+
+set statusline=
+set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
+set statusline+=%5*%{expand('%:h')}/       " relative path
+set statusline+=%1*%t%*                    " file name
+set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
+set statusline+=%<                            " truncate if needed
+set statusline+=%#warningmsg# " warning color
+set statusline+=%{TrailingSpaceWarning()}
+set statusline+=%*
+set statusline+=\ 
+set statusline+=%#warningmsg# " warning color
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+set statusline+=%=                         " align right
+
+set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
+set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
+set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
+
+set statusline+=\ 
+
+"set statusline+=%2*buf:%-3n%* " buffer number
+"set statusline+=\ 
+"set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
+
+set statusline+=%03c " column
+set statusline+=-
+set statusline+=%03v " virtual column
+set statusline+=\ 
+set statusline+=%3p%% " pct
+
+hi User1 guifg=White
+hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+
