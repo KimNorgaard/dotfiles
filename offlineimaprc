@@ -1,0 +1,32 @@
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# get started fast.
+
+[general]
+ui = ttyui
+accounts = foo
+pythonfile = ~/.mutt/offlineimap.py
+fsync = False
+
+[Account foo]
+localrepository = Local
+remoterepository = Remote
+status_backend = sqlite
+postsynchook = /usr/local/bin/notmuch new
+autorefresh = 5
+quick = 10
+
+[Repository Local]
+type = Maildir
+localfolders = ~/mail/foo
+
+[Repository Remote]
+type = IMAP
+remotehost = 
+remoteuser = 
+remotepasseval = get_keychain_pass(account='', server='')
+folderfilter = lambda folder: folder in []
+maxconnections = 1
+ssl = yes
+sslcacertfile = /usr/local/etc/openssl/certs/ca-bundle.crt
+keepalive = 60
+holdconnectionopen = yes
