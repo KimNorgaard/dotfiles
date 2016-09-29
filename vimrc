@@ -399,7 +399,8 @@ let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
 let g:pymode_folding = 0
 " Linting
 let g:pymode_lint = 1
-let g:pymode_lint_checkers = "pyflakes,pep257,pep8,mccabe"
+let g:pymode_lint_checkers = "pyflakes,pep257,pep8"
+" ,mccabe"
 let g:pymode_lint_options_pep8 = {'max_line_length': 120}
 let g:pymode_lint_ignore = 'D102'
 " No rope. It hurts us.
@@ -470,4 +471,17 @@ set statusline+=%3p%% " pct
 
 hi User1 guifg=White
 hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+
+
+" mutt
+augroup ft_mail
+  " Mail
+  au!
+  autocmd BufRead,BufNewFile *temp/mutt-*              setfiletype mail
+  autocmd BufRead,BufNewFile *temp/mutt-*              setlocal fo+=aw
+  autocmd BufRead,BufNewFile *temp/mutt-*              setlocal spell
+  autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
+  autocmd BufRead *temp/mutt-* execute ":startinsert"
+augroup END
+
 

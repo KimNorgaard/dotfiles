@@ -1,0 +1,20 @@
+# MS Word documents
+application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
+
+# Images
+image/*; ~/.mutt/quicklook.sh %s
+
+# PDFs
+application/pdf; ~/.mutt/view_attachment.sh %s pdf
+
+# HTML
+text/html; ~/.mutt/view_attachment.sh %s html
+
+# Unidentified files
+application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
+
+# ical
+text/calendar; ~/.mutt/mutt-ical.py -i -e "kn@netic.dk" %s
+
+# html
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
