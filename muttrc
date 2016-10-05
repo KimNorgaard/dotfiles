@@ -60,6 +60,8 @@ set from              = "kn@netic.dk"
 set envelope_from
 alternates jasen@jasen.dk kk@jasen.dk junk@jasen.dk
 
+set sendmail="/usr/bin/msmtp"
+
 set sig_dashes
 set edit_headers                       # show headers on edit
 set fast_reply                         # skip to compose when replying

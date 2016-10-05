@@ -5,6 +5,7 @@
 " License: OSI approved MIT license
 " Modified: 2016 Feb 26
 
+set background=dark
 hi clear
 if exists("syntax_on")
     syntax reset
