@@ -42,11 +42,7 @@ plugins=(git jira)
 
 source $ZSH/oh-my-zsh.sh
 
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
-#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
-PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export PATH
 
 
