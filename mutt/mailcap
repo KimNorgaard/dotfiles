@@ -2,13 +2,15 @@
 application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
 
 # Images
-image/*; ~/.mutt/quicklook.sh %s
+#image/*; ~/.mutt/quicklook.sh %s
+image/*; feh %s
 
 # PDFs
-application/pdf; ~/.mutt/view_attachment.sh %s pdf
+#application/pdf; ~/.mutt/view_attachment.sh %s pdf
+application/pdf; xpdf %s
 
 # HTML
-text/html; ~/.mutt/view_attachment.sh %s html
+#text/html; ~/.mutt/view_attachment.sh %s html
 
 # Unidentified files
 application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
