@@ -248,6 +248,15 @@ noremap <leader>p mz:r!pbpaste<cr>`z
 noremap <leader>y :.w !pbcopy<CR><CR>
 vnoremap <leader>y :w !pbcopy<CR><CR>
 
+" Copy to X CLIPBOARD
+map <leader>cc :w !xsel -i -b<CR><CR>
+map <leader>cp :w !xsel -i -p<CR><CR>
+map <leader>cs :w !xsel -i -s<CR><CR>
+" Paste from X CLIPBOARD
+map <leader>pp :r!xsel -p<CR><CR>
+map <leader>ps :r!xsel -s<CR><CR>
+map <leader>pb :r!xsel -b<CR><CR>
+
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
 
@@ -387,7 +396,7 @@ let g:tagbar_type_puppet = {
 "let g:normal_colorscheme = "solarized"
 "let g:normal_font="Menlo:h12"
 
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled=0
 
 " snippets
 let g:snipMate = get(g:, 'snipMate', {})
