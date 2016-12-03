@@ -1,0 +1,63 @@
+Xft.dpi: 168.0
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: true
+Xft.antialias: true
+Xft.rgba: rgb
+
+!urxvt.font: xft:DejaVuSansMono:size=6
+!urxvt.font: xft:Inconsolata:size=8
+!urxvt.font: xft:Source Code Pro:size=10:hinting=True;antialias:True
+urxvt.font: xft:Hack:size=8:hinting=True;antialias:True
+
+
+!Settings
+URxvt.depth: 32
+URxvt.loginShell: true
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
+URxvt.letterSpace: 0
+URxvt.clipboard.autocopy: true
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+URxvt*saveLines: 10000
+
+!Scrollbar
+URxvt.scrollStyle: rxvt
+URxvt.scrollBar: false
+
+!Ext
+URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select,font-size,confirm-paste
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.matcher.launcher.0: xdg-open
+URxvt.urlLauncher: xdg-open
+URxvt.matcher.button: 1
+URxvt.keysym.C-Delete:    matcher:last
+URxvt.keysym.M-Delete:    matcher:list
+URxvt.keysym.C-M-Up:        font-size:incglobal
+URxvt.keysym.C-M-Down:      font-size:decglobal
+
+
+
+!Colors
+! Dracula Xresources palette
+*foreground: #F8F8F2
+*background: #282A36
+*color0:     #000000
+*color8:     #4D4D4D
+*color1:     #FF5555
+*color9:     #FF6E67
+*color2:     #50FA7B
+*color10:    #5AF78E
+*color3:     #F1FA8C
+*color11:    #F4F99D
+*color4:     #CAA9FA
+*color12:    #CAA9FA
+*color5:     #FF79C6
+*color13:    #FF92D0
+*color6:     #8BE9FD
+*color14:    #9AEDFE
+*color7:     #BFBFBF
+*color15:    #E6E6E6

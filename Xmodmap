@@ -1,0 +1,6 @@
+keycode  49 = less greater less greater backslash bar
+keycode  94 = dollar degree section degree notsign notsign
+!keycode  94 = less greater less greater backslash bar
+!keycode  49 = dollar degree section degree notsign notsign
+!win left
+keycode 133 = Super_L NoSymbol Super_L

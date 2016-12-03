@@ -1,0 +1,39 @@
+// vim:ts=4:sw=4:et
+{
+    "layout": "splitv",
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "name": "mutt",
+            "percent": 0.8,
+            "swallows": [
+               {
+                "class": "^URxvt$",
+                "instance": "^urxvt$",
+                "title": "^mutt$",
+                "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 3,
+            "floating": "auto_off",
+            "name": "fetchmail",
+            "percent": 0.2,
+            "swallows": [
+               {
+                "class": "^URxvt$",
+                "instance": "^urxvt$",
+                "title": "^syncmail_loop.sh$",
+                "transient_for": "^$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}

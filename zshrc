@@ -76,4 +76,6 @@ export TODOTXT_DEFAULT_ACTION=ls
 export ZENHEST_URL=http://zen01.netic.dk:8080
 export ZENHEST_USER=$(whoami)
 
+export LPASS_AGENT_TIMEOUT=28800
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

@@ -20,6 +20,12 @@ ln -s .dotfiles/i3 .i3
 ln -s .dotfiles/xinitrc .xinitrc
 ln -s .dotfiles/Xmodmap .Xmodmap
 ln -s .dotfiles/gtkrc-2.0 .gtkrc-2.0
+ln -s .dotfiles/todo.cfg .todo.cfg
+ln -s .dotfiles/i3status.conf .i3status.conf
+ln -s .dotfiles/xserverrc .xserverrc
+ln -s .dotfiles/asoundrc .asoundrc
+
+ln -s ~/.dotfiles/gtk-3.0 .config/gtk-3.0
 
 #mkdir -p .mutt
 ##for f in mailcap offlineimap.py quicklook.sh sig view_attachment.sh; do
