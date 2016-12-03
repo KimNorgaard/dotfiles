@@ -15,6 +15,11 @@ ln -s .dotfiles/gitignore_global .gitignore_global
 ln -s .dotfiles/gitconfig .gitconfig
 ln -s .dotfiles/pylintrc .pylintrc
 ln -s .dotfiles/muttrc .muttrc
+ln -s .dotfiles/Xresources .Xresources
+ln -s .dotfiles/i3 .i3
+ln -s .dotfiles/xinitrc .xinitrc
+ln -s .dotfiles/Xmodmap .Xmodmap
+ln -s .dotfiles/gtkrc-2.0 .gtkrc-2.0
 
 #mkdir -p .mutt
 ##for f in mailcap offlineimap.py quicklook.sh sig view_attachment.sh; do
