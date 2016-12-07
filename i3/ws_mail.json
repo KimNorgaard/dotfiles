@@ -29,7 +29,7 @@
                {
                 "class": "^URxvt$",
                 "instance": "^urxvt$",
-                "title": "^syncmail_loop.sh$",
+                "title": "syncmail_loop.sh$",
                 "transient_for": "^$"
                }
             ],

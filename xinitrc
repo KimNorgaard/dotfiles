@@ -12,7 +12,7 @@ feh --bg-scale ~/Pictures/wallpapers/NQp8ofd.jpg
 
 xautolock -detectsleep \
           -notify 120 -notifier "xset dpms force off" \
-          -time 3 -locker "i3lock -i /home/kn/lockscreen.png" \
+          -time 3 -locker "i3lock" \
           -killtime 60 -killer "systemctl suspend" &
 
 exec i3

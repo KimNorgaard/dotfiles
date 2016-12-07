@@ -47,6 +47,7 @@ bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
+bindsym $mod+ae focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -161,7 +162,7 @@ new_window pixel 1
 #hide_edge_borders both
 
 # i3lock
-bindsym $mod+Escape exec --no-startup-id "i3lock -i /home/kn/lockscreen.png"
+bindsym $mod+Escape exec --no-startup-id "i3lock"
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
@@ -181,4 +182,5 @@ exec --no-startup-id i3-msg "workspace 2; append_layout /home/kn/.i3/ws_mail.jso
 exec --no-startup-id compton --config ~/.i3/compton.conf
 
 exec --no-startup-id urxvt -e mutt
-exec --no-startup-id urxvt -e syncmail_loop.sh
+exec --no-startup-id urxvt -e /home/kn/bin/syncmail_loop.sh
+#syncmail_loop.sh
