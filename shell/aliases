@@ -1,4 +1,13 @@
+# todo
 alias t=todo.sh
-alias ki='/usr/bin/kinit -f'
-alias use_zxtm='export POOLPL_SERVER="https://zxtm01.netic.dk:9090"'
-alias use_stingray='export POOLPL_SERVER="https://stingray01.netic.dk:9090"'
+
+# open
+alias open=xdg-open
+
+# clipboard
+alias pbcopy='xsel -i -b'
+alias pbpaste='xsel -b'
+
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+    alias "$method"="curl -X \"$method\""
+done

@@ -1,4 +1,5 @@
-Xft.dpi: 168.0
+!Xft.dpi: 168.0
+Xft.dpi: 196.0
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -19,6 +20,8 @@ URxvt.internalBorder: 3
 URxvt.lineSpace: 0
 URxvt.letterSpace: 0
 URxvt.clipboard.autocopy: true
+URxvt.clipboard.copycmd: xsel -i -b
+URxvt.clipboard.pastecmd: xsel -b
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
@@ -39,6 +42,7 @@ URxvt.keysym.M-Delete:    matcher:list
 URxvt.keysym.C-M-Up:        font-size:incglobal
 URxvt.keysym.C-M-Down:      font-size:decglobal
 
+URxvt*termName: rxvt
 
 
 !Colors

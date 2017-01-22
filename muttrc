@@ -93,7 +93,7 @@ hdr_order from: to: cc: date: subject:
 set sidebar_divider_char = '  │'
 set sidebar_visible      = yes
 set sidebar_width        = 24
-color sidebar_new color221 color233
+#color sidebar_new color221 color233
 
 # --- Statusbar
 set status_chars  = " *%A"
@@ -159,22 +159,6 @@ macro index S "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-no
 # colors
 # smtp
 
-#color status black yellow # The status line is barely visible to my eyes otherwise :(
-#color index brightgreen default ~N
-#color index green default ~O
-#color index red default ~D  # deleted
-#color index brightmagenta default ~T  # tagged
-#color index brightyellow default ~F  # flagged
-#color header green default “^Subject:”
-#color header yellow default “^Date:”
-#color header yellow default “^To:”
-#color header yellow default “^Cc:”
-#color header yellow default “^Bcc:”
-#color header yellow default “^From:”
-#color header red default “^X-.*:”
-
-
-
 # --- Colors
 # from https://github.com/averi/config-files/blob/master/mutt/Muttrc
 
@@ -186,8 +170,8 @@ color message cyan default
 color markers red white
 color attachment white default
 color search brightmagenta default
-color status brightyellow black
-color indicator brightblack yellow
+color status brightwhite default
+color indicator brightblack white
 color tree yellow default
 
 # Basic monocolor screen
@@ -204,7 +188,7 @@ color index brightred default "~E" # expired messages
 color index blue default "~N" # new messages
 color index blue default "~O" # old messages
 color index brightmagenta default "~Q" # messages that have been replied to
-color index brightgreen default "~R" # read messages
+color index white default "~R" # read messages
 color index blue default "~U" # unread messages
 color index blue default "~U~$" # unread, unreferenced messages
 color index brightyellow default "~v" # messages part of a collapsed thread
@@ -212,7 +196,7 @@ color index brightyellow default "~P" # messages from me
 color index cyan default "~p!~F" # messages to me
 color index cyan default "~N~p!~F" # new messages to me
 color index cyan default "~U~p!~F" # unread messages to me
-color index brightgreen default "~R~p!~F" # messages to me
+color index white default "~R~p!~F" # messages to me
 color index red default "~F" # flagged messages
 color index red default "~F~p" # flagged messages to me
 color index red default "~N~F" # new flagged messages
@@ -231,9 +215,9 @@ color index yellow red "~v~(~D)" # thread with deleted (doesn't differentiate be
 
 # Message Headers
 
-color hdrdefault brightgreen default
-color header blue default "^(From)"
-color header blue default "^(Subject)"
+color hdrdefault white default
+color header brightwhite default "^(From)"
+color header brightwhite default "^(Subject)"
 
 # Body
 

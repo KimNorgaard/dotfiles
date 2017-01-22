@@ -412,7 +412,7 @@ let g:pymode_lint = 1
 let g:pymode_lint_checkers = "pyflakes,pep257,pep8"
 " ,mccabe"
 let g:pymode_lint_options_pep8 = {'max_line_length': 120}
-let g:pymode_lint_ignore = 'D102'
+let g:pymode_lint_ignore = 'D100,D102,D103'
 " No rope. It hurts us.
 let g:pymode_rope = 0
 
