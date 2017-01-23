@@ -1,11 +1,11 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldlevel=0 foldmethod=marker:
 " Kim Nørgard <jasen@jasen.dk>
 
 " vim, not vi
 set nocompatible
 filetype off
 
-" Plugin Loading {
+" Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
 
 if has('nvim')
@@ -51,9 +51,9 @@ Plug 'jlanzarotta/bufexplorer'         " fancy buffer-handler
 Plug 'pangloss/vim-simplefold'         " smarter folding
 
 call plug#end()
-" }
+" }}}
 
-" General Settings {
+" General Settings {{{
     filetype plugin indent on         " load plugins and indent
 
     set notimeout                     " don't timeout on mappings
@@ -208,9 +208,9 @@ call plug#end()
         set guioptions-=L
         set guioptions-=T
     endif
-" }
+" }}}
 
-" Keyboard Mapping {
+" Keyboard Mapping {{{
   let mapleader = ","                   " map leader
 
   " Edit vimrc
@@ -254,9 +254,9 @@ call plug#end()
 
   " Set working directory
   nnoremap <leader>. :lcd %:p:h<CR>
-" }
+" }}}
 
-" Navigation {
+" Navigation {{{
   " Easy buffer/window/tab navigation
   noremap <C-h> <C-w>h
   noremap <C-j> <C-w>j
@@ -316,9 +316,9 @@ call plug#end()
   nnoremap tn  :tabnext<Space>
   nnoremap tm  :tabm<Space>
   nnoremap td  :tabclose<CR>
-" }
+" }}}
 
-" Copy/Pasting {
+" Copy/Pasting {{{
   " Copy/paste
   noremap <leader>p mz:r!pbpaste<cr>`z
   noremap <leader>y :.w !pbcopy<CR><CR>
@@ -332,9 +332,9 @@ call plug#end()
   map <leader>pp :r!xsel -p<CR><CR>
   map <leader>ps :r!xsel -s<CR><CR>
   map <leader>pb :r!xsel -b<CR><CR>
-" }
+" }}}
 
-" Plugin: tabular {
+" Plugin: tabular {{{
 autocmd VimEnter *
     \ if exists(":Tabularize") |
         \ nmap <leader>a= :Tabularize /=<CR> |
@@ -342,9 +342,9 @@ autocmd VimEnter *
         \ nmap <leader>a: :Tabularize /:\zs<CR> |
         \ vmap <leader>a: :Tabularize /:\zs<CR> |
     \ endif
-" }
+" }}}
 
-" Plugin: nerdtree {
+" Plugin: nerdtree {{{
   "------------------------"
   "NERDTREE PLUGIN SETTINGS
   "------------------------"
@@ -370,9 +370,9 @@ autocmd VimEnter *
   "autopen NERDTree and focus cursor in new document
   "autocmd VimEnter * NERDTree
   "autocmd VimEnter * wincmd p
-" }
+" }}}
 
-" Plugin: ctrlp {
+" Plugin: ctrlp {{{
   let g:ctrlp_max_files = 50000
   let g:ctrlp_clear_cache_on_exit = 0
   let g:ctrlp_dotfiles = 1
@@ -380,9 +380,9 @@ autocmd VimEnter *
   "let g:ctrlp_custom_ignore = {
   "  \ 'dir':  '\v[\/](\.git|venv)$'
   "  \ }
-" }
+" }}}
 
-" Plugin: deoplete {
+" Plugin: deoplete {{{
   " Use deoplete.
   let g:deoplete#enable_at_startup = 1
   " Auto close scratch window
@@ -393,15 +393,15 @@ autocmd VimEnter *
   inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
   imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
   imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" }
+" }}}
 
-" Plugin: nerdcommenter {
+" Plugin: nerdcommenter {{{
   let g:NERDCustomDelimiters = {
       \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
       \ }
-" }
+" }}}
 
-" Plugin: tagbar {
+" Plugin: tagbar {{{
   let g:tagbar_type_puppet = {
     \ 'ctagstype': 'puppet',
     \ 'kinds': [
@@ -413,62 +413,62 @@ autocmd VimEnter *
       \'f:default'
     \]
   \}
-" }
+" }}}
 
-" Plugin: vim-markdown {
+" Plugin: vim-markdown {{{
   let g:vim_markdown_folding_disabled=0
-" }
+" }}}
 
-" Plugin: snipmate {
+" Plugin: snipmate {{{
   let g:snipMate = get(g:, 'snipMate', {})
   let g:snipMate.scope_aliases = {}
   let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
-" }
+" }}}
 
-" Plugin: pymode {
+" Plugin: pymode {{{
   let g:pymode_lint = 0
   let g:pymode_folding = 1
   let g:pymode_rope = 0
   let g:pymode_breakpoint = 0
   let g:pymode_runcode = 0
-" }
+" }}}
 
-" Plugin: syntastic {
+" Plugin: syntastic {{{
   let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
   " use python-mode, not syntastic
   let g:syntastic_ignore_files = ['\.py$']
-" }
+" }}}
 
-" Plugin: neomake {
+" Plugin: neomake {{{
   autocmd! BufWritePost *.py Neomake
-" }
+" }}}
 
-" Plugin: polyglot {
+" Plugin: polyglot {{{
   let g:polyglot_disabled = ['ansible', 'markdown', 'python', 'python-compiler']
-" }
+" }}}
 
-" text files {
+" text files {{{
     augroup ft_text
         au!
         autocmd FileType text setlocal textwidth=78
     augroup END
-" }
+" }}}
 
-" eyaml {
+" eyaml {{{
     augroup ft_eyaml
         au!
         au BufRead,BufNewFile *.eyaml setfiletype yaml
     augroup END
-" }
+" }}}
 
-" Crontab {
+" Crontab {{{
     augroup crontab
         au!
         au BufEnter /private/tmp/crontab.* setl backupcopy=yes
     augroup END
-" }
+" }}}
 
-" General Editing {
+" General Editing {{{
     " When editing a file, always jump to the last known cursor position.
     autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -486,40 +486,40 @@ autocmd VimEnter *
         au InsertEnter * :set listchars-=trail:⌴,eol:¬
         au InsertLeave * :set listchars+=trail:⌴,eol:¬
     augroup END
-" }
+" }}}
 
-" Puppet {
+" Puppet {{{
     augroup ft_puppet
         au!
         au FileType puppet setlocal isk+=:
         au Filetype puppet setlocal foldmethod=marker
         au Filetype puppet setlocal foldmarker={,}
     augroup END
-" }
+" }}}
 
-" Perl {
+" Perl {{{
     augroup ft_perl
         au!
         au Filetype perl setlocal foldmethod=marker
         au Filetype perl setlocal foldmarker={,}
     augroup END
-" }
+" }}}
 
-" Ruby {
+" Ruby {{{
     augroup ft_ruby
         au!
         au Filetype ruby setlocal foldmethod=syntax
     augroup END
-" }
+" }}}
 
-" Ansible {
+" Ansible {{{
     augroup ft_ansible
         au!
         au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
     augroup END
-" }
+" }}}
 
-" Mutt {
+" Mutt {{{
     augroup ft_mail
         au!
         autocmd BufRead,BufNewFile *temp/mutt-* setfiletype mail
@@ -528,9 +528,9 @@ autocmd VimEnter *
         autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
         autocmd BufRead *temp/mutt-* execute ":startinsert"
     augroup END
-" }
+" }}}
 
-" Statusline {
+" Statusline {{{
     function! WindowNumber()
         return tabpagewinnr(tabpagenr())
     endfunction
@@ -589,4 +589,4 @@ autocmd VimEnter *
     set statusline+=%3p%% " pct
     hi User1 guifg=White
     hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
-" }
+" }}}
