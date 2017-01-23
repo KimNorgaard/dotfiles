@@ -24,6 +24,7 @@ ln -s .dotfiles/todo.cfg .todo.cfg
 ln -s .dotfiles/i3status.conf .i3status.conf
 ln -s .dotfiles/xserverrc .xserverrc
 ln -s .dotfiles/asoundrc .asoundrc
+ln -s .dotfiles/flake8 .flake8
 
 ln -s ~/.dotfiles/gtk-3.0 .config/gtk-3.0
 

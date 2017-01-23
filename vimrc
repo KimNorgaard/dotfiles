@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 
 if has('nvim')
     Plug 'Shougo/deoplete.nvim'        " completion
-    Plug 'zchee/deoplete-jedi'         " python completion
+    Plug 'zchee/deoplete-jedi', {'for': 'python'}   " python completion
 else
     Plug 'davidhalter/jedi-vim', {'for': 'python'}  " python completion
 endif
@@ -27,9 +27,9 @@ Plug 'tpope/vim-fugitive'              " git
 Plug 'tpope/vim-endwise'               " auto-add endings
 
 Plug 'sheerun/vim-polyglot'            " language support galore
-Plug 'rodjek/vim-puppet'               " puppet
+Plug 'rodjek/vim-puppet', {'for': 'puppet'}  " puppet
 Plug 'KimNorgaard/ansible-vim'         " ansible
-Plug 'plasticboy/vim-markdown'         " markdown
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}  " markdown
 
 Plug 'tomtom/tlib_vim'                 " tcomment dependency
 Plug 'tomtom/tcomment_vim'             " comments
