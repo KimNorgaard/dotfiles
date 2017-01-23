@@ -1,10 +1,54 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker:
 " Kim Nørgard <jasen@jasen.dk>
 
-set nocompatible                      " vim, not vi
+" vim, not vi
+set nocompatible
+filetype off
 
-execute pathogen#infect()
+" Plugin Loading {
+call plug#begin('~/.vim/plugged')
 
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim'        " completion
+    Plug 'zchee/deoplete-jedi'         " python completion
+else
+    Plug 'davidhalter/jedi-vim'        " python completion
+endif
+
+Plug 'neomake/neomake'                 " linting, making
+
+Plug 'MarcWeber/vim-addon-mw-utils'    " required by snipmate
+Plug 'garbas/vim-snipmate'             " snippets
+Plug 'honza/vim-snippets'              " actual snippets
+
+Plug 'tpope/vim-surround'              " parentheses, brackets, quotes!
+Plug 'tpope/vim-repeat'                " let plugins use '.'
+Plug 'tpope/vim-fugitive'              " git
+
+Plug 'sheerun/vim-polyglot'            " language support galore
+Plug 'rodjek/vim-puppet'               " puppet
+Plug 'KimNorgaard/ansible-vim'         " ansible
+Plug 'plasticboy/vim-markdown'         " markdown
+
+Plug 'tomtom/tlib_vim'                 " tcomment dependency
+Plug 'tomtom/tcomment_vim'             " comments
+
+Plug 'majutsushi/tagbar'               " browse tags
+Plug 'godlygeek/tabular'               " tabularize text
+Plug 'ervandew/supertab'               " use <TAB> for insert completions
+
+" This should die, really. It makes nvim startup slow.
+" I only use virtualenv and pep8-indentation.
+Plug 'klen/python-mode'
+
+Plug 'vim-scripts/ingo-library'        " SyntaxRange dependency
+Plug 'vim-scripts/SyntaxRange'         " filetype within regions of buffer
+
+Plug 'kien/ctrlp.vim'                  " fancy file-finder
+Plug 'jlanzarotta/bufexplorer'         " fancy buffer-handler
+
+call plug#end()
+" }
 
 " General Settings {
     filetype plugin indent on             " load plugins and indent
@@ -117,6 +161,25 @@ execute pathogen#infect()
     set tags=./tags;
 
     set diffopt+=vertical
+
+    " neovim
+    if has('nvim')
+      let g:python_host_prog = $HOME . '/src/neovim2/bin/python'
+      let g:python3_host_prog = $HOME . '/src/neovim3/bin/python'
+    endif
+" }
+
+" Startup {
+  " Make those folders automatically if they don't already exist.
+  if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+  endif
+  if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+  endif
+  if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+  endif
 " }
 
 " Vim UI {
@@ -142,128 +205,131 @@ execute pathogen#infect()
     endif
 " }
 
-let mapleader = ","                   " map leader
+" Keyboard Mapping {
+  let mapleader = ","                   " map leader
 
-" Edit vimrc
-:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+  " Edit vimrc
+  :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+  :nnoremap <leader>sv :source $MYVIMRC<cr>
 
+  " Clear search highlight
+  noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
-" clear search highlight
-noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+  " Tab through parans, etc.
+  map <tab> %
 
-map <tab> %
+  " Hard-wrap paragraphs of text
+  nnoremap <leader>q gqip
 
-"Hard-wrap paragraphs of text
-nnoremap <leader>q gqip
+  " Map code completion to , + tab
+  imap <leader><tab> <C-x><C-o>
 
-"Map code completion to , + tab
-imap <leader><tab> <C-x><C-o>
+  " Use better regexp
+  nnoremap / /\v
+  vnoremap / /\v
 
-"Use better regexp
-nnoremap / /\v
-vnoremap / /\v
+  " Bubble single lines (kicks butt)
+  " http://vimcasts.org/episodes/bubbling-text/
+  nmap <leader>k ddkP
+  nmap <leader>j ddp
 
-"Bubble single lines (kicks butt)
-""http://vimcasts.org/episodes/bubbling-text/
-nmap <leader>k ddkP
-nmap <leader>j ddp
+  " Bubble multiple lines
+  vmap <leader>k xkP`[V`]
+  vmap <leader>j xp`[V`]
 
-"Bubble multiple lines
-vmap <leader>k xkP`[V`]
-vmap <leader>j xp`[V`]
+  " Select pasted text
+  nnoremap <leader>v V`]
+  "
+  " sudo-trick.. Save precious changes as root, fuck yeah
+  cnoremap w!! w !sudo tee % >/dev/null
 
-" Select pasted text
-nnoremap <leader>v V`]
+  " Space to toggle folds.
+  nnoremap <Space> za
+  vnoremap <Space> za
 
-" Easy buffer/window/tab navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+  " Set working directory
+  nnoremap <leader>. :lcd %:p:h<CR>
+" }
 
-nnoremap <leader>l :ls<CR>:b<space>
-noremap <M-k> :bn<cr>
-noremap <A-k> :bn<r>
-noremap ∆ :bn<cr>
-noremap k :bn<cr>
-noremap ‹ :bp<cr>
-noremap j :bp<cr>
-noremap <M-j> :bp<cr>
-noremap <A-j> :bp<cr>
+" Navigation {
+  " Easy buffer/window/tab navigation
+  noremap <C-h> <C-w>h
+  noremap <C-j> <C-w>j
+  noremap <C-k> <C-w>k
+  noremap <C-l> <C-w>l
 
-inoremap <M-1> <Esc>:tabn 1<CR>i
-inoremap <M-2> <Esc>:tabn 2<CR>i
-inoremap <M-3> <Esc>:tabn 3<CR>i
-inoremap <M-4> <Esc>:tabn 4<CR>i
-inoremap <M-5> <Esc>:tabn 5<CR>i
-inoremap <M-6> <Esc>:tabn 6<CR>i
-inoremap <M-7> <Esc>:tabn 7<CR>i
-inoremap <M-8> <Esc>:tabn 8<CR>i
-inoremap <M-9> <Esc>:tabn 9<CR>i
+  nnoremap <leader>l :ls<CR>:b<space>
+  noremap <M-k> :bn<cr>
+  noremap <A-k> :bn<r>
+  noremap ∆ :bn<cr>
+  noremap k :bn<cr>
+  noremap ‹ :bp<cr>
+  noremap j :bp<cr>
+  noremap <M-j> :bp<cr>
+  noremap <A-j> :bp<cr>
 
-noremap <M-1> :tabn 1<CR>
-noremap <M-2> :tabn 2<CR>
-noremap <M-3> :tabn 3<CR>
-noremap <M-4> :tabn 4<CR>
-noremap <M-5> :tabn 5<CR>
-noremap <M-6> :tabn 6<CR>
-noremap <M-7> :tabn 7<CR>
-noremap <M-8> :tabn 8<CR>
-noremap <M-9> :tabn 9<CR>
+  inoremap <M-1> <Esc>:tabn 1<CR>i
+  inoremap <M-2> <Esc>:tabn 2<CR>i
+  inoremap <M-3> <Esc>:tabn 3<CR>i
+  inoremap <M-4> <Esc>:tabn 4<CR>i
+  inoremap <M-5> <Esc>:tabn 5<CR>i
+  inoremap <M-6> <Esc>:tabn 6<CR>i
+  inoremap <M-7> <Esc>:tabn 7<CR>i
+  inoremap <M-8> <Esc>:tabn 8<CR>i
+  inoremap <M-9> <Esc>:tabn 9<CR>i
 
-noremap ø :tabnext<CR>
-noremap æ :tabprevious<CR>
+  noremap <M-1> :tabn 1<CR>
+  noremap <M-2> :tabn 2<CR>
+  noremap <M-3> :tabn 3<CR>
+  noremap <M-4> :tabn 4<CR>
+  noremap <M-5> :tabn 5<CR>
+  noremap <M-6> :tabn 6<CR>
+  noremap <M-7> :tabn 7<CR>
+  noremap <M-8> :tabn 8<CR>
+  noremap <M-9> :tabn 9<CR>
 
-" Bind gb to toggle between the last two tabs
-map å :exe "tabn ".g:ltv<CR>
-function! Setlasttabpagevisited()
-    let g:ltv = tabpagenr()
-endfunction
+  noremap ø :tabnext<CR>
+  noremap æ :tabprevious<CR>
 
+  " Bind gb to toggle between the last two tabs
+  map å :exe "tabn ".g:ltv<CR>
+  function! Setlasttabpagevisited()
+      let g:ltv = tabpagenr()
+  endfunction
 
-augroup localtl
-    autocmd!
-    autocmd TabLeave * call Setlasttabpagevisited()
-augroup END
-autocmd VimEnter * let g:ltv = 1
+  augroup localtl
+      autocmd!
+      autocmd TabLeave * call Setlasttabpagevisited()
+  augroup END
+  autocmd VimEnter * let g:ltv = 1
 
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
-nnoremap td  :tabclose<CR>
+  nnoremap th  :tabfirst<CR>
+  nnoremap tj  :tabnext<CR>
+  nnoremap tk  :tabprev<CR>
+  nnoremap tl  :tablast<CR>
+  nnoremap tt  :tabedit<Space>
+  nnoremap tn  :tabnext<Space>
+  nnoremap tm  :tabm<Space>
+  nnoremap td  :tabclose<CR>
+" }
 
-" sudo-trick.. Save precious changes as root, fuck yeah
-cnoremap w!! w !sudo tee % >/dev/null
+" Copy/Pasting {
+  " Copy/paste
+  noremap <leader>p mz:r!pbpaste<cr>`z
+  noremap <leader>y :.w !pbcopy<CR><CR>
+  vnoremap <leader>y :w !pbcopy<CR><CR>
 
-" Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
+  " Copy to X CLIPBOARD
+  map <leader>cc :w !xsel -i -b<CR><CR>
+  map <leader>cp :w !xsel -i -p<CR><CR>
+  map <leader>cs :w !xsel -i -s<CR><CR>
+  " Paste from X CLIPBOARD
+  map <leader>pp :r!xsel -p<CR><CR>
+  map <leader>ps :r!xsel -s<CR><CR>
+  map <leader>pb :r!xsel -b<CR><CR>
+" }
 
-" Copy/paste
-noremap <leader>p mz:r!pbpaste<cr>`z
-noremap <leader>y :.w !pbcopy<CR><CR>
-vnoremap <leader>y :w !pbcopy<CR><CR>
-
-" Copy to X CLIPBOARD
-map <leader>cc :w !xsel -i -b<CR><CR>
-map <leader>cp :w !xsel -i -p<CR><CR>
-map <leader>cs :w !xsel -i -s<CR><CR>
-" Paste from X CLIPBOARD
-map <leader>pp :r!xsel -p<CR><CR>
-map <leader>ps :r!xsel -s<CR><CR>
-map <leader>pb :r!xsel -b<CR><CR>
-
-" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-" <leader>v select the text just pasted
-nnoremap <leader>v V`]
-
+" Plugin: tabular {
 autocmd VimEnter *
     \ if exists(":Tabularize") |
         \ nmap <leader>a= :Tabularize /=<CR> |
@@ -271,67 +337,138 @@ autocmd VimEnter *
         \ nmap <leader>a: :Tabularize /:\zs<CR> |
         \ vmap <leader>a: :Tabularize /:\zs<CR> |
     \ endif
+" }
 
-"------------------------"
-"NERDTREE PLUGIN SETTINGS
-"------------------------"
-""Shortcut for NERDTreeToggle
-" nmap <leader>nt :NERDTreeToggle <CR>
-" noremap  <F2> :NERDTreeToggle<cr>
-" inoremap <F2> <esc>:NERDTreeToggle<cr>
-"
-" augroup ps_nerdtree
-"     au!
-"
-"     au Filetype nerdtree setlocal nolist
-" augroup END
+" Plugin: nerdtree {
+  "------------------------"
+  "NERDTREE PLUGIN SETTINGS
+  "------------------------"
+  ""Shortcut for NERDTreeToggle
+  " nmap <leader>nt :NERDTreeToggle <CR>
+  " noremap  <F2> :NERDTreeToggle<cr>
+  " inoremap <F2> <esc>:NERDTreeToggle<cr>
+  "
+  " augroup ps_nerdtree
+  "     au!
+  "
+  "     au Filetype nerdtree setlocal nolist
+  " augroup END
 
-"Show hidden files in NerdTree
-" let NERDTreeHighlightCursorline = 1
-" let NERDTreeMinimalUI = 1
-" let NERDTreeDirArrows = 1
-" let NERDChristmasTree = 1
-" let NERDTreeChDirMode = 2
-" let NERDTreeMapJumpFirstChild = 'gK'
+  "Show hidden files in NerdTree
+  " let NERDTreeHighlightCursorline = 1
+  " let NERDTreeMinimalUI = 1
+  " let NERDTreeDirArrows = 1
+  " let NERDChristmasTree = 1
+  " let NERDTreeChDirMode = 2
+  " let NERDTreeMapJumpFirstChild = 'gK'
 
-"autopen NERDTree and focus cursor in new document
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
+  "autopen NERDTree and focus cursor in new document
+  "autocmd VimEnter * NERDTree
+  "autocmd VimEnter * wincmd p
+" }
 
+" Plugin: ctrlp {
+  let g:ctrlp_max_files = 50000
+  let g:ctrlp_clear_cache_on_exit = 0
+  let g:ctrlp_dotfiles = 1
+  let g:ctrlp_lazy_update = 100
+  "let g:ctrlp_custom_ignore = {
+  "  \ 'dir':  '\v[\/](\.git|venv)$'
+  "  \ }
+" }
 
-"ctrlp
-let g:ctrlp_max_files = 50000
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_dotfiles = 1
-let g:ctrlp_lazy_update = 100
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/](\.git|venv)$'
-"  \ }
+" Plugin: deoplete {
+  " Use deoplete.
+  let g:deoplete#enable_at_startup = 1
+  " Auto close scratch window
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
+  " TAB-complete
+  set completeopt+=noinsert,noselect
+  inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+  imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+" }
 
-" Make those folders automatically if they don't already exist.
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
-endif
-if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
-endif
+" Plugin: nerdcommenter {
+  let g:NERDCustomDelimiters = {
+      \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
+      \ }
+" }
 
+" Plugin: tagbar {
+let g:tagbar_type_puppet = {
+  \ 'ctagstype': 'puppet',
+  \ 'kinds': [
+    \'c:class',
+    \'s:site',
+    \'n:node',
+    \'d:definition',
+    \'r:resource',
+    \'f:default'
+  \]
+\}
+" }
 
-autocmd FileType text setlocal textwidth=78
+" Plugin: vim-markdown {
+  let g:vim_markdown_folding_disabled=0
+" }
 
+" Plugin: snipmate {
+  let g:snipMate = get(g:, 'snipMate', {})
+  let g:snipMate.scope_aliases = {}
+  let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
+" }
+
+" Plugin: pymode {
+  let g:pymode_lint = 0
+  let g:pymode_folding = 1
+  let g:pymode_rope = 0
+  let g:pymode_breakpoint = 0
+  let g:pymode_runcode = 0
+" }
+
+" Plugin: syntastic {
+  let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
+  " use python-mode, not syntastic
+  let g:syntastic_ignore_files = ['\.py$']
+" }
+
+" Plugin: neomake {
+  autocmd! BufWritePost *.py Neomake
+" }
+
+" Plugin: polyglot {
+  let g:polyglot_disabled = ['ansible', 'markdown', 'python', 'python-compiler']
+" }
+
+" text files {
+augroup ft_text
+    au!
+    autocmd FileType text setlocal textwidth=78
+augroup END
+" }
+
+" eyaml {
+augroup ft_eyaml
+    au!
+    au BufRead,BufNewFile *.eyaml setfiletype yaml
+augroup END
+" }
+
+" Crontab {
+augroup crontab
+    au!
+    au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+augroup END
+" }
+
+" General Editing {
 " When editing a file, always jump to the last known cursor position.
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
-" eyaml and yaml are the same
-au BufRead,BufNewFile *.eyaml setfiletype yaml
-au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 
 augroup cline
     au!
@@ -344,148 +481,41 @@ augroup trailing
     au InsertEnter * :set listchars-=trail:⌴,eol:¬
     au InsertLeave * :set listchars+=trail:⌴,eol:¬
 augroup END
+" }
 
+" Puppet {
 augroup ft_puppet
     au!
     au FileType puppet setlocal isk+=:
     au Filetype puppet setlocal foldmethod=marker
     au Filetype puppet setlocal foldmarker={,}
 augroup END
+" }
 
+" Perl {
 augroup ft_perl
     au!
     au Filetype perl setlocal foldmethod=marker
     au Filetype perl setlocal foldmarker={,}
 augroup END
+" }
 
+" Ruby {
 augroup ft_ruby
     au!
     au Filetype ruby setlocal foldmethod=syntax
 augroup END
+" }
 
+" Ansible {
 augroup ft_ansible
     au!
     au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
 augroup END
+" }
 
-let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-class_inherits_from_params_class-check'
-" use python-mode, not syntastic
-let g:syntastic_ignore_files = ['\.py$']
-let g:pymode_lint = 0
-
-
-let g:NERDCustomDelimiters = {
-      \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
-      \ }
-
-let g:tagbar_type_puppet = {
-  \ 'ctagstype': 'puppet',
-  \ 'kinds': [
-    \'c:class',
-    \'s:site',
-    \'n:node',
-    \'d:definition',
-    \'r:resource',
-    \'f:default'
-  \]
-\}
-
-
-" distraction-free-writing-vim
-"let g:fullscreen_colorscheme = "iawriter"
-"let g:fullscreen_font = "Cousine:h14"
-"let g:normal_colorscheme = "solarized"
-"let g:normal_font="Menlo:h12"
-
-let g:vim_markdown_folding_disabled=0
-
-" snippets
-let g:snipMate = get(g:, 'snipMate', {})
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
-
-" pymode
-" Don't autofold code. It sucks.
-let g:pymode_folding = 0
-" Linting
-let g:pymode_lint = 1
-let g:pymode_lint_checkers = "pyflakes,pep257,pep8"
-" ,mccabe"
-let g:pymode_lint_options_pep8 = {'max_line_length': 120}
-let g:pymode_lint_ignore = 'D100,D102,D103'
-" No rope. It hurts us.
-let g:pymode_rope = 0
-
-
-
-" Use separate plugin
-let g:polyglot_disabled = ['ansible', 'python']
-
-" Statusline
-
-function! WindowNumber()
-    return tabpagewinnr(tabpagenr())
-endfunction
-
-function! TrailingSpaceWarning()
-  if !exists("b:statline_trailing_space_warning")
-    let lineno = search('\s$', 'nw')
-    if lineno != 0
-      let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
-    else
-      let b:statline_trailing_space_warning = ''
-    endif
-  endif
-  return b:statline_trailing_space_warning
-endfunction
-
-" recalculate when idle, and after saving
-augroup statline_trail
-  autocmd!
-  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-augroup END
-
-
-
-set statusline=
-set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
-set statusline+=%5*%{expand('%:h')}/       " relative path
-set statusline+=%1*%t%*                    " file name
-set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
-set statusline+=%<                            " truncate if needed
-set statusline+=%#warningmsg# " warning color
-set statusline+=%{TrailingSpaceWarning()}
-set statusline+=%*
-set statusline+=\ 
-set statusline+=%#warningmsg# " warning color
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-set statusline+=%=                         " align right
-
-set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
-set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
-set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
-
-set statusline+=\ 
-
-"set statusline+=%2*buf:%-3n%* " buffer number
-"set statusline+=\ 
-"set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
-
-set statusline+=%03c " column
-set statusline+=-
-set statusline+=%03v " virtual column
-set statusline+=\ 
-set statusline+=%3p%% " pct
-
-hi User1 guifg=White
-hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
-
-
-" mutt
+" Mutt {
 augroup ft_mail
-  " Mail
   au!
   autocmd BufRead,BufNewFile *temp/mutt-*              setfiletype mail
   autocmd BufRead,BufNewFile *temp/mutt-*              setlocal fo+=aw
@@ -493,5 +523,72 @@ augroup ft_mail
   autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
   autocmd BufRead *temp/mutt-* execute ":startinsert"
 augroup END
+" }
 
+" Statusline {
+  function! WindowNumber()
+    return tabpagewinnr(tabpagenr())
+  endfunction
 
+  function! TrailingSpaceWarning()
+    if !exists("b:statline_trailing_space_warning")
+      let lineno = search('\s$', 'nw')
+      if lineno != 0
+        let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
+      else
+        let b:statline_trailing_space_warning = ''
+      endif
+    endif
+    return b:statline_trailing_space_warning
+  endfunction
+
+  " recalculate when idle, and after saving
+  augroup statline_trail
+    autocmd!
+    autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+  augroup END
+
+  function! LinterErrFlag()
+    if exists("*SyntasticStatuslineFlag")
+      return SyntasticStatuslineFlag()
+    else
+      return neomake#statusline#LoclistStatus()
+    endif
+  endfunction
+
+  set statusline=
+  set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
+  set statusline+=%5*%{expand('%:h')}/       " relative path
+  set statusline+=%1*%t%*                    " file name
+  set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
+  set statusline+=%<                            " truncate if needed
+  set statusline+=%#warningmsg# " warning color
+  set statusline+=%{TrailingSpaceWarning()}
+  set statusline+=%*
+  set statusline+=\ 
+  set statusline+=%#warningmsg# " warning color
+  set statusline+=%{LinterErrFlag()}
+
+  set statusline+=%*
+
+  set statusline+=%=                         " align right
+
+  set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
+  set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
+  set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
+
+  set statusline+=\ 
+
+  "set statusline+=%2*buf:%-3n%* " buffer number
+  "set statusline+=\ 
+  "set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
+
+  set statusline+=%03c " column
+  set statusline+=-
+  set statusline+=%03v " virtual column
+  set statusline+=\ 
+  set statusline+=%3p%% " pct
+
+  hi User1 guifg=White
+  hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+" }
