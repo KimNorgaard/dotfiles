@@ -25,6 +25,7 @@ Plug 'tpope/vim-surround'              " parentheses, brackets, quotes!
 Plug 'tpope/vim-repeat'                " let plugins use '.'
 Plug 'tpope/vim-fugitive'              " git
 Plug 'tpope/vim-endwise'               " auto-add endings
+Plug 'airblade/vim-gitgutter'          " git in the gutter
 
 Plug 'sheerun/vim-polyglot'            " language support galore
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}  " puppet
@@ -445,6 +446,11 @@ autocmd VimEnter *
 
 " Plugin: polyglot {{{
   let g:polyglot_disabled = ['ansible', 'markdown', 'python', 'python-compiler']
+" }}}
+
+" Plugin: gitgutter {{{
+    let g:gitgutter_enabled = 0
+    nmap <leader>G :GitGutterToggle<CR>
 " }}}
 
 " text files {{{
