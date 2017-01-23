@@ -40,5 +40,5 @@
     lg = log --oneline --graph --decorate
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
-[credential]
-	helper = osxkeychain
+#[credential]
+#	helper = osxkeychain

@@ -42,7 +42,7 @@ URxvt.keysym.M-Delete:    matcher:list
 URxvt.keysym.C-M-Up:        font-size:incglobal
 URxvt.keysym.C-M-Down:      font-size:decglobal
 
-URxvt*termName: rxvt
+!URxvt*termName: rxvt
 
 
 !Colors

@@ -12,7 +12,7 @@ if has('nvim')
     Plug 'Shougo/deoplete.nvim'        " completion
     Plug 'zchee/deoplete-jedi'         " python completion
 else
-    Plug 'davidhalter/jedi-vim'        " python completion
+    Plug 'davidhalter/jedi-vim', {'for': 'python'}  " python completion
 endif
 
 Plug 'neomake/neomake'                 " linting, making
@@ -24,6 +24,7 @@ Plug 'honza/vim-snippets'              " actual snippets
 Plug 'tpope/vim-surround'              " parentheses, brackets, quotes!
 Plug 'tpope/vim-repeat'                " let plugins use '.'
 Plug 'tpope/vim-fugitive'              " git
+Plug 'tpope/vim-endwise'               " auto-add endings
 
 Plug 'sheerun/vim-polyglot'            " language support galore
 Plug 'rodjek/vim-puppet'               " puppet
@@ -39,7 +40,7 @@ Plug 'ervandew/supertab'               " use <TAB> for insert completions
 
 " This should die, really. It makes nvim startup slow.
 " I only use virtualenv and pep8-indentation.
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', {'for': 'python'}
 
 Plug 'vim-scripts/ingo-library'        " SyntaxRange dependency
 Plug 'vim-scripts/SyntaxRange'         " filetype within regions of buffer
@@ -47,61 +48,64 @@ Plug 'vim-scripts/SyntaxRange'         " filetype within regions of buffer
 Plug 'kien/ctrlp.vim'                  " fancy file-finder
 Plug 'jlanzarotta/bufexplorer'         " fancy buffer-handler
 
+Plug 'pangloss/vim-simplefold'         " smarter folding
+
 call plug#end()
 " }
 
 " General Settings {
-    filetype plugin indent on             " load plugins and indent
+    filetype plugin indent on         " load plugins and indent
 
-    set notimeout                         " don't timeout on mappings
-    set ttimeout                          " do timeout on terminal key codes
-    set ttimeoutlen=10                    " key code timeout
-    set timeoutlen=500                    " mapped key sequence timeout
+    set notimeout                     " don't timeout on mappings
+    set ttimeout                      " do timeout on terminal key codes
+    set ttimeoutlen=10                " key code timeout
+    set timeoutlen=500                " mapped key sequence timeout
 
-    set hidden                            " switch between buffers without saving
+    set hidden                        " switch between buffers without saving
 
-    set shiftwidth=2                      " one tab = two spaces (autoindent)
-    set softtabstop=2                     " one tab = two spaces (tab key)
-    set tabstop=2                         " one tab = two columns
-    set expandtab                         " never use hard tabs
+    set shiftwidth=2                  " one tab = two spaces (autoindent)
+    set softtabstop=2                 " one tab = two spaces (tab key)
+    set tabstop=2                     " one tab = two columns
+    set expandtab                     " never use hard tabs
 
-    set autoindent                        " keep indenting on <CR>
-    set smartindent                       " be smart about indentation
+    set autoindent                    " keep indenting on <CR>
+    set smartindent                   " be smart about indentation
 
-    set wrap                              " wrap long lines
-    set textwidth=80                      " wrap after 80 columns
-    set colorcolumn=+1                    " highlight 81st column
-    set linebreak                         " break on what looks like boundaries
-    set showbreak=↳\                      " shown at the start of a wrapped line
+    set wrap                          " wrap long lines
+    set textwidth=80                  " wrap after 80 columns
+    set colorcolumn=+1                " highlight 81st column
+    set linebreak                     " break on what looks like boundaries
+    set showbreak=↳\                  " shown at the start of a wrapped line
     set formatoptions=qrn1
 
-    set incsearch                         " Jump while searching
-    set ignorecase                        " Case insensitive searches
-    set smartcase                         " Ignore 'ignorecase' when uppercase is used
-    set hlsearch                          " Highlight searches
-    set showmatch                         " Show matching brackets while typing
-    set gdefault                          " Append /g to replace regex
+    set incsearch                     " Jump while searching
+    set ignorecase                    " Case insensitive searches
+    set smartcase                     " Ignore 'ignorecase' when uppercase is
+                                      " used
+    set hlsearch                      " Highlight searches
+    set showmatch                     " Show matching brackets while typing
+    set gdefault                      " Append /g to replace regex
 
-    set foldenable                        " Enable code folding
+    set foldenable                    " Enable code folding
     "set foldlevelstart=0
     set foldlevel=100
     set foldmethod=indent
 
-    set splitbelow                        " Split windows below the current window.
-    set modeline                          " Check modeline in beginning of file
+    set splitbelow                    " Split windows below current window.
+    set modeline                      " Check modeline in beginning of file
 
     set complete=.,w,b,u,t
     set completeopt=longest,menuone,preview
-    set wildmode=longest,list,full           " complete longest common prefix first
+    set wildmode=longest,list,full    " complete longest common prefix first
     set wildignore+=.*.sw*,__pycache__,*.pyc " ignore junk files
-    set wildmenu                             " show a menu of completions like zsh
+    set wildmenu                      " show a menu of completions like zsh
     set omnifunc=syntaxcomplete#Complete
 
     set backupdir=~/.vim/tmp/backup//
     set directory=~/.vim/tmp/swap//
     set backup
-    set undodir=~/.vim/tmp/undo         " persistent undo storage
-    set undofile                        " persistent undo on
+    set undodir=~/.vim/tmp/undo       " persistent undo storage
+    set undofile                      " persistent undo on
     set autowrite
     "au BufLeave,FocusLost * silent! wall     " Save after loosing focus
 
@@ -114,8 +118,8 @@ call plug#end()
     set title
     set titlestring=vim\ %{expand(\"%t\")}
     if &term =~ "^screen"
-        " pretend this is xterm.  it probably is anyway, but if term is left as
-        " `screen`, vim doesn't understand ctrl-arrow.
+        " pretend this is xterm.  it probably is anyway, but if term is left
+        " as `screen`, vim doesn't understand ctrl-arrow.
         if &term == "screen-256color"
             set term=xterm-256color
         else
@@ -131,7 +135,8 @@ call plug#end()
     set mouse=a                     " Terminal mouse support
     set history=50                  " keep 50 lines of command line history
     set lazyredraw                  " don't update screen inside macros, etc
-    set matchtime=5                 " ms to show the matching paren for showmatch
+    set matchtime=5                 " ms to show the matching paren for
+                                    " showmatch
 
     set number                      " line numbers
     set numberwidth=5               " width of numbers column
@@ -148,7 +153,7 @@ call plug#end()
 
     set fileformats=unix,dos,mac    " unix linebreaks in new files please
     if !has('nvim')
-      set encoding=utf-8              " best default encoding
+      set encoding=utf-8            " best default encoding
     endif
     setglobal fileencoding=utf-8    " ...
     set nobomb                      " do not write utf-8 BOM!
@@ -164,21 +169,21 @@ call plug#end()
 
     " neovim
     if has('nvim')
-      let g:python_host_prog = $HOME . '/src/neovim2/bin/python'
-      let g:python3_host_prog = $HOME . '/src/neovim3/bin/python'
+        let g:python_host_prog = $HOME . '/src/neovim2/bin/python'
+        let g:python3_host_prog = $HOME . '/src/neovim3/bin/python'
     endif
 " }
 
 " Startup {
   " Make those folders automatically if they don't already exist.
   if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
+      call mkdir(expand(&undodir), "p")
   endif
   if !isdirectory(expand(&backupdir))
-    call mkdir(expand(&backupdir), "p")
+      call mkdir(expand(&backupdir), "p")
   endif
   if !isdirectory(expand(&directory))
-    call mkdir(expand(&directory), "p")
+      call mkdir(expand(&directory), "p")
   endif
 " }
 
@@ -187,8 +192,8 @@ call plug#end()
         syntax on                           " syntax highlighting
         set t_Co=256                        " 256 colors
 
-        let g:nofrils_heavycomments = 1       " make comments stand out
-        let g:nofrils_strbackgrounds = 1      " make strings stand out
+        let g:nofrils_heavycomments = 1     " make comments stand out
+        let g:nofrils_strbackgrounds = 1    " make strings stand out
         colorscheme nofrils-dark
         "colorscheme paramount
     endif
@@ -397,17 +402,17 @@ autocmd VimEnter *
 " }
 
 " Plugin: tagbar {
-let g:tagbar_type_puppet = {
-  \ 'ctagstype': 'puppet',
-  \ 'kinds': [
-    \'c:class',
-    \'s:site',
-    \'n:node',
-    \'d:definition',
-    \'r:resource',
-    \'f:default'
-  \]
-\}
+  let g:tagbar_type_puppet = {
+    \ 'ctagstype': 'puppet',
+    \ 'kinds': [
+      \'c:class',
+      \'s:site',
+      \'n:node',
+      \'d:definition',
+      \'r:resource',
+      \'f:default'
+    \]
+  \}
 " }
 
 " Plugin: vim-markdown {
@@ -443,152 +448,145 @@ let g:tagbar_type_puppet = {
 " }
 
 " text files {
-augroup ft_text
-    au!
-    autocmd FileType text setlocal textwidth=78
-augroup END
+    augroup ft_text
+        au!
+        autocmd FileType text setlocal textwidth=78
+    augroup END
 " }
 
 " eyaml {
-augroup ft_eyaml
-    au!
-    au BufRead,BufNewFile *.eyaml setfiletype yaml
-augroup END
+    augroup ft_eyaml
+        au!
+        au BufRead,BufNewFile *.eyaml setfiletype yaml
+    augroup END
 " }
 
 " Crontab {
-augroup crontab
-    au!
-    au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-augroup END
+    augroup crontab
+        au!
+        au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+    augroup END
 " }
 
 " General Editing {
-" When editing a file, always jump to the last known cursor position.
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
+    " When editing a file, always jump to the last known cursor position.
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 
-augroup cline
-    au!
-    au WinLeave,InsertEnter * set nocursorline
-    au WinEnter,InsertLeave * set cursorline
-augroup END
+    augroup cline
+        au!
+        au WinLeave,InsertEnter * set nocursorline
+        au WinEnter,InsertLeave * set cursorline
+    augroup END
 
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:⌴,eol:¬
-    au InsertLeave * :set listchars+=trail:⌴,eol:¬
-augroup END
+    augroup trailing
+        au!
+        au InsertEnter * :set listchars-=trail:⌴,eol:¬
+        au InsertLeave * :set listchars+=trail:⌴,eol:¬
+    augroup END
 " }
 
 " Puppet {
-augroup ft_puppet
-    au!
-    au FileType puppet setlocal isk+=:
-    au Filetype puppet setlocal foldmethod=marker
-    au Filetype puppet setlocal foldmarker={,}
-augroup END
+    augroup ft_puppet
+        au!
+        au FileType puppet setlocal isk+=:
+        au Filetype puppet setlocal foldmethod=marker
+        au Filetype puppet setlocal foldmarker={,}
+    augroup END
 " }
 
 " Perl {
-augroup ft_perl
-    au!
-    au Filetype perl setlocal foldmethod=marker
-    au Filetype perl setlocal foldmarker={,}
-augroup END
+    augroup ft_perl
+        au!
+        au Filetype perl setlocal foldmethod=marker
+        au Filetype perl setlocal foldmarker={,}
+    augroup END
 " }
 
 " Ruby {
-augroup ft_ruby
-    au!
-    au Filetype ruby setlocal foldmethod=syntax
-augroup END
+    augroup ft_ruby
+        au!
+        au Filetype ruby setlocal foldmethod=syntax
+    augroup END
 " }
 
 " Ansible {
-augroup ft_ansible
-    au!
-    au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
-augroup END
+    augroup ft_ansible
+        au!
+        au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
+    augroup END
 " }
 
 " Mutt {
-augroup ft_mail
-  au!
-  autocmd BufRead,BufNewFile *temp/mutt-*              setfiletype mail
-  autocmd BufRead,BufNewFile *temp/mutt-*              setlocal fo+=aw
-  autocmd BufRead,BufNewFile *temp/mutt-*              setlocal spell
-  autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
-  autocmd BufRead *temp/mutt-* execute ":startinsert"
-augroup END
+    augroup ft_mail
+        au!
+        autocmd BufRead,BufNewFile *temp/mutt-* setfiletype mail
+        autocmd BufRead,BufNewFile *temp/mutt-* setlocal fo+=aw
+        autocmd BufRead,BufNewFile *temp/mutt-* setlocal spell
+        autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
+        autocmd BufRead *temp/mutt-* execute ":startinsert"
+    augroup END
 " }
 
 " Statusline {
-  function! WindowNumber()
-    return tabpagewinnr(tabpagenr())
-  endfunction
+    function! WindowNumber()
+        return tabpagewinnr(tabpagenr())
+    endfunction
 
-  function! TrailingSpaceWarning()
-    if !exists("b:statline_trailing_space_warning")
-      let lineno = search('\s$', 'nw')
-      if lineno != 0
-        let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
-      else
-        let b:statline_trailing_space_warning = ''
-      endif
-    endif
-    return b:statline_trailing_space_warning
-  endfunction
+    function! TrailingSpaceWarning()
+        if !exists("b:statline_trailing_space_warning")
+            let lineno = search('\s$', 'nw')
+            if lineno != 0
+                let b:statline_trailing_space_warning = '[trailing:'.lineno.']'
+            else
+                let b:statline_trailing_space_warning = ''
+            endif
+        endif
+        return b:statline_trailing_space_warning
+    endfunction
 
-  " recalculate when idle, and after saving
-  augroup statline_trail
-    autocmd!
-    autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-  augroup END
+    " recalculate when idle, and after saving
+    augroup statline_trail
+        autocmd!
+        autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+    augroup END
 
-  function! LinterErrFlag()
-    if exists("*SyntasticStatuslineFlag")
-      return SyntasticStatuslineFlag()
-    else
-      return neomake#statusline#LoclistStatus()
-    endif
-  endfunction
+    function! LinterErrFlag()
+        if exists("*SyntasticStatuslineFlag")
+            return SyntasticStatuslineFlag()
+        else
+            return neomake#statusline#LoclistStatus()
+        endif
+    endfunction
 
-  set statusline=
-  set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
-  set statusline+=%5*%{expand('%:h')}/       " relative path
-  set statusline+=%1*%t%*                    " file name
-  set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
-  set statusline+=%<                            " truncate if needed
-  set statusline+=%#warningmsg# " warning color
-  set statusline+=%{TrailingSpaceWarning()}
-  set statusline+=%*
-  set statusline+=\ 
-  set statusline+=%#warningmsg# " warning color
-  set statusline+=%{LinterErrFlag()}
-
-  set statusline+=%*
-
-  set statusline+=%=                         " align right
-
-  set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
-  set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
-  set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
-
-  set statusline+=\ 
-
-  "set statusline+=%2*buf:%-3n%* " buffer number
-  "set statusline+=\ 
-  "set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
-
-  set statusline+=%03c " column
-  set statusline+=-
-  set statusline+=%03v " virtual column
-  set statusline+=\ 
-  set statusline+=%3p%% " pct
-
-  hi User1 guifg=White
-  hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+    set statusline=
+    set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
+    set statusline+=%5*%{expand('%:h')}/       " relative path
+    set statusline+=%1*%t%*                    " file name
+    set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
+    set statusline+=%<                            " truncate if needed
+    set statusline+=%#warningmsg# " warning color
+    set statusline+=%{TrailingSpaceWarning()}
+    set statusline+=%*
+    set statusline+=\ 
+    set statusline+=%#warningmsg# " warning color
+    set statusline+=%{LinterErrFlag()}
+    set statusline+=%*
+    set statusline+=%=                         " align right
+    set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
+    set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
+    set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
+    set statusline+=\ 
+    "set statusline+=%2*buf:%-3n%* " buffer number
+    "set statusline+=\ 
+    "set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
+    set statusline+=%03c " column
+    set statusline+=-
+    set statusline+=%03v " virtual column
+    set statusline+=\ 
+    set statusline+=%3p%% " pct
+    hi User1 guifg=White
+    hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
 " }

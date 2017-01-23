@@ -8,6 +8,8 @@ alias open=xdg-open
 alias pbcopy='xsel -i -b'
 alias pbpaste='xsel -b'
 
+alias netctl='sudo netctl'
+
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
 done
