@@ -1,0 +1,71 @@
+IMAPAccount netic
+    # Address to connect to
+    Host zimbra.netic.dk
+    User kn@netic.dk
+    PassCmd "~/bin/mail-credential-helper.sh zimbra.netic.dk"
+    SSLType IMAPS
+    CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore netic-remote
+    Account netic
+
+MaildirStore netic-local
+    # The trailing "/" is important
+    Path ~/mail/netic/
+    Inbox ~/mail/netic/INBOX
+
+Channel netic-inbox
+    Master :netic-remote:INBOX
+    Slave :netic-local:INBOX
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel netic-sent
+    Master :netic-remote:Sent
+    Slave :netic-local:Sent
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel netic-drafts
+    Master :netic-remote:Drafts
+    Slave :netic-local:Drafts
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel netic-jira
+    Master :netic-remote:JIRA
+    Slave :netic-local:JIRA
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel netic-root
+    Master :netic-remote:root
+    Slave :netic-local:root
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel netic-trash
+    Master :netic-remote:Trash
+    Slave :netic-local:Trash
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Group netic
+    Channel netic-inbox
+    Channel netic-sent
+    Channel netic-drafts
+    Channel netic-root
+    Channel netic-jira
+    Channel netic-trash

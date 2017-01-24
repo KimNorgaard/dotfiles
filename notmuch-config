@@ -11,7 +11,7 @@
 # configured here named ".notmuch".
 #
 [database]
-path=/Users/kn/mail
+path=/home/kn/mail
 
 # User configuration
 #
@@ -29,9 +29,9 @@ path=/Users/kn/mail
 # address to which the original email was addressed.
 #
 [user]
-name=
-primary_email=
-other_email=
+name="Kim Nørgaard"
+primary_email=kn@netic.dk
+other_email=jasen@jasen.dk
 
 # Configuration for "notmuch new"
 #
@@ -49,7 +49,7 @@ other_email=
 #
 [new]
 tags=unread;inbox;
-ignore=
+ignore=.uidvalidity;.mbsyncstate
 
 # Search configuration
 #
