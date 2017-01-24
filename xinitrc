@@ -1,12 +1,10 @@
-eval $(ssh-agent)
-
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
 xrandr --dpi 220
 
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets)
-#export SSH_AUTH_SOCK
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 
 feh --bg-scale ~/Pictures/wallpapers/NQp8ofd.jpg
 

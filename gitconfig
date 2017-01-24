@@ -40,7 +40,5 @@
     lg = log --oneline --graph --decorate
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
-#[credential]
-#	helper = osxkeychain
 [credential]
-	helper = /usr/lib/git-core/git-credential-gnome-keyring
+	helper = ~/bin/git-credentials-helper.sh
