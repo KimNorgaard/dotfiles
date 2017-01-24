@@ -1,9 +1,9 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldlevel=0 foldmethod=marker:
 " Kim Nørgard <jasen@jasen.dk>
 
-" vim, not vi
-set nocompatible
-filetype off
+if !has('nvim')
+    set nocompatible
+endif
 
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
@@ -568,31 +568,28 @@ autocmd VimEnter *
     endfunction
 
     set statusline=
-    set statusline+=%6*%(%m%r%h%w\ %)%*        " modified, ro, help, preview
-    set statusline+=%5*%{expand('%:h')}/       " relative path
-    set statusline+=%1*%t%*                    " file name
-    set statusline+=%6*%{&paste?\"\ PASTE\ \":\"\ \"}%* " paste
-    set statusline+=%<                            " truncate if needed
-    set statusline+=%#warningmsg# " warning color
-    set statusline+=%{TrailingSpaceWarning()}
-    set statusline+=%*
+    set statusline+=%(%m%r%h%w\ %)               " modified, ro, help, preview
+    set statusline+=%{expand('%:h')}/            " relative path
+    set statusline+=%t                           " file name
     set statusline+=\ 
-    set statusline+=%#warningmsg# " warning color
-    set statusline+=%{LinterErrFlag()}
-    set statusline+=%*
-    set statusline+=%=                         " align right
+    set statusline+=%{&paste?\"PASTE\ \":\"\"}   " paste
+    set statusline+=%<                           " truncate if needed
+    set statusline+=%#warningmsg#%{TrailingSpaceWarning()}%*
+    set statusline+=\ 
+    set statusline+=%#warningmsg#%{LinterErrFlag()}%*
+    set statusline+=%=                           " align right
     set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
     set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
     set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
     set statusline+=\ 
-    "set statusline+=%2*buf:%-3n%* " buffer number
-    "set statusline+=\ 
-    "set statusline+=%2*win:%-3.3{WindowNumber()}%* " window number
-    set statusline+=%03c " column
-    set statusline+=-
-    set statusline+=%03v " virtual column
+    set statusline+=b:%-3n                      " buffer number
     set statusline+=\ 
-    set statusline+=%3p%% " pct
-    hi User1 guifg=White
-    hi StatusLine guibg=DarkGrey ctermfg=White guifg=White ctermbg=None
+    set statusline+=w:%-3.3{WindowNumber()}     " window number
+    set statusline+=%03c                        " column
+    set statusline+=-
+    set statusline+=%03v                        " virtual column
+    set statusline+=\ 
+    set statusline+=%3p%%                       " pct
 " }}}
+
+silent! source ~/.vimrc.local
