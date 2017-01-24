@@ -41,4 +41,4 @@
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
 [credential]
-	helper = ~/bin/git-credentials-helper.sh
+	helper = git-credentials-helper.sh
