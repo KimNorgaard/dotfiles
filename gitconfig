@@ -35,7 +35,7 @@
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
 [credential]
-    helper = git-helper-multios.sh
+    helper = /usr/local/bin/git-credential-helper.sh
 
 [include]
     path = ~/.gitconfig.local
