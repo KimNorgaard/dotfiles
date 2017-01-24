@@ -255,6 +255,10 @@ call plug#end()
 
   " Set working directory
   nnoremap <leader>. :lcd %:p:h<CR>
+
+  " Resolve symlink in order to use fugitive
+  nnoremap <Leader>L :<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar>
+    \ call fugitive#detect(fnameescape(expand('%:p:h')))<CR>
 " }}}
 
 " Navigation {{{
