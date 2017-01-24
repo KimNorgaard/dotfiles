@@ -1,39 +1,75 @@
 #!/bin/sh
 
+DOTFILES=~/.dotfiles
+
+link_it() {
+  if [ "x$2" = "x"]; then
+    DST="~/.$1"
+  else
+    DST=$2
+  fi
+  ln -sf $DOTFILES/$1 $DST
+}
+
 cd
 
-rm -rf .vim .vimrc .zshrc .tmux.conf .shell
+mkdir -p .config
 
-ln -s .dotfiles/vimrc .vimrc
-ln -s .dotfiles/vim .vim
-ln -s .dotfiles/tmux.conf .tmux.conf
-ln -s .dotfiles/zshrc .zshrc
-ln -s .dotfiles/zshenv .zshenv
-ln -s .dotfiles/shell .shell
-ln -s .dotfiles/pystartup .pystartup
-ln -s .dotfiles/gitignore_global .gitignore_global
-ln -s .dotfiles/gitconfig .gitconfig
-ln -s .dotfiles/pylintrc .pylintrc
-ln -s .dotfiles/muttrc .muttrc
-ln -s .dotfiles/Xresources .Xresources
-ln -s .dotfiles/i3 .i3
-ln -s .dotfiles/xinitrc .xinitrc
-ln -s .dotfiles/Xmodmap .Xmodmap
-ln -s .dotfiles/gtkrc-2.0 .gtkrc-2.0
-ln -s .dotfiles/todo.cfg .todo.cfg
-ln -s .dotfiles/i3status.conf .i3status.conf
-ln -s .dotfiles/xserverrc .xserverrc
-ln -s .dotfiles/asoundrc .asoundrc
-ln -s .dotfiles/flake8 .flake8
+# don't remove .vim/tmp and .mutt/temp
+# or move data out of there - also for mutt
+#rm -rf .vim .shell .mutt .config/gtk-3.0
 
-ln -s ~/.dotfiles/gtk-3.0 .config/gtk-3.0
+# Scripts
+(
+    cd bin
+    for f in *; do
+      link_it bin/$f ~/bin/$f
+    done
+)
 
-#mkdir -p .mutt
-##for f in mailcap offlineimap.py quicklook.sh sig view_attachment.sh; do
-#  ln -s .dotfiles/mutt/$f .mutt/$f
-#done
+# Git
+link_it gitconfig
+link_it gitignore_global
+sudo ln -s ~/bin/git-credential-helper.sh /usr/local/bin/git-credential-helper.sh
 
-#chmod 755 .mutt/offlineimap.py .mutt/quicklook.sh .mutt/view_attachment.sh
+# Vim
+link_it vimrc
+link_it vim
+ln -sf ~/.config/nvim ~/.vim
 
+# Mail
+link_it muttrc
+link_it mutt
+mkdir -p .mutt/temp
+link_it mbsyncrc
+link_it msmtprc
+link_it notmuch-config
+
+# Shell
+link_it zshrc
+link_it zshenv
+link_it shell
+link_it tmux.conf
 mkdir -p .oh-my-zsh/custom/themes
 cp .shell/zsh-themes/dracula.zsh-theme .oh-my-zsh/custom/themes/
+
+# Dev
+link_it flake8
+link_it pystartup
+link_it pylintrc
+
+# X
+link_it cdmrc
+link_it gtkrc-2.0
+link_it gtk-3.0 ~/.config/gtk-3.0
+link_it Xresources
+link_it xinitrc
+link_it Xmodmap
+link_it xserverrc
+link_it i3 ~/.config/i3
+link_it i3status.conf
+
+# Misc
+link_it asoundrc
+link_it todo.cfg
+
