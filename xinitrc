@@ -6,7 +6,8 @@ xrandr --dpi 220
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 
-feh --bg-scale ~/Pictures/wallpapers/NQp8ofd.jpg
+#feh --bg-scale ~/Pictures/wallpapers/NQp8ofd.jpg
+xsetroot -solid "#333333"
 
 xautolock -detectsleep \
           -notify 120 -notifier "xset dpms force off" \

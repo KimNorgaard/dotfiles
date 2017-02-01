@@ -36,7 +36,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec "rofi -combi-modi run,ssh,window -show combi -modi combi,run,ssh,window -separator-style none -hide-scrollbar"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -93,11 +93,19 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# set $ws1 1:
+# set $ws2 2:
+# set $ws3 3:
+# set $ws4 4:
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
@@ -106,10 +114,10 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
@@ -152,7 +160,6 @@ bindsym $mod+r mode "resize"
 
 for_window [class="HipChat"] floating enable
 
-# Screenshots
 # Screenshot fullscreen
 #bindsym Print exec "scrot -q 100 ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
 # Screenshot with selection
@@ -161,12 +168,20 @@ for_window [class="HipChat"] floating enable
 #bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
 
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+set $barbg #262626
 bar {
   position top
-  status_command i3status
-  #status_command i3blocks
+  status_command i3blocks
+  font pango:FontAwesome 10
+  #strip_workspace_numbers yes
+  colors {
+    background $barbg
+    statusline #bfbfbf
+    focused_workspace $barbg $barbg #E57910
+    active_workspace $barbg $barbg #bfbfbf
+    inactive_workspace $barbg $barbg #4d4d4d
+    urgent_workspace $barbg $barbg red
+  }
 }
 
 new_window pixel 1
@@ -175,9 +190,9 @@ new_window pixel 1
 # i3lock
 bindsym $mod+Escape exec --no-startup-id "~/bin/lock.sh"
 
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -SIGRTMIN+10 i3blocks"
+bindsym XF86AudioMute exec "amixer -q set Master toggle; pkill -SIGRTMIN+10 i3blocks"
 
 #bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
@@ -188,7 +203,27 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id "cd /sys/class/backlight/gmux
 bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur-5)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
 bindsym XF86KbdBrightnessUp   exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur+5)); if [ $cur -gt 255 ]; then cur=255; fi; echo $cur | sudo tee brightness "
 
-exec --no-startup-id i3-msg "workspace 2; append_layout /home/kn/.i3/ws_mail.json"
+mode "workspace" {
+    bindsym Left   workspace prev_on_output
+    bindsym Right  workspace next_on_ouput
+    bindsym Down   workspace prev
+    bindsym Up     workspace next
+
+    bindsym Tab    layout toggle all
+
+    bindsym r      exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+
+    bindsym h    move workspace to output left
+    bindsym l    move workspace to output right
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym XF86LaunchB mode "workspace"
+
+exec --no-startup-id i3-msg "workspace $ws2; append_layout /home/kn/.config/i3/ws_mail.json"
+exec --no-startup-id i3-msg "workspace $ws3; split h; exec urxvt; exec urxvt"
 
 exec --no-startup-id compton --config ~/.i3/compton.conf
 
