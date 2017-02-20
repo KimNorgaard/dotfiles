@@ -51,6 +51,8 @@ Plug 'jlanzarotta/bufexplorer'         " fancy buffer-handler
 
 Plug 'pangloss/vim-simplefold'         " smarter folding
 
+Plug 'fatih/vim-go'
+
 call plug#end()
 " }}}
 

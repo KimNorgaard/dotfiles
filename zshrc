@@ -52,6 +52,10 @@ export EDITOR=nvim
 export PAGER=less
 export LESS='-RM' 
 
+lsp() {
+  lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+}
+
 # Always use menu completion, and make the colors pretty!
 zstyle ':completion:*' menu select yes
 zstyle ':completion:*:default' list-colors ''
@@ -79,3 +83,6 @@ export ZENHEST_USER=$(whoami)
 export LPASS_AGENT_TIMEOUT=28800
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+fpath=(/home/kn/src/lpasszsh $fpath)
+compinit

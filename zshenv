@@ -9,3 +9,5 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m'       # begin underline
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
 
 source ~/.shell/func
+
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
