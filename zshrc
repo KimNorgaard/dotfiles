@@ -45,44 +45,28 @@ source $ZSH/oh-my-zsh.sh
 PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
 export PATH
 
-
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
+
 export EDITOR=nvim
 export PAGER=less
 export LESS='-RM' 
-
-lsp() {
-  lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
-}
-
-# Always use menu completion, and make the colors pretty!
-zstyle ':completion:*' menu select yes
-zstyle ':completion:*:default' list-colors ''
+export ANSIBLE_NOCOWS=1
+export PYTHONSTARTUP="$HOME/.pystartup"
+export TODOTXT_DEFAULT_ACTION=ls
+export LPASS_AGENT_TIMEOUT=28800
 
 REPORTTIME=5
-
-export POOLPL_SERVER="https://stingray01.netic.dk:9090"
 
 if [ -d $HOME/perl5 ]; then
   eval $(/usr/bin/perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)
 fi
 
-export ANSIBLE_NOCOWS=1
-#export VIRTUAL_ENV_DISABLE_PROMPT=1
-#
-export PYTHONSTARTUP="$HOME/.pystartup"
-
-export JIRA_URL=https://jira.netic.dk
-
-export TODOTXT_DEFAULT_ACTION=ls
-
-export ZENHEST_URL=http://zen01.netic.dk:8080
-export ZENHEST_USER=$(whoami)
-
-export LPASS_AGENT_TIMEOUT=28800
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# Always use menu completion, and make the colors pretty!
+zstyle ':completion:*' menu select yes
+zstyle ':completion:*:default' list-colors ''
 
 fpath=(/home/kn/src/lpasszsh $fpath)
 compinit
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
