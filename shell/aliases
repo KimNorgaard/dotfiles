@@ -19,3 +19,6 @@ alias netctl='sudo netctl'
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
 done
+
+# history
+alias history='fc -l 1'
