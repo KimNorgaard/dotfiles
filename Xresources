@@ -10,7 +10,8 @@ Xft.rgba: rgb
 !urxvt.font: xft:DejaVuSansMono:size=6
 !urxvt.font: xft:Inconsolata:size=8
 !urxvt.font: xft:Source Code Pro:size=10:hinting=True;antialias:True
-urxvt.font: xft:Hack:size=8:hinting=True;antialias:True
+!urxvt.font: xft:Hack:size=8:hinting=True;antialias:True
+urxvt.font: xft:Iosevka:hinting=True:size=8:style=Regular:antialias=True
 
 
 !Settings
@@ -18,7 +19,7 @@ URxvt.depth: 32
 URxvt.loginShell: true
 URxvt.internalBorder: 3
 URxvt.lineSpace: 0
-URxvt.letterSpace: 0
+URxvt.letterSpace: 2
 URxvt.clipboard.autocopy: true
 URxvt.clipboard.copycmd: xsel -i -b
 URxvt.clipboard.pastecmd: xsel -b
@@ -43,7 +44,6 @@ URxvt.keysym.C-M-Up:        font-size:incglobal
 URxvt.keysym.C-M-Down:      font-size:decglobal
 
 !URxvt*termName: rxvt
-
 
 !Colors
 ! Dracula Xresources palette

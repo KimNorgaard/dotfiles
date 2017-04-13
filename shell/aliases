@@ -22,3 +22,6 @@ done
 
 # history
 alias history='fc -l 1'
+
+# ls
+alias ls='ls -F'

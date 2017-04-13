@@ -1,9 +1,3 @@
-PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin
-export PATH
-
-LANG=en_US.UTF-8
-LC_CTYPE=en_US.UTF-8
-
 export ANSIBLE_NOCOWS=1
 export PYTHONSTARTUP="$HOME/.pystartup"
 export TODOTXT_DEFAULT_ACTION=ls
@@ -23,5 +17,7 @@ export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m'       # begin underline
 
 export REPORTTIME=5
+
+export GOPATH=~/src/go
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local

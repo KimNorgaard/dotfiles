@@ -11,15 +11,19 @@ call plug#begin('~/.vim/plugged')
 if has('nvim')
     Plug 'Shougo/deoplete.nvim'        " completion
     Plug 'zchee/deoplete-jedi', {'for': 'python'}   " python completion
+    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'} " go completion
 else
     Plug 'davidhalter/jedi-vim', {'for': 'python'}  " python completion
 endif
 
 Plug 'neomake/neomake'                 " linting, making
 
-Plug 'MarcWeber/vim-addon-mw-utils'    " required by snipmate
-Plug 'garbas/vim-snipmate'             " snippets
-Plug 'honza/vim-snippets'              " actual snippets
+"Plug 'MarcWeber/vim-addon-mw-utils'    " required by snipmate
+"Plug 'garbas/vim-snipmate'             " snippets
+"Plug 'honza/vim-snippets'              " actual snippets
+
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
 Plug 'tpope/vim-surround'              " parentheses, brackets, quotes!
 Plug 'tpope/vim-repeat'                " let plugins use '.'
@@ -202,8 +206,8 @@ call plug#end()
     endif
 
     if has("gui_running")
-        set macligatures
-        set guifont=Fira\ Code:h12
+        "set macligatures
+        set guifont=Fira\ Code:h10
         set linespace=3
         set noicon
         "set macmeta
@@ -426,6 +430,12 @@ autocmd VimEnter *
   let g:vim_markdown_folding_disabled=0
 " }}}
 
+" Plugin: neosnippet {{{
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+" }}}
+
 " Plugin: snipmate {{{
   let g:snipMate = get(g:, 'snipMate', {})
   let g:snipMate.scope_aliases = {}
@@ -447,7 +457,8 @@ autocmd VimEnter *
 " }}}
 
 " Plugin: neomake {{{
-  autocmd! BufWritePost *.py Neomake
+  "autocmd! BufWritePost *.py Neomake
+  autocmd! FileType python autocmd BufWritePost * Neomake
 " }}}
 
 " Plugin: polyglot {{{
@@ -457,6 +468,10 @@ autocmd VimEnter *
 " Plugin: gitgutter {{{
     let g:gitgutter_enabled = 0
     nmap <leader>G :GitGutterToggle<CR>
+" }}}
+
+" Plugin: vim-go {{{
+    let g:go_fmt_command = "goimports"
 " }}}
 
 " text files {{{

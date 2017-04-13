@@ -1,3 +1,3 @@
 #!/bin/sh
 
-i3lock -c 000000
+/usr/bin/i3lock -c 001800

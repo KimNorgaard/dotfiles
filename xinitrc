@@ -1,6 +1,8 @@
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
-xrandr --dpi 220
+xrandr --dpi 168
+
+xset r rate 250 25
 
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
