@@ -10,6 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $mod3 Mod3
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -201,6 +202,10 @@ bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -SIGRT
 bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -SIGRTMIN+10 i3blocks"
 bindsym XF86AudioMute exec "amixer -q set Master toggle; pkill -SIGRTMIN+10 i3blocks"
 
+bindsym $mod3+F12 exec "amixer -q set Master 5%+ unmute; pkill -SIGRTMIN+10 i3blocks"
+bindsym $mod3+F11 exec "amixer -q set Master 5%- unmute; pkill -SIGRTMIN+10 i3blocks"
+bindsym $mod3+F10 exec "amixer -q set Master toggle; pkill -SIGRTMIN+10 i3blocks"
+
 #bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
@@ -228,6 +233,7 @@ mode "workspace" {
     bindsym Escape mode "default"
 }
 bindsym XF86LaunchB mode "workspace"
+bindsym $mod3+F4 mode "workspace"
 
 exec --no-startup-id i3-msg "workspace $ws2; append_layout /home/kn/.config/i3/ws_mail.json"
 exec --no-startup-id i3-msg "workspace $ws3; split h; exec urxvt; exec urxvt"

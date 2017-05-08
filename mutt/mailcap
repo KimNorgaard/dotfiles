@@ -1,5 +1,6 @@
 # MS Word documents
-application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
+#application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
+application/msword; antiword %s; copiousoutput;
 
 # Images
 #image/*; ~/.mutt/quicklook.sh %s
