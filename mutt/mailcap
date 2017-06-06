@@ -1,23 +1,10 @@
-# MS Word documents
-#application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
-application/msword; antiword %s; copiousoutput;
+application/msword ; antiword %s; copiousoutput;
 
-# Images
-#image/*; ~/.mutt/quicklook.sh %s
-image/*; feh %s
+image/*            ; feh --scale %s; test=test -n "$DISPLAY"
 
-# PDFs
-#application/pdf; ~/.mutt/view_attachment.sh %s pdf
-application/pdf; xpdf %s
+# application/pdf    ; xpdf %s
+application/pdf    ; zathura %s ; copiousoutput
 
-# HTML
-#text/html; ~/.mutt/view_attachment.sh %s html
+text/calendar      ; ~/.mutt/mutt-ical.py -i -e "kn@netic.dk" %s
 
-# Unidentified files
-application/octet-stream; ~/.mutt/view_attachment.sh %s "-"
-
-# ical
-text/calendar; ~/.mutt/mutt-ical.py -i -e "kn@netic.dk" %s
-
-# html
-text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/html          ; w3m -dump -I %{charset} -T text/html -cols 70 ; copiousoutput;
