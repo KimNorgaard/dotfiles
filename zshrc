@@ -16,6 +16,9 @@ source ~/.shell/history.zsh
 
 bindkey -e
 
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 # zsh
 #fpath=(/home/kn/src/lpasszsh $fpath)
 
