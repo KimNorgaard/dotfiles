@@ -63,6 +63,7 @@ call plug#end()
 " General Settings {{{
     filetype plugin indent on         " load plugins and indent
 
+    "set termguicolors
     set notimeout                     " don't timeout on mappings
     set ttimeout                      " do timeout on terminal key codes
     set ttimeoutlen=10                " key code timeout
