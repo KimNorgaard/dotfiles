@@ -33,7 +33,7 @@ URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
 !Ext
-URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select,font-size,confirm-paste
+URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select,confirm-paste
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.matcher.launcher.0: xdg-open
 URxvt.urlLauncher: xdg-open
@@ -47,24 +47,46 @@ URxvt.keysym.C-M-Down:      font-size:decglobal
 
 !Colors
 ! Dracula Xresources palette
-*foreground: #F8F8F2
-*background: #282A36
+!*foreground: #F8F8F2
+!*background: #282A36
+! amber (593nm)
+*foreground: #ffcc00
+! darker amber (600nm)
+!*foreground: #ffb000
+*background: #262626
+
+! black
+! *.color0:       #282a2e
 *color0:     #000000
-*color8:     #4D4D4D
-*color1:     #FF5555
-*color9:     #FF6E67
-*color2:     #50FA7B
-*color10:    #5AF78E
-*color3:     #F1FA8C
-*color11:    #F4F99D
-*color4:     #CAA9FA
-*color12:    #CAA9FA
-*color5:     #FF79C6
-*color13:    #FF92D0
-*color6:     #8BE9FD
-*color14:    #9AEDFE
-*color7:     #BFBFBF
-*color15:    #E6E6E6
+*color8:       #373b41
+
+! red
+*color1:       #a54242
+*color9:       #cc6666
+
+! green
+*color2:       #8c9440
+*color10:      #b5bd68
+
+! yellow
+*color3:       #de935f
+*color11:      #f0c674
+
+! blue
+*color4:       #5f819d
+*color12:      #81a2be
+
+! magenta
+*color5:       #85678f
+*color13:      #b294bb
+
+! cyan
+*color6:       #5e8d87
+*color14:      #8abeb7
+
+! white
+*color7:       #707880
+*color15:      #c5c8c6
 
 ! Enable the extended coloring options
 rofi.color-enabled: true
@@ -88,33 +110,3 @@ rofi.width: 50
 rofi.font: Hack 12
 rofi.lines: 15
 rofi.fixed-num-lines: true
-
-! special
-!*foreground:   #373b41
-!*background:   #ffffff
-!*cursorColor:  #373b41
-! black
-!*color0:       #1d1f21
-!*color8:       #969896
-! red
-!*color1:       #cc342b
-!*color9:       #cc342b
-! green
-!*color2:       #198844
-!*color10:      #198844
-! yellow
-!*color3:       #fba922
-!*color11:      #fba922
-! blue
-!*color4:       #3971ed
-!*color12:      #3971ed
-! magenta
-!*color5:       #a36ac7
-!*color13:      #a36ac7
-! cyan
-!*color6:       #3971ed
-!*color14:      #3971ed
-! white
-!*color7:       #c5c8c6
-!*color15:      #ffffff
-
