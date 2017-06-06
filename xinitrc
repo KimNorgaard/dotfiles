@@ -1,15 +1,22 @@
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
-xrandr --dpi 168
+xrandr --dpi 168 &
 
-xset r rate 250 25
+xset r rate 250 25 &
 
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+export GPG_AGENT_INFO
+export GNOME_KEYRING_CONTROL
+export GNOME_KEYRING_PID
 
-#feh --bg-scale ~/Pictures/wallpapers/NQp8ofd.jpg
-xsetroot -solid "#333333"
+export TERMINAL=urxvtc
+urxvtd &
+
+xsetroot -solid "#333333" &
+feh --bg-scale ~/Pictures/wallpapers/wallhaven-107269.jpg &
 
 xautolock -detectsleep \
           -notify 120 -notifier "xset dpms force off" \
