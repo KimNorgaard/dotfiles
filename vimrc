@@ -175,10 +175,18 @@ call plug#end()
 
     set diffopt+=vertical
 
+
     " neovim
     if has('nvim')
         let g:python_host_prog = $HOME . '/src/neovim2/bin/python'
         let g:python3_host_prog = $HOME . '/src/neovim3/bin/python'
+        set inccommand=nosplit          " Live search and replace
+
+        " Make escape work in the Neovim terminal.
+        tnoremap <Esc> <C-\><C-n>
+        " Start terminal in insert mode
+        "autocmd BufEnter term://* startinsert
+
     endif
 " }
 
@@ -444,6 +452,7 @@ autocmd VimEnter *
 " }}}
 
 " Plugin: pymode {{{
+  let g:pymode_python = 'python3'
   let g:pymode_lint = 0
   let g:pymode_folding = 1
   let g:pymode_rope = 0
