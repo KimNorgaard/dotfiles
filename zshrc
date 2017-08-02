@@ -7,8 +7,47 @@ LC_CTYPE=en_US.UTF-8
 setopt noautomenu
 setopt nomenucomplete
 
-source ~/.shell/aliases
-source ~/.shell/func
+################################################################################
+# ALIASES
+################################################################################
+# vim
+alias vim=nvim
+alias vi=nvim
+alias ovim="\vim"
+alias vimdiff="nvim -d"
+
+# todo
+alias t=todo.sh
+
+# open
+alias open=xdg-open
+
+# clipboard
+alias pbcopy='xsel -i -b'
+alias pbpaste='xsel -b'
+
+alias netctl='sudo netctl'
+
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+    alias "$method"="curl -X \"$method\""
+done
+
+# history
+alias history='fc -l 1'
+
+# ls
+alias ls='ls -F'
+
+################################################################################
+# FUNCTIONS
+################################################################################
+function pi() {
+  puppet describe --providers $1|less -F
+}
+
+lsp() {
+  lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+}
 
 ################################################################################
 # AUTOCOMPLETION

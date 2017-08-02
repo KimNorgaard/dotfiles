@@ -19,6 +19,7 @@ xsetroot -solid "#333333" &
 feh --bg-scale ~/Pictures/wallpapers/wallhaven-107269.jpg &
 
 xautolock -detectsleep \
+          -corners -000 \
           -notify 120 -notifier "xset dpms force off" \
           -time 3 -locker "~/bin/lock.sh" \
           -killtime 60 -killer "systemctl suspend" &

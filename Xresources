@@ -49,11 +49,18 @@ URxvt.keysym.C-M-Down:      font-size:decglobal
 ! Dracula Xresources palette
 !*foreground: #F8F8F2
 !*background: #282A36
+
 ! amber (593nm)
 *foreground: #ffcc00
+
 ! darker amber (600nm)
 !*foreground: #ffb000
+
+! green
+!*foreground: #50fa7b
+
 *background: #262626
+
 
 ! black
 ! *.color0:       #282a2e
