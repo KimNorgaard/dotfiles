@@ -1,46 +1,47 @@
+#-------------------------------------------------------------------------------
+# PATH
+#-------------------------------------------------------------------------------
 PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:~/bin:$GOPATH/bin
 export PATH
 
+#-------------------------------------------------------------------------------
+# LOCALE
+#-------------------------------------------------------------------------------
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
 
 setopt noautomenu
 setopt nomenucomplete
 
-################################################################################
+#-------------------------------------------------------------------------------
 # ALIASES
-################################################################################
+#-------------------------------------------------------------------------------
 # vim
 alias vim=nvim
 alias vi=nvim
 alias ovim="\vim"
 alias vimdiff="nvim -d"
 
-# todo
-alias t=todo.sh
-
-# open
+# misc
 alias open=xdg-open
+alias netctl='sudo netctl'
+alias t=todo.sh
+alias history='fc -l 1'
+alias ls='ls -F'
 
 # clipboard
 alias pbcopy='xsel -i -b'
 alias pbpaste='xsel -b'
 
-alias netctl='sudo netctl'
 
+# http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
 done
 
-# history
-alias history='fc -l 1'
-
-# ls
-alias ls='ls -F'
-
-################################################################################
+#-------------------------------------------------------------------------------
 # FUNCTIONS
-################################################################################
+#-------------------------------------------------------------------------------
 function pi() {
   puppet describe --providers $1|less -F
 }
@@ -49,9 +50,9 @@ lsp() {
   lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 
-################################################################################
+#-------------------------------------------------------------------------------
 # AUTOCOMPLETION
-################################################################################
+#-------------------------------------------------------------------------------
 autoload -Uz compinit
 compinit
 
@@ -104,9 +105,9 @@ zstyle ':completion:*:warnings' format '%F{202}%BSorry, no matches for: %F{214}%
 # Show message while waiting for completion
 zstyle ':completion:*' show-completer true
 
-################################################################################
+#-------------------------------------------------------------------------------
 # PROMPT
-################################################################################
+#-------------------------------------------------------------------------------
 setopt promptsubst
 autoload -Uz colors && colors
 
@@ -140,9 +141,9 @@ local ret_cwd="%(?:%{$fg[green]%}:%{$fg[red]%})%~"
 PROMPT='%m:${ret_cwd} $(git_prompt_info)% %{$reset_color%}'
 
 
-################################################################################
+#-------------------------------------------------------------------------------
 # HISTORY
-################################################################################
+#-------------------------------------------------------------------------------
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -157,14 +158,12 @@ setopt incappendhistory
 # Emacs key bindings
 bindkey -e
 
-################################################################################
-# FZF
-################################################################################
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-# zsh
-#fpath=(/home/kn/src/lpasszsh $fpath)
+#-------------------------------------------------------------------------------
+# FZF completion
+#-------------------------------------------------------------------------------
+for f in /usr/share/fzf/key-bindings.zsh /usr/share/fzf/completion.zsh; do
+  source $f
+done
 
 if [ -d $HOME/perl5 ]; then
   eval $(/usr/bin/perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)
@@ -179,6 +178,9 @@ if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
   source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
+#-------------------------------------------------------------------------------
+# PONYSAY
+#-------------------------------------------------------------------------------
 if which ponysay > /dev/null; then
   ponysay -q
 fi
