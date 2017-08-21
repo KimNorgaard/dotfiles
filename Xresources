@@ -12,6 +12,8 @@ Xft.rgba: rgb
 !urxvt.font: xft:Source Code Pro:size=10:hinting=True;antialias:True
 !urxvt.font: xft:Hack:size=8:hinting=True;antialias:True
 urxvt.font: xft:Iosevka:hinting=True:size=8:style=Regular:antialias=True
+!urxvt.font: xft:Hermit:style=medium:size=8
+
 
 
 !Settings

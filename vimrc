@@ -5,6 +5,10 @@ if !has('nvim')
     set nocompatible
 endif
 
+if has('vim')
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
 
@@ -57,13 +61,16 @@ Plug 'pangloss/vim-simplefold'         " smarter folding
 
 Plug 'fatih/vim-go'
 
+Plug 'NLKNguyen/papercolor-theme'      " papercolor
+Plug 'rakr/vim-one'                    " vim-one color-schemes
+
 call plug#end()
 " }}}
 
 " General Settings {{{
     filetype plugin indent on         " load plugins and indent
 
-    "set termguicolors
+    set termguicolors
     set notimeout                     " don't timeout on mappings
     set ttimeout                      " do timeout on terminal key codes
     set ttimeoutlen=10                " key code timeout
