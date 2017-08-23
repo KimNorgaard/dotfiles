@@ -185,8 +185,8 @@ call plug#end()
 
     " neovim
     if has('nvim')
-        let g:python_host_prog = $HOME . '/src/neovim2/bin/python'
-        let g:python3_host_prog = $HOME . '/src/neovim3/bin/python'
+        let g:python_host_prog = $HOME . '/.python2_neovim/bin/python'
+        let g:python3_host_prog = $HOME . '/.python3_neovim/bin/python'
         set inccommand=nosplit          " Live search and replace
 
         " Make escape work in the Neovim terminal.

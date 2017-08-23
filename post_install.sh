@@ -24,7 +24,7 @@ aurinst() {
 }
 
 h1() {
-  echo 
+  echo
   echo -e "\e[96m**************************************************\e[0m"
   echo -e "\e[96m* $*\e[0m"
   echo -e "\e[96m**************************************************\e[0m"
@@ -68,7 +68,7 @@ pac -Syu --quiet
 h1 "Installing packages"
 
 h2 "Installing base utils"
-inst ack acpi acpid cowsay ansible bc dialog docker efibootmgr efivar fzf git gnupg ipcalc jq kbd lastpass-cli lsof openssh parted ponysay puppet ranger smartmontools sshpass strace subversion sudo tmux tree unrar unzip xz zip zsh
+inst ack acpi acpid cowsay ansible bc dialog docker efibootmgr efivar fzf git gnupg ipcalc jq kbd lastpass-cli lsof openssh parted ponysay puppet ranger smartmontools sshpass strace subversion sudo tmux tree unrar unzip xz zip
 
 h2 "Installing net utils"
 inst bind-tools curl ethtool gnu-netcat ifplugd iw net-snmp net-tools ntp openconnect openvpn rfkill rsync smbclient tcpdump traceroute vpnc w3m wget whois wpa_supplicant
@@ -211,13 +211,13 @@ sudo systemctl start tlp.service
 
 h2 "i3lock"
 if [ ! -f /etc/systemd/system/i3lock.service ]; then
-  sudo cp etc/systemd/system/i3lock.service /etc/systemd/system/
+  sudo cp -v etc/systemd/system/i3lock.service /etc/systemd/system/
 fi
 sudo systemctl enable i3lock.service
 
 h2 "getty@tty1"
 if [ ! -d /etc/systemd/system/getty@tty1.service.d ]; then
-  sudo cp -a etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
+  sudo cp -v -a etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
 fi
 
 
@@ -239,22 +239,41 @@ h2 "add $USER to video group"
 sudo usermod -a -G video $USER
 
 
-
 h1 "System configuration"
 
 h2 "Scripts"
-sudo cp -b --suffix=.bak -a bin/backlight.sh /etc/acpid/
-sudo cp -b --suffix=.bak -a bin/powersave.sh /usr/local/bin/
+sudo cp -v -b --suffix=.bak -a bin/backlight.sh /etc/acpi/
+sudo cp -v -b --suffix=.bak -a bin/powersave.sh /usr/local/bin/
 
 h2 "sysctl.d"
-sudo cp -b --suffix=.bak etc/sysctl.d/tuning.conf /etc/sysctl.d/
+sudo cp -v -b --suffix=.bak etc/sysctl.d/tuning.conf /etc/sysctl.d/
 
 h2 "udev rules"
-sudo cp -b --suffix=.bak etc/udev/rules.d/10-network.rules /etc/udev/rules.dk/
-sudo cp -b --suffix=.bak etc/udev/rules.d/20-powersave.rules /etc/udev/rules.dk/
-sudo cp -b --suffix=.bak etc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.dk/
+sudo cp -v -b --suffix=.bak etc/udev/rules.d/10-network.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak etc/udev/rules.d/20-powersave.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak etc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.d/
 
 h1 "Xorg"
-sudo cp -b --suffix=.bak etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
+sudo cp -v -b --suffix=.bak etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
-exit 0
+h1 "neovim"
+
+(
+cd
+
+if [ ! -d ".python3_neovim" ]; then
+  h2 "for python3"
+  virtualenv .python3_neovim
+  source .python3_neovim/bin/activate
+  pip install neovim
+  deactivate
+fi
+
+if [ ! -d ".python2_neovim" ]; then
+  h2 "for python2"
+  virtualenv -p /usr/bin/python2 .python2_neovim
+  source .python2_neovim/bin/activate
+  pip install neovim
+  deactivate
+fi
+)
