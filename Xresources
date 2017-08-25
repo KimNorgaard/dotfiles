@@ -1,5 +1,5 @@
-!Xft.dpi: 168.0
-Xft.dpi: 196.0
+Xft.dpi: 168.0
+!Xft.dpi: 196.0
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -29,6 +29,7 @@ URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
 URxvt*saveLines: 10000
+URxvt*visualBell: true
 
 !Scrollbar
 URxvt.scrollStyle: rxvt

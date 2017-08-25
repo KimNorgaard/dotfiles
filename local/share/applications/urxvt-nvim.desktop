@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=urxvt-nvim
+Type=Application
+Exec=urxvt -e nvim %F

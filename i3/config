@@ -218,11 +218,16 @@ bindsym $mod3+F10 exec "amixer -q set Master toggle; pkill -SIGRTMIN+10 i3blocks
 #bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
 
-bindsym XF86MonBrightnessDown exec --no-startup-id "cd /sys/class/backlight/gmux_backlight/; cur=$(cat brightness); cur=$((cur-20)) ; if [ $cur -lt 1 ]; then cur=5; fi; echo $cur | sudo tee brightness " 
-bindsym XF86MonBrightnessUp   exec --no-startup-id "cd /sys/class/backlight/gmux_backlight/; cur=$(cat brightness); cur=$((cur+20)) ; if [ $cur -gt 1023 ]; then cur=1023; fi; echo $cur | sudo tee brightness " 
+# Lenovo
+bindsym XF86MonBrightnessDown exec --no-startup-id "sudo /etc/acpi/backlight.sh -"
+bindsym XF86MonBrightnessUp exec --no-startup-id "sudo /etc/acpi/backlight.sh +"
 
-bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur-5)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
-bindsym XF86KbdBrightnessUp   exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur+5)); if [ $cur -gt 255 ]; then cur=255; fi; echo $cur | sudo tee brightness "
+
+#bindsym XF86MonBrightnessDown exec --no-startup-id "cd /sys/class/backlight/gmux_backlight/; cur=$(cat brightness); cur=$((cur-20)) ; if [ $cur -lt 1 ]; then cur=5; fi; echo $cur | sudo tee brightness " 
+#bindsym XF86MonBrightnessUp   exec --no-startup-id "cd /sys/class/backlight/gmux_backlight/; cur=$(cat brightness); cur=$((cur+20)) ; if [ $cur -gt 1023 ]; then cur=1023; fi; echo $cur | sudo tee brightness " 
+
+#bindsym XF86KbdBrightnessDown exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur-5)); if [ $cur -lt 0 ]; then cur=0; fi; echo $cur | sudo tee brightness "
+#bindsym XF86KbdBrightnessUp   exec --no-startup-id "cd /sys/class/leds/smc::kbd_backlight; cur=$(cat brightness); cur=$((cur+5)); if [ $cur -gt 255 ]; then cur=255; fi; echo $cur | sudo tee brightness "
 
 mode "workspace" {
     bindsym Left   workspace prev_on_output
@@ -247,7 +252,7 @@ bindsym $mod3+F4 mode "workspace"
 exec --no-startup-id i3-msg "workspace $ws2; append_layout /home/kn/.config/i3/ws_mail.json"
 exec --no-startup-id i3-msg "workspace $ws3; split h; exec i3-sensible-terminal; exec i3-sensible-terminal"
 
-exec --no-startup-id compton --config ~/.i3/compton.conf
+#exec --no-startup-id compton --config /home/kn/.config/i3/compton.conf
 
 exec --no-startup-id i3-sensible-terminal -e mutt
 exec --no-startup-id i3-sensible-terminal -e /home/kn/bin/syncmail_loop.sh

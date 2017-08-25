@@ -1,6 +1,7 @@
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
-xrandr --dpi 168 &
+#xrandr --dpi 168 &
+xrandr --dpi 144 &
 
 xset r rate 250 25 &
 
@@ -17,6 +18,9 @@ urxvtd &
 
 xsetroot -solid "#333333" &
 feh --bg-scale ~/Pictures/wallpapers/wallhaven-107269.jpg &
+
+# redshift
+/usr/bin/redshift-gtk &
 
 xautolock -detectsleep \
           -corners -000 \

@@ -113,7 +113,7 @@ h2 "Installing development languages"
 inst go go-tools python python2 python-virtualenv ruby ruby-bundler jdk8-openjdk
 
 h2 "Installing development libraries"
-inst expat yajl python-gobject python-keyring python-requests-oauthlib python-xdg
+inst expat yajl python-gobject python-keyring python-pip python-requests-oauthlib python-xdg
 
 h2 "Installing development tools"
 inst elfutils flake8
@@ -180,12 +180,10 @@ aurinst dropbox
 aurinst hipchat
 aurinst franz-bin
 
-# add --enable-24bit until upstream abides
-# https://aur.archlinux.org/packages/rxvt-unicode-cvs
-if [ ! -n "$(pacman -Qs rxvt-unicode-cvs)" ]; then
-  h2 "rxvt-unicode - add --enable-24bit"
-  pacaur --silent --noconfirm --needed --edit -S rxvt-unicode-cvs
-fi
+h2 "rxvt-unicode"
+aurinst rxvt-unicode-cvs
+inst "xrxvt-perls rxvt-unicode-terminfo"
+aurinst urxvt-font-size-git
 
 
 h1 "Setup services"
