@@ -50,6 +50,10 @@ lsp() {
   lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 
+function CONFIG() {
+   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
 #-------------------------------------------------------------------------------
 # AUTOCOMPLETION
 #-------------------------------------------------------------------------------
