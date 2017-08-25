@@ -6,33 +6,32 @@
 .viminfo
 
 .Xauthority
+.bash_history
 .cvspass
 .gitconfig.local
-.zshenv.local
-.msmtp.log
-
 .lesshst
+.msmtp.log
 .pyhistory
 .sqlite_history
 .zsh_history
-.bash_history
+.zshenv.local
 
-.dropbox/
+.cache/
 .contacts/
+.docker/
 .dotfiles/
-.pypirc
-.netrc
+.dropbox/
+.gem/
 .gnupg/
 .kube/
-.ssh/
-.pki/
-.vdirsyncer/
-.weechat/
-.w3m/
-
-.gem/
-.cache/
 .mozilla/
+.netrc
+.pki/
+.pypirc
+.ssh/
+.vdirsyncer/
+.w3m/
+.weechat/
 
 data/
 mail/
