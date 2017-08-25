@@ -30,7 +30,7 @@ markup=none
 separator=false
 
 [wifi]
-command=~/.config/i3/blocklets/wifi
+command=~/.config/i3blocks/blocklets/wifi
 instance=wlan0
 #label=
 label=
@@ -58,7 +58,7 @@ interval=30
 
 [openconnect]
 markup=pango
-command=~/.config/i3/blocklets/openconnect.sh
+command=~/.config/i3blocks/blocklets/openconnect.sh
 interval=30
 signal=11
 
@@ -70,7 +70,7 @@ signal=10
 
 [battery]
 #label=
-command=~/.config/i3/blocklets/battery.py
+command=~/.config/i3blocks/blocklets/battery.py
 interval=30
 
 [time]

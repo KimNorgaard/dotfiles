@@ -209,13 +209,13 @@ sudo systemctl start tlp.service
 
 h2 "i3lock"
 if [ ! -f /etc/systemd/system/i3lock.service ]; then
-  sudo cp -v etc/systemd/system/i3lock.service /etc/systemd/system/
+  sudo cp -v sysetcetc/systemd/system/i3lock.service /etc/systemd/system/
 fi
 sudo systemctl enable i3lock.service
 
 h2 "getty@tty1"
 if [ ! -d /etc/systemd/system/getty@tty1.service.d ]; then
-  sudo cp -v -a etc/systemd/system/getty@tty1.service.d /etc/systemd/system/
+  sudo cp -v -a sysetcetc/systemd/system/getty@tty1.service.d /etc/systemd/system/
 fi
 
 
@@ -244,15 +244,15 @@ sudo cp -v -b --suffix=.bak -a bin/backlight.sh /etc/acpi/
 sudo cp -v -b --suffix=.bak -a bin/powersave.sh /usr/local/bin/
 
 h2 "sysctl.d"
-sudo cp -v -b --suffix=.bak etc/sysctl.d/tuning.conf /etc/sysctl.d/
+sudo cp -v -b --suffix=.bak sysetcetc/sysctl.d/tuning.conf /etc/sysctl.d/
 
 h2 "udev rules"
-sudo cp -v -b --suffix=.bak etc/udev/rules.d/10-network.rules /etc/udev/rules.d/
-sudo cp -v -b --suffix=.bak etc/udev/rules.d/20-powersave.rules /etc/udev/rules.d/
-sudo cp -v -b --suffix=.bak etc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/10-network.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/20-powersave.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.d/
 
 h1 "Xorg"
-sudo cp -v -b --suffix=.bak etc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
+sudo cp -v -b --suffix=.bak sysetcetc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
 h1 "neovim"
 

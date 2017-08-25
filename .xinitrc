@@ -5,6 +5,8 @@ xrandr --dpi 144 &
 
 xset r rate 250 25 &
 
+xset -b &
+
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
 eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)

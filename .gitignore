@@ -1,5 +1,5 @@
-vim/tmp
-vim/.VimballRecord
-vim/bundle/*/doc
-vim/.netrwhist
-vim/plugged/
+.vim/tmp
+.vim/.VimballRecord
+.vim/bundle/*/doc
+.vim/.netrwhist
+.vim/plugged/
