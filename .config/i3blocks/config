@@ -69,7 +69,7 @@ interval=once
 signal=10
 
 [battery]
-#label=
+label=
 command=~/.config/i3blocks/blocklets/battery.py
 interval=30
 
