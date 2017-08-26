@@ -104,7 +104,7 @@ h2 "Installing pdf things"
 inst mupdf qpdf xpdf zathura zathura-pdf-mupdf
 
 h2 "Installing other X based stuff"
-inst libreoffice-fresh freerdp recordmydesktop redshift
+inst libreoffice-fresh freerdp lxappearance recordmydesktop redshift
 
 h2 "Installing editors"
 inst neovim
@@ -113,7 +113,7 @@ h2 "Installing development languages"
 inst go go-tools python python2 python-virtualenv ruby ruby-bundler jdk8-openjdk
 
 h2 "Installing development libraries"
-inst expat yajl python-gobject python-keyring python-pip python-requests-oauthlib python-xdg
+inst expat yajl python-gobject python-keyring python-pip python-requests-oauthlib python-sphinx python-xdg python2-sphinx
 
 h2 "Installing development tools"
 inst elfutils flake8
@@ -184,6 +184,12 @@ h2 "rxvt-unicode"
 aurinst rxvt-unicode-cvs
 inst "xrxvt-perls rxvt-unicode-terminfo"
 aurinst urxvt-font-size-git
+
+h2 "Development libraries"
+aurinst python-pyvmomi
+aurinst python2-pyvmomi
+aurinst python-tzlocal
+aurinst python2-tzlocal
 
 
 h1 "Setup services"
