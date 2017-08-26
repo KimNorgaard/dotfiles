@@ -33,6 +33,10 @@ alias ls='ls -F'
 alias pbcopy='xsel -i -b'
 alias pbpaste='xsel -b'
 
+# ls
+alias ll='ls -lFhA'
+alias llrt='ls -lFhArt'
+
 
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
