@@ -1,11 +1,8 @@
 xrdb -merge ~/.Xresources
 xmodmap ~/.Xmodmap
-#xrandr --dpi 168 &
-xrandr --dpi 144 &
-
-xset r rate 250 25 &
-
-xset -b &
+xset -b
+xset r rate 250 25
+xrandr --dpi 144
 
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
@@ -19,9 +16,8 @@ export TERMINAL=urxvtc
 urxvtd &
 
 xsetroot -solid "#333333" &
-feh --bg-scale ~/Pictures/wallpapers/wallhaven-107269.jpg &
+~/bin/set_background.sh &
 
-# redshift
 /usr/bin/redshift-gtk &
 
 xautolock -detectsleep \
