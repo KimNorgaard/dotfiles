@@ -1,5 +1,5 @@
+! Xft
 Xft.dpi: 168.0
-!Xft.dpi: 196.0
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
@@ -7,16 +7,13 @@ Xft.hinting: true
 Xft.antialias: true
 Xft.rgba: rgb
 
-!urxvt.font: xft:DejaVuSansMono:size=6
-!urxvt.font: xft:Inconsolata:size=8
-!urxvt.font: xft:Source Code Pro:size=10:hinting=True;antialias:True
-!urxvt.font: xft:Hack:size=8:hinting=True;antialias:True
-urxvt.font: xft:Iosevka:hinting=True:size=8:style=Regular:antialias=True
-!urxvt.font: xft:Hermit:style=medium:size=8
 
+! URxvt
 
+! Font
+URxvt.font: xft:Iosevka:hinting=True:size=8:style=Regular:antialias=True
 
-!Settings
+! General
 URxvt.depth: 32
 URxvt.loginShell: true
 URxvt.internalBorder: 3
@@ -31,92 +28,99 @@ URxvt*scrollTtyKeypress: true
 URxvt*saveLines: 10000
 URxvt*visualBell: true
 
-!Scrollbar
+! Scrollbar
 URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
-!Ext
+! Extensoins
 URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select,confirm-paste
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.matcher.launcher.0: xdg-open
 URxvt.urlLauncher: xdg-open
 URxvt.matcher.button: 1
-URxvt.keysym.C-Delete:    matcher:last
-URxvt.keysym.M-Delete:    matcher:list
-URxvt.keysym.C-M-Up:        font-size:incglobal
-URxvt.keysym.C-M-Down:      font-size:decglobal
+URxvt.keysym.C-Delete: matcher:last
+URxvt.keysym.M-Delete: matcher:list
+URxvt.keysym.C-M-Up: font-size:incglobal
+URxvt.keysym.C-M-Down: font-size:decglobal
 
-!URxvt*termName: rxvt
+! Colors
+! 593nm
+#define amber            #ffcc00
+! 600nm
+#define dark_amber       #ffb000
+#define crt_green        #50fa7b
+#define dark_black       #373b41
+#define light_black      #000000
+#define dark_red         #a54242
+#define light_red        #cc6666
+#define dark_green       #8c9440
+#define light_green      #b5bd68
+#define dark_yellow      #de935f
+#define light_yellow     #f0c674
+#define dark_blue        #5f819d
+#define light_blue       #81a2be
+#define dark_magenta     #85678f
+#define light_magenta    #b294bb
+#define dark_cyan        #5e8d87
+#define light_cyan       #8abeb7
+#define dark_white       #707880
+#define light_white      #c5c8c6
+#define gray15           #262626
+!#define gray16           #262626
 
-!Colors
-! Dracula Xresources palette
-!*foreground: #F8F8F2
-!*background: #282A36
-
-! amber (593nm)
-*foreground: #ffcc00
-
-! darker amber (600nm)
-!*foreground: #ffb000
-
-! green
-!*foreground: #50fa7b
-
-*background: #262626
-
+*foreground:             amber
+*background:             gray15
 
 ! black
-! *.color0:       #282a2e
-*color0:     #000000
-*color8:       #373b41
+*color0:                 dark_black
+*color8:                 light_black
 
 ! red
-*color1:       #a54242
-*color9:       #cc6666
+*color1:                 dark_red
+*color9:                 light_red
 
 ! green
-*color2:       #8c9440
-*color10:      #b5bd68
+*color2:                 dark_green
+*color10:                light_green
 
 ! yellow
-*color3:       #de935f
-*color11:      #f0c674
+*color3:                 dark_yellow
+*color11:                light_yellow
 
 ! blue
-*color4:       #5f819d
-*color12:      #81a2be
+*color4:                 dark_blue
+*color12:                light_blue
 
 ! magenta
-*color5:       #85678f
-*color13:      #b294bb
+*color5:                 dark_magenta
+*color13:                light_magenta
 
 ! cyan
-*color6:       #5e8d87
-*color14:      #8abeb7
+*color6:                 dark_cyan
+*color14:                light_cyan
 
 ! white
-*color7:       #707880
-*color15:      #c5c8c6
+*color7:                 dark_white
+*color15:                light_white
 
-! Enable the extended coloring options
+
+! rofi
 rofi.color-enabled: true
-!                  bg       border   separator
-rofi.color-window: #282828, #a89984, #a89984
-!                  bg       fg       bg-alt   hl-bg    hl-fg
-rofi.color-normal: #282828, #ebdbb2, #32302f, #665c54, #fbf1c7
-rofi.color-active: #d79921, #282828, #d79921, #fabd2f, #282828
-rofi.color-urgent: #cc241d, #282828, #cc241d, #fb4934, #282828
+!                  bg          border     separator
+rofi.color-window: gray15,     crt_green, #a89984
+!                  bg          fg         bg-alt      hl-bg      hl-fg
+rofi.color-normal: gray15,     crt_green, gray15,     crt_green, gray15
+rofi.color-active: dark_amber, gray15,    dark_amber, amber,     gray15
+rofi.color-urgent: gray15,     dark_red,  gray15,     gray15,    light_red
 
 rofi.separator-style: solid
-rofi.sidebar-mode: true
-rofi.bw: 1
+rofi.sidebar-mode: false
 rofi.columns: 1
-rofi.padding: 16
-
-rofi.yoffset: 0
-rofi.fake-transparency: false
-rofi.location: 0
-rofi.width: 50
-rofi.font: Hack 12
 rofi.lines: 15
+rofi.width: 50
+rofi.bw: 1
+rofi.padding: 16
+rofi.yoffset: 0
+rofi.location: 0
+rofi.font: Hack 12
 rofi.fixed-num-lines: true
