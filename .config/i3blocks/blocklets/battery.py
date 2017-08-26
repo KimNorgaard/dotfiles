@@ -11,8 +11,7 @@ percentages = []
 for percentage in re.findall(',\s(\d+)%', acpi):
     percentages.append(percentage)
 
-icon = ''
-output = icon + '  '
+output = ' '
 output += ' / '.join(percentages)
 
 print(output)
