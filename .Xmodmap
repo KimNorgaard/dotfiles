@@ -1,10 +1,7 @@
-!keycode  49 = less greater less greater backslash bar
-!keycode  94 = dollar degree section degree notsign notsign
-!keycode  94 = less greater less greater backslash bar
-!keycode  49 = dollar degree section degree notsign notsign
-!win left
+!left super
 keycode 133 = Super_L NoSymbol Super_L
 
+!menu is mod3
 clear mod3
 keycode 135 = Menu NoSymbol Menu
 add mod3 = Menu
