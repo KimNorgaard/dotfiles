@@ -107,6 +107,9 @@ zstyle ':completion:*:warnings' format '%F{202}%BSorry, no matches for: %F{214}%
 # Show message while waiting for completion
 zstyle ':completion:*' show-completer true
 
+# Auto rehash
+zstyle ':completion:*' rehash true
+
 #-------------------------------------------------------------------------------
 # PROMPT
 #-------------------------------------------------------------------------------
