@@ -1,17 +1,12 @@
 #-------------------------------------------------------------------------------
 # PATH
 #-------------------------------------------------------------------------------
-[[ ":$PATH:" != *":/bin:"* && ! -L /bin ]] && PATH=$PATH:/bin
-[[ ":$PATH:" != *":/usr/bin:"* && ! -L /usr/bin ]] && PATH=$PATH:/usr/bin
-[[ ":$PATH:" != *":/sbin:"* && ! -L /sbin ]] && PATH=$PATH:/sbin
-[[ ":$PATH:" != *":/usr/sbin:"* && ! -L /usr/sbin ]] && PATH=$PATH:/usr/sbin
-[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH=$PATH:/usr/local/bin
+typeset -U path
 
-[ -d $GOPATH/bin ] && PATH=$PATH:$GOPATH/bin
-
-PATH=$PATH:~/bin
-
-[ -d /usr/local/MacGPG2/bin ] && PATH=$PATH:/usr/local/MacGPG2/bin
+# Add paths if they exist and are not symlinks
+for p in /bin /usr/bin /sbin /usr/sbin /usr/local/bin /usr/local/sbin $GOPATH/bin /usr/local/MacGPG2/bin ~/bin; do
+  [ -e $p -a ! -L $p ] && path+=($p)
+done
 
 #-------------------------------------------------------------------------------
 # .zprofile.local
