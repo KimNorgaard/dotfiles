@@ -28,7 +28,8 @@ alias pbcopy='xsel -i -b'
 alias pbpaste='xsel -b'
 
 # ls
-alias ll='ls -lFhA'
+alias ll='ls -lFh'
+alias lla='ls -lFhA'
 alias llrt='ls -lFhArt'
 
 
@@ -186,8 +187,10 @@ fi
 #-------------------------------------------------------------------------------
 # PONYSAY
 #-------------------------------------------------------------------------------
-if which ponysay > /dev/null; then
-  ponysay -q
+if [ ! -z $DISPLAY ]; then
+  if which ponysay > /dev/null; then
+    ponysay -q
+  fi
 fi
 
 #-------------------------------------------------------------------------------
