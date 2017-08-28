@@ -32,7 +32,6 @@ alias ll='ls -lFh'
 alias lla='ls -lFhA'
 alias llrt='ls -lFhArt'
 
-
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
@@ -41,6 +40,17 @@ done
 #-------------------------------------------------------------------------------
 # FUNCTIONS
 #-------------------------------------------------------------------------------
+function vpn() {
+  sudo -- openconnect --config $VPN_CONFIG --syslog --pid-file=/var/run/openconnect.pid --background $VPN_SERVER
+  pkill -SIGRTMIN+11 i3blocks
+}
+
+function novpn() {
+  sudo kill -INT $(cat /var/run/openconnect.pid)
+  sleep 2
+  pkill -SIGRTMIN+11 i3blocks
+}
+
 function pi() {
   puppet describe --providers $1|less -F
 }
