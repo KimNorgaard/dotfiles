@@ -68,7 +68,7 @@ pac -Syu --quiet
 h1 "Installing packages"
 
 h2 "Installing base utils"
-inst ack acpi acpid cowsay ansible bc dialog docker efibootmgr efivar fzf git gnupg ipcalc jq kbd lastpass-cli lsof openssh parted ponysay puppet ranger smartmontools sshpass strace subversion sudo tmux tree unrar unzip xz zip
+inst ack acpi acpid cowsay ansible bc dialog cpio docker efibootmgr efivar fzf git gnupg ipcalc jq kbd lastpass-cli lsof openssh parted ponysay puppet ranger smartmontools sshpass strace subversion sudo tmux tree unrar unzip xz zip
 
 h2 "Installing net utils"
 inst bind-tools curl ethtool gnu-netcat ifplugd iw net-snmp net-tools ntp openconnect openvpn rfkill rsync smbclient tcpdump traceroute vpnc w3m wget whois wpa_supplicant
