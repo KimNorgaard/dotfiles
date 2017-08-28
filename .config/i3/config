@@ -226,6 +226,9 @@ mode "workspace" {
 bindsym XF86LaunchB mode "workspace"
 bindsym $mod3+F4 mode "workspace"
 
+# mod+printscr toggle layout
+bindsym $mod+Print exec --no-startup-id "~/bin/keymap.sh toggle"
+
 exec --no-startup-id i3-msg "workspace $ws2; append_layout ~/.config/i3/ws_mail.json"
 exec --no-startup-id i3-msg "workspace $ws3; split h; exec i3-sensible-terminal; exec i3-sensible-terminal"
 

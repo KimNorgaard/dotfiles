@@ -73,6 +73,12 @@ label=
 command=~/.config/i3blocks/blocklets/battery.py
 interval=30
 
+[keyboard]
+label=
+command=~/.config/i3blocks/blocklets/keyboard.sh
+interval=60
+signal=12
+
 [time]
 #label=
 command=date '+%b %d %H:%M:%S'
