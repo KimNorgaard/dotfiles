@@ -22,4 +22,3 @@ while true; do
   done
   echo -en "\r\033[K"
 done
-
