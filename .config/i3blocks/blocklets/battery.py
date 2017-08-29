@@ -6,7 +6,7 @@ acpi = subprocess.check_output('acpi', shell=True).strip().decode('utf-8')
 if acpi is '':
     exit(0)
 
-is_charging = re.search('Charging|Full', acpi)
+is_charging = re.search('Charging', acpi)
 percentages = []
 for percentage in re.findall(',\s(\d+)%', acpi):
     percentages.append(percentage)

@@ -37,33 +37,31 @@ label=
 interval=30
 
 [iface]
-label=
-instance=enp13s0
-interval=30
-
-[iface]
+command=~/.config/i3blocks/blocklets/iface
 label=
 instance=enp0s31f6
 interval=30
 
 [iface]
+command=~/.config/i3blocks/blocklets/iface
 label=
 instance=ens9
 interval=30
 
 [iface]
+command=~/.config/i3blocks/blocklets/iface
 label=
 instance=enp0s20u1u1u3
 interval=30
 
 [openconnect]
-markup=pango
+label=
 command=~/.config/i3blocks/blocklets/openconnect.sh
 interval=30
 signal=11
 
 [volume]
-label=♪
+label=
 instance=Master
 interval=once
 signal=10
@@ -84,7 +82,3 @@ signal=12
 command=date '+%b %d %H:%M:%S'
 interval=5
 separator=true
-
-#[tray]
-#command=stalonetray -p --icon-gravity NE --window-type toolbar
-#interval=5
