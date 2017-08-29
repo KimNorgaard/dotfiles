@@ -34,6 +34,9 @@ URxvt.scrollBar: false
 
 ! Extensoins
 URxvt.perl-ext-common: default,clipboard,matcher,keyboard-select,confirm-paste
+URxvt.perl-ext: url-select
+URxvt.url-select.launcher: firefox
+URxvt.keysym.M-u: perl:url-select:select_next
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.matcher.launcher.0: xdg-open
 URxvt.urlLauncher: xdg-open
