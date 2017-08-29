@@ -6,7 +6,7 @@ case $1 in
   toggle)
     case $LAYOUT in
       us) setxkbmap -layout dk ;;
-      *) setxkbmap -layout us ;;
+      *) setxkbmap -layout us -variant altgr-intl ;;
     esac
     pkill -SIGRTMIN+12 i3blocks
     ;;
