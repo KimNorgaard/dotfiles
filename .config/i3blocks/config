@@ -69,16 +69,16 @@ signal=10
 [battery]
 label=
 command=~/.config/i3blocks/blocklets/battery.py
-interval=30
+interval=60
 
 [keyboard]
 label=
 command=~/.config/i3blocks/blocklets/keyboard.sh
-interval=60
+interval=once
 signal=12
 
 [time]
 #label=
-command=date '+%b %d %H:%M:%S'
-interval=5
+command=date '+%b %d %H:%M'
+interval=60
 separator=true
