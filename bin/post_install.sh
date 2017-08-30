@@ -92,7 +92,7 @@ h2 "Installing X and friends"
 inst compton feh notify-osd scrot xautolock xclip xf86-input-synaptics xorg-apps xorg-server xorg-xinit xsel xterm
 
 h2 "Installing window manager stuff"
-inst i3-wm i3blocks i3lock rofi
+inst i3-wm i3blocks i3lock perl-anyevent-i3 rofi
 
 h2 "Installing browsers"
 inst firefox chromium flashplugin

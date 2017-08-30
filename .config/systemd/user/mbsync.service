@@ -1,0 +1,9 @@
+[Unit]
+Description=Mailbox synchronization service
+After=network.target network-online.target dbus.socket
+
+[Service]
+Type=oneshot
+ExecStart=/home/kn/bin/syncmail.sh
+StandardOutput=syslog
+StandardError=syslog
