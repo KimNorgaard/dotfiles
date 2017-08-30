@@ -3,7 +3,7 @@
 export DISPLAY=:0
 export XAUTHORITY=/home/kn/.Xauthority
 
-WS=${1:-eDP-1}
+WS=${1:-eDP1}
 CURRENT_WS="$(i3-msg -t get_workspaces|jq -r '.[] | select(.focused==true).name')"
 
 i3-msg "workspace 1; move workspace to $WS"
