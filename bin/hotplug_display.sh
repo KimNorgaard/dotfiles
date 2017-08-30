@@ -1,27 +1,26 @@
 #!/bin/bash
 
-#sleep 5
-#set -e
-
-activeMonitors=$(xrandr --listactivemonitors)
-
-monitorCount=$(echo "$activeMonitors" | grep "Monitors:" | awk '{print $2}')
-laptopMonitor=$(echo "$activeMonitors" | grep "0:" |awk '{print $4}')
-secondMonitor=$(echo "$activeMonitors" | grep "1:" |awk '{print $4}')
-
 export DISPLAY=:0
 export XAUTHORITY=/home/kn/.Xauthority
 
-if [ $monitorCount -eq 1 ]; then
-  xrandr --auto --output $laptopMonitor --primary
-  /home/kn/bin/move_workspaces.sh $laptopMonitor
-fi
+LAPTOP_MONITOR=$(xrandr --listactivemonitors | grep -i eDP | awk '{print $4}')
 
+xrandr --output $LAPTOP_MONITOR --auto --primary
+PRIMARY_MONITOR=$LAPTOP_MONITOR
 
-if [ $monitorCount -eq 2 ]; then
-  xrandr --output $secondMonitor --left-of $laptopMonitor --auto --primary
-  /home/kn/bin/move_workspaces.sh $secondMonitor
-fi
+for MONITOR in $(xrandr -q | grep "disconnected" | grep -iv eDP | awk '{print $1}'); do
+  xrandr --output $MONITOR --off
+done
+
+for MONITOR in $(xrandr -q | grep "\bconnected" | grep -iv eDP | awk '{print $1}'); do
+  echo Found $MONITOR
+  xrandr --output $MONITOR --auto --primary --left-of $LAPTOP_MONITOR
+  PRIMARY_MONITOR=$MONITOR
+done
+
+echo Primary monitor is $PRIMARY_MONITOR
+
+/home/kn/bin/move_workspaces.sh $PRIMARY_MONITOR
 
 xmodmap ~/.Xmodmap
 xset r rate 250 25
