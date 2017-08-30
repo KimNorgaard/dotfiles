@@ -141,8 +141,7 @@ alternative_order text/plain text/enriched text/html
 
 
 # --- Macros
-macro index O "<shell-escape>offlineimap -o<enter>"         "run offlineimap to sync all mail"
-macro index o "<shell-escape>offlineimap -oqf INBOX<enter>"  "run offlineimap to sync inbox"
+macro index O "<shell-escape>systemctl --user start mbsync<enter>"         "run mbsync service
 
 macro index C "<copy-message>?<toggle-mailboxes>"           "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>"           "move a message to a mailbox"
