@@ -109,6 +109,10 @@ inst libreoffice-fresh freerdp lxappearance recordmydesktop redshift
 h2 "Installing editors"
 inst neovim
 
+h2 "Mopidy"
+inst mopidy
+inst ncmpcpp
+
 h2 "Installing development languages"
 inst go go-tools python python2 python-virtualenv ruby ruby-bundler jdk8-openjdk
 
@@ -173,6 +177,10 @@ aurinst input-utils
 aurinst gnome-keyring-query
 aurinst kubectl-bin
 aurinst razercfg
+
+h2 "Mopidy"
+aurinst mopidy-spotify
+aurinst mopidy-spotify-web
 
 h2 "Big apps"
 aurinst spotify
