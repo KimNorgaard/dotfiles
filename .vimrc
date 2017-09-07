@@ -5,9 +5,6 @@ if !has('nvim')
     set nocompatible
 endif
 
-if has('vim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
 
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
@@ -70,7 +67,13 @@ call plug#end()
 " General Settings {{{
     filetype plugin indent on         " load plugins and indent
 
-    set termguicolors
+    if has('nvim')
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+
+    if has('termguicolors')
+        set termguicolors
+    endif
     set notimeout                     " don't timeout on mappings
     set ttimeout                      " do timeout on terminal key codes
     set ttimeoutlen=10                " key code timeout
@@ -214,6 +217,8 @@ call plug#end()
     if &t_Co > 2 || has("gui_running")
         syntax on                           " syntax highlighting
         set t_Co=256                        " 256 colors
+
+        let g:one_allow_italics = 1         " italic comments in 'one'
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
