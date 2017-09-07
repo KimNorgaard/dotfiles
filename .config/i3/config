@@ -152,7 +152,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-for_window [class="HipChat"] floating enable
+# for_window [class="HipChat"] floating enable
 for_window [class="MPlayer"] floating enable
 for_window [title="Smoothie Timer"] floating enable
 
