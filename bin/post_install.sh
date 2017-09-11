@@ -258,15 +258,20 @@ sudo cp -v -b --suffix=.bak -a bin/backlight.sh /etc/acpi/
 sudo cp -v -b --suffix=.bak -a bin/powersave.sh /usr/local/bin/
 
 h2 "sysctl.d"
-sudo cp -v -b --suffix=.bak sysetcetc/sysctl.d/tuning.conf /etc/sysctl.d/
+sudo cp -v -b --suffix=.bak sysetc/sysctl.d/tuning.conf /etc/sysctl.d/
 
 h2 "udev rules"
-sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/10-network.rules /etc/udev/rules.d/
-sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/20-powersave.rules /etc/udev/rules.d/
-sudo cp -v -b --suffix=.bak sysetcetc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetc/udev/rules.d/10-network.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetc/udev/rules.d/20-powersave.rules /etc/udev/rules.d/
+sudo cp -v -b --suffix=.bak sysetc/udev/rules.d/99-monitor-hotplug.rules /etc/udev/rules.d/
+
+h2 "hwdb rules"
+sudo cp -v -b --suffix=.bak sysetc/udev/hwdb.d/61-custom-keyboard.hwdb /etc/udev/hwdb.d/
+sudo system-hwdb update
+sudo udevadm trigger
 
 h1 "Xorg"
-sudo cp -v -b --suffix=.bak sysetcetc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
+sudo cp -v -b --suffix=.bak sysetc/X11/xorg.conf.d/* /etc/X11/xorg.conf.d/
 
 h1 "neovim"
 
