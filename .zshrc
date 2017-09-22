@@ -11,10 +11,15 @@ setopt nomenucomplete
 # ALIASES
 #-------------------------------------------------------------------------------
 # vim
-alias vim=nvim
-alias vi=nvim
-alias ovim="\vim"
-alias vimdiff="nvim -d"
+which nvim > /dev/null
+if [ $? -eq 0 ]; then
+  alias vim=nvim
+  alias vi=nvim
+  alias ovim="\vim"
+  alias vimdiff="nvim -d"
+else
+  alias vi=vim
+fi
 
 # misc
 alias open=xdg-open
@@ -78,7 +83,9 @@ setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a traili
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
-autoload -U ~/src/lpasszsh/*(:t)
+if [ -d ~/src/lpasszsh ]; then
+  autoload -U ~/src/lpasszsh/*(:t)
+fi
 
 # Enable approximate completions
 zstyle ':completion:*' completer _complete _match _approximate
@@ -178,7 +185,7 @@ bindkey -e
 # FZF completion
 #-------------------------------------------------------------------------------
 for f in /usr/share/fzf/key-bindings.zsh /usr/share/fzf/completion.zsh; do
-  source $f
+  [ -f $f ] && source $f
 done
 
 if [ -d $HOME/perl5 ]; then
