@@ -20,6 +20,8 @@ export REPORTTIME=5
 
 export GOPATH=~/src/go
 
+export PROJECT_HOME=~/src
+
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
