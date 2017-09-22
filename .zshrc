@@ -206,6 +206,8 @@ fi
 #-------------------------------------------------------------------------------
 if [ -e /usr/bin/virtualenvwrapper_lazy.sh ]; then
   source /usr/bin/virtualenvwrapper_lazy.sh
+elif [ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
+  source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 fi
 
 #-------------------------------------------------------------------------------
