@@ -1,1 +1,1 @@
-/home/kn/.vimrc
+../.vimrc
