@@ -39,6 +39,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec "rofi -combi-modi run,ssh,window -show combi -modi combi,run,ssh,window -separator-style none -hide-scrollbar"
+bindsym $mod+x exec =
 
 # change focus
 bindsym $mod+j focus left
@@ -169,17 +170,23 @@ for_window [title="Smoothie Timer"] floating enable
 #bindsym Shift+Print exec "scrot -q 100 -u ${HOME}'/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S_$wx$h.png' -e 'gsutil cp -a public-read $f gs://misc.j3ss.co/screenshots/ && echo https://misc.j3ss.co/screenshots/$n | xclip -i -selection clipboard'"
 
 
-set $barbg #262626
+#set $barbg #221100
+# set $statusline #bfbfbf
+set $statusline #f2da79
+set $barbg #111110
+set $focused #ffcc00
+set $active #eeffff
+set $inactive #4c493d
 bar {
   position top
   status_command i3blocks
   font pango:FontAwesome 10
   colors {
     background $barbg
-    statusline #bfbfbf
-    focused_workspace $barbg $barbg #E57910
-    active_workspace $barbg $barbg #bfbfbf
-    inactive_workspace $barbg $barbg #4d4d4d
+    statusline $statusline
+    focused_workspace $barbg $barbg $focused
+    active_workspace $barbg $barbg $active
+    inactive_workspace $barbg $barbg $inactive
     urgent_workspace $barbg $barbg red
   }
 }
@@ -187,14 +194,23 @@ bar {
 new_window pixel 1
 hide_edge_borders smart
 
+set $border_focused $focused
+set $border_unfocused #332800
+set $indicator #ffffff
+set $indicator_unfocused #f2da79
 #class                  border  backgr. text    indicator
+# Background color which will be used to paint the background of the client window on top of which the client will be rendered. Only clients which do not cover the whole area of this window expose the color. Note that this colorclass only takes a single color. 
 #client.background       #000000
-#client.focused          #4c7899 #285577 #ffffff #2e9ef4
-#client.focused_inactive #333333 #5f676a #ffffff #484e50
-#client.unfocused        #333333 #222222 #888888 #292d2e
+# A client which has its urgency hint activated. 
 #client.urgent           #2f343a #900000 #ffffff #900000
-client.unfocused        #4c7899 #24364F #aaaaaa #2e9ef4
-client.focused          #ffcc00 #ffb000 #000000 #00AA00
+# A client which currently has the focus. 
+client.focused          $border_focused $focused #000000 $indicator
+# A client which is not the focused one of its container. 
+client.unfocused        $border_unfocused #332800 #aaaaaa $indicator_unfocused
+# A client which is the focused one of its container, but it does not have the focus at the moment. 
+client.focused_inactive $border_unfocused #332800 #aaaaaa $indicator_unfocused
+# Background and text color are used to draw placeholder window contents (when restoring layouts). Border and indicator are ignored. 
+client.placeholder     #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 # i3lock
 bindsym $mod+Escape exec --no-startup-id "~/bin/lock.sh"
