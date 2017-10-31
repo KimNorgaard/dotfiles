@@ -27,6 +27,7 @@ URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
 URxvt*saveLines: 10000
 URxvt*visualBell: true
+URxvt*urgentOnBell: true
 
 ! Scrollbar
 URxvt.scrollStyle: rxvt
@@ -72,7 +73,9 @@ URxvt.keysym.C-M-Down: font-size:decglobal
 !#define gray16           #262626
 
 *foreground:             amber
-*background:             gray15
+!*background:             gray15
+!*background:             #221100
+*background:             #111110
 
 ! black
 *color0:                 dark_black
