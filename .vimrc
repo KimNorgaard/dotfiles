@@ -51,7 +51,8 @@ Plug 'klen/python-mode', {'for': 'python'}
 Plug 'vim-scripts/ingo-library'        " SyntaxRange dependency
 Plug 'vim-scripts/SyntaxRange'         " filetype within regions of buffer
 
-Plug 'kien/ctrlp.vim'                  " fancy file-finder
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'jlanzarotta/bufexplorer'         " fancy buffer-handler
 
 Plug 'pangloss/vim-simplefold'         " smarter folding
@@ -223,7 +224,6 @@ call plug#end()
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
         colorscheme nofrils-dark
-        "colorscheme paramount
     endif
 
     if has("gui_running")
@@ -404,14 +404,10 @@ autocmd VimEnter *
   "autocmd VimEnter * wincmd p
 " }}}
 
-" Plugin: ctrlp {{{
-  let g:ctrlp_max_files = 50000
-  let g:ctrlp_clear_cache_on_exit = 0
-  let g:ctrlp_dotfiles = 1
-  let g:ctrlp_lazy_update = 100
-  "let g:ctrlp_custom_ignore = {
-  "  \ 'dir':  '\v[\/](\.git|venv)$'
-  "  \ }
+" Plugin: fzf {{{
+  nmap ; :Buffers<CR>
+  nmap <Leader>t :Files<CR>
+  nmap <Leader>r :Tags<CR>
 " }}}
 
 " Plugin: deoplete {{{
