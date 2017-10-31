@@ -78,7 +78,7 @@ interval=once
 signal=12
 
 [time]
-#label=
-command=date '+%b %d %H:%M'
+label=
+command=date '+%b %d   %H:%M'
 interval=60
 separator=true
