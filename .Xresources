@@ -16,7 +16,7 @@ URxvt.font: xft:Iosevka:hinting=True:size=8:style=Regular:antialias=True
 ! General
 URxvt.depth: 32
 URxvt.loginShell: true
-URxvt.internalBorder: 3
+URxvt.internalBorder: 5
 URxvt.lineSpace: 0
 URxvt.letterSpace: 2
 URxvt.clipboard.autocopy: true
@@ -53,6 +53,8 @@ URxvt.keysym.C-M-Down: font-size:decglobal
 #define amber            #ffcc00
 ! 600nm
 #define dark_amber       #ffb000
+! other amber
+#define amber2           #cc8505
 #define crt_green        #50fa7b
 #define dark_black       #373b41
 #define light_black      #000000
@@ -73,10 +75,12 @@ URxvt.keysym.C-M-Down: font-size:decglobal
 #define gray15           #262626
 !#define gray16           #262626
 
-*foreground:             amber
+*foreground:             amber2
+*cursorColor:            dark_amber
 !*background:             gray15
 !*background:             #221100
 *background:             #111110
+urxvt*background:        #2c1c0d
 
 ! black
 *color0:                 dark_black

@@ -174,11 +174,15 @@ bindsym $mod+Shift+Print exec "xclip -selection clipboard -target image/png $(ls
 
 #set $barbg #221100
 # set $statusline #bfbfbf
-set $statusline #f2da79
-set $barbg #111110
+#set $statusline #f2da79
+set $statusline #cc8505
+#set $barbg #111110
+set $barbg #2c1c0d
 set $focused #ffcc00
 set $active #eeffff
-set $inactive #4c493d
+#set $inactive #4c493d
+set $inactive #cc8505
+set $alert #bd2c40
 bar {
   position top
   status_command i3blocks
@@ -189,7 +193,7 @@ bar {
     focused_workspace $barbg $barbg $focused
     active_workspace $barbg $barbg $active
     inactive_workspace $barbg $barbg $inactive
-    urgent_workspace $barbg $barbg red
+    urgent_workspace $barbg $barbg $alert
   }
 }
 
