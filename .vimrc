@@ -19,10 +19,6 @@ endif
 
 Plug 'neomake/neomake'                 " linting, making
 
-"Plug 'MarcWeber/vim-addon-mw-utils'    " required by snipmate
-"Plug 'garbas/vim-snipmate'             " snippets
-"Plug 'honza/vim-snippets'              " actual snippets
-
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -223,7 +219,8 @@ call plug#end()
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
-        colorscheme nofrils-dark
+        set background=dark
+        colorscheme one
     endif
 
     if has("gui_running")
