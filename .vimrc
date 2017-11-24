@@ -57,6 +57,7 @@ Plug 'fatih/vim-go'
 
 Plug 'NLKNguyen/papercolor-theme'      " papercolor
 Plug 'rakr/vim-one'                    " vim-one color-schemes
+Plug 'widatama/vim-phoenix'            " phoenix color-schemes
 
 call plug#end()
 " }}}
@@ -219,8 +220,8 @@ call plug#end()
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
-        set background=dark
         colorscheme one
+        set background=dark
     endif
 
     if has("gui_running")
