@@ -121,7 +121,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Start
-bindsym XF86Launch2 exec i3-sensible-terminal
+bindsym XF86Launch2 exec --no-startup-id "~/bin/toggle_dpms.sh"
 # Keyboard
 bindsym XF86Launch3 exec --no-startup-id "~/bin/keymap.sh toggle"
 # mod+printscr toggle layout
