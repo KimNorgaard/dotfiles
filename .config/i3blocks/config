@@ -27,58 +27,52 @@
 command=/usr/lib/i3blocks/$BLOCK_NAME
 separator_block_width=30
 markup=none
-separator=false
+separator=true
 
-[wifi]
-command=~/.config/i3blocks/blocklets/wifi
-instance=wlan0
-#label=
-label=
-interval=30
+# [wifi]
+# command=~/.config/i3blocks/blocklets/go/wifi
+# instance=wlan0
+# interval=30
+# markup=pango
+#
+# [iface]
+# command=~/.config/i3blocks/blocklets/go/iface
+# instance=enp0s31f6
+# interval=30
+#
+# [iface]
+# command=~/.config/i3blocks/blocklets/go/iface
+# instance=ens9
+# interval=30
+#
+# [iface]
+# command=~/.config/i3blocks/blocklets/go/iface
+# instance=enp0s20u1u1u3
+# interval=30
 
-[iface]
-command=~/.config/i3blocks/blocklets/iface
-label=
-instance=enp0s31f6
-interval=30
+# Moved to notificationss
+# [openconnect]
+# command=~/.config/i3blocks/blocklets/go/openconnect
+# interval=30
+# signal=11
 
-[iface]
-command=~/.config/i3blocks/blocklets/iface
-label=
-instance=ens9
-interval=30
+# Moved to notificationss
+# [volume]
+# command=~/.config/i3blocks/blocklets/go/volume
+# interval=once
+# signal=10
 
-[iface]
-command=~/.config/i3blocks/blocklets/iface
-label=
-instance=enp0s20u1u1u3
-interval=30
+#[battery]
+#command=~/.config/i3blocks/blocklets/go/battery
+#interval=60
 
-[openconnect]
-label=
-command=~/.config/i3blocks/blocklets/openconnect.sh
-interval=30
-signal=11
-
-[volume]
-label=
-instance=Master
-interval=once
-signal=10
-
-[battery]
-label=
-command=~/.config/i3blocks/blocklets/battery.py
-interval=60
-
-[keyboard]
-label=
-command=~/.config/i3blocks/blocklets/keyboard.sh
-interval=once
-signal=12
+# Moved to notificationss
+#[keyboard]
+#command=~/.config/i3blocks/blocklets/keyboard.sh
+#interval=once
+#signal=12
 
 [time]
-label=
-command=date '+%b %d   %H:%M'
+command=date '+%b %d %H:%M'
 interval=60
 separator=true

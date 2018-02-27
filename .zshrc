@@ -51,13 +51,17 @@ _has(){
 
 function vpn() {
   sudo -- openconnect --config $VPN_CONFIG --syslog --pid-file=/var/run/openconnect.pid --background $VPN_SERVER
-  pkill -SIGRTMIN+11 i3blocks
+  dunstify -i connect_established -u normal "<b>VPN Connected</b><br>$VPN_SERVER"
+  #pkill -SIGRTMIN+11 i3blocks
 }
 
 function novpn() {
-  sudo kill -INT $(cat /var/run/openconnect.pid)
+  if [ -f /var/run/openconnect.pid ]; then
+    sudo kill -INT $(cat /var/run/openconnect.pid)
+  fi
   sleep 2
-  pkill -SIGRTMIN+11 i3blocks
+  dunstify -i connect_no -t 8000 -u critical "<b>VPN Disconnected</b><br>$VPN_SERVER"
+  #pkill -SIGRTMIN+11 i3blocks
 }
 
 function pi() {

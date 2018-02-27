@@ -28,7 +28,7 @@ URxvt*scrollTtyKeypress: true
 URxvt*saveLines: 10000
 URxvt*visualBell: true
 URxvt*urgentOnBell: true
-URxvt*cutchars: "\"(),<>[]{}|'`"
+URxvt*cutchars: "\"(),<>[]{}|'`¬"
 
 ! Scrollbar
 URxvt.scrollStyle: rxvt
@@ -80,7 +80,7 @@ URxvt.keysym.C-M-Down: font-size:decglobal
 !*background:             gray15
 !*background:             #221100
 *background:             #111110
-urxvt*background:        #2c1c0d
+urxvt*background:        [95]#2c1c0d
 
 ! black
 *color0:                 dark_black

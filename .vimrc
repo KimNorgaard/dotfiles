@@ -220,7 +220,8 @@ call plug#end()
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
-        colorscheme one
+        "colorscheme one
+        colorscheme PaperColor
         set background=dark
     endif
 
@@ -403,9 +404,10 @@ autocmd VimEnter *
 " }}}
 
 " Plugin: fzf {{{
-  nmap ; :Buffers<CR>
-  nmap <Leader>t :Files<CR>
-  nmap <Leader>r :Tags<CR>
+  nnoremap ; :Buffers<CR>
+  nnoremap <silent> <leader>? :History<CR>
+  nnoremap <silent> <leader>t :Files<CR>
+  nnoremap <silent> <leader>r :Tags<CR>
 " }}}
 
 " Plugin: deoplete {{{

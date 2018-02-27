@@ -8,7 +8,8 @@ case $1 in
       us) setxkbmap -layout dk ;;
       *) setxkbmap -layout us -variant altgr-intl ;;
     esac
-    pkill -SIGRTMIN+12 i3blocks
+    # pkill -SIGRTMIN+12 i3blocks
     ;;
   get) echo $LAYOUT ;;
+  notify) dunstify -i keyboard -t 2000 -r 4242 -u normal $LAYOUT
 esac
