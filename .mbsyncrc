@@ -1,61 +1,52 @@
-IMAPAccount netic
-    # Address to connect to
-    Host zimbra.netic.dk
+IMAPAccount gsuite
+    Host imap.gmail.com
     User kn@netic.dk
-    PassCmd "~/bin/mail-credential-helper.sh zimbra.netic.dk"
+    PassCmd "~/bin/mail-credential-helper.sh netic-gmail"
     SSLType IMAPS
-    CertificateFile /etc/ssl/certs/ca-certificates.crt
+    AuthMechs LOGIN
 
-IMAPStore netic-remote
-    Account netic
+IMAPStore gsuite-remote
+    Account gsuite
 
 MaildirStore netic-local
     # The trailing "/" is important
     Path ~/mail/netic/
     Inbox ~/mail/netic/INBOX
 
-Channel netic-inbox
-    Master :netic-remote:INBOX
+Channel gsuite-inbox
+    Master :gsuite-remote:INBOX
     Slave :netic-local:INBOX
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
-Channel netic-sent
-    Master :netic-remote:Sent
+Channel gsuite-sent
+    Master :gsuite-remote:"[Gmail]/Sent Mail"
     Slave :netic-local:Sent
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
-Channel netic-drafts
-    Master :netic-remote:Drafts
+Channel gsuite-drafts
+    Master :gsuite-remote:"[Gmail]/Drafts"
     Slave :netic-local:Drafts
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
-Channel netic-jira
-    Master :netic-remote:JIRA
+Channel gsuite-jira
+    Master :gsuite-remote:JIRA
     Slave :netic-local:JIRA
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
-Channel netic-root
-    Master :netic-remote:root
-    Slave :netic-local:root
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel netic-trash
-    Master :netic-remote:Trash
+Channel gsuite-trash
+    Master :gsuite-remote:"[Gmail]/Trash"
     Slave :netic-local:Trash
     Create Both
     Expunge Both
@@ -63,9 +54,8 @@ Channel netic-trash
     SyncState *
 
 Group netic
-    Channel netic-inbox
-    Channel netic-sent
-    Channel netic-drafts
-    Channel netic-root
-    Channel netic-jira
-    Channel netic-trash
+    Channel gsuite-inbox
+    Channel gsuite-sent
+    Channel gsuite-drafts
+    Channel gsuite-jira
+    Channel gsuite-trash

@@ -28,7 +28,6 @@ mailboxes +netic/INBOX \
           +netic/Sent \
           +netic/Drafts \
           +netic/JIRA \
-          +netic/root \
           +netic/Trash \
           +temporary/search
 

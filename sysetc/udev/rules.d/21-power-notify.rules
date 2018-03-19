@@ -1,0 +1,1 @@
+SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/kn/.Xauthority", RUN+="/home/kn/bin/notify-low-bat.sh"

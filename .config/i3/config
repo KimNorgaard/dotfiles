@@ -38,7 +38,7 @@ client.background       $bg
 
 # i3-gaps
 gaps inner 10
-gaps outer 60
+# gaps outer 20
 smart_gaps on
 smart_borders no_gaps
 
@@ -104,16 +104,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace number $ws1; exec --no-startup-id dunstify -t 1000 $ws1
-bindsym $mod+2 workspace number $ws2; exec --no-startup-id dunstify -t 1000 $ws2
-bindsym $mod+3 workspace number $ws3; exec --no-startup-id dunstify -t 1000 $ws3
-bindsym $mod+4 workspace number $ws4; exec --no-startup-id dunstify -t 1000 $ws4
-bindsym $mod+5 workspace number $ws5; exec --no-startup-id dunstify -t 1000 $ws5
-bindsym $mod+6 workspace number $ws6; exec --no-startup-id dunstify -t 1000 $ws6
-bindsym $mod+7 workspace number $ws7; exec --no-startup-id dunstify -t 1000 $ws7
-bindsym $mod+8 workspace number $ws8; exec --no-startup-id dunstify -t 1000 $ws8
-bindsym $mod+9 workspace number $ws9; exec --no-startup-id dunstify -t 1000 $ws9
-bindsym $mod+0 workspace number $ws10; exec --no-startup-id dunstify -t 1000 $ws10
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -207,7 +207,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 for_window [class="MPlayer"] floating enable
-for_window [instance="^teststatus$" class="^URxvt$"] floating enable, move absolute position center, sticky enable
+for_window [instance="^teststatus$" class="^URxvt$"] floating enable, move absolute position 2054 10, sticky enable
 
 # bar {
 #   position top

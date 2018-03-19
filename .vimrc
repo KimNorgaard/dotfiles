@@ -148,7 +148,7 @@ call plug#end()
     endif
 
     set mousehide                   " Hide mouse when typing
-    set mouse=a                     " Terminal mouse support
+    set mouse=                      " No mouse
     set history=50                  " keep 50 lines of command line history
     set lazyredraw                  " don't update screen inside macros, etc
     set matchtime=5                 " ms to show the matching paren for
@@ -160,7 +160,7 @@ call plug#end()
     set ruler                       " show the cursor position all the time
     set showcmd                     " display incomplete commands
     set cursorline                  " highlight current line
-    set scrolloff=3                 " keep at lest N lines while scrolling
+    set scrolloff=5                 " keep at lest N lines while scrolling
     "set noshowmode                  " Do not show mode on bottom line
     set noerrorbells                " Do not use bells on errors
     set helpheight=0                " Height of help screen is 50%
