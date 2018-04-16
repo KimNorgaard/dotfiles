@@ -5,8 +5,10 @@ DPMS_STATE=$(xset q | grep "DPMS is" | awk '{print $3}')
 if [ $DPMS_STATE = "Disabled" ]; then
   notify-send -t 3000 -a DPMS "Turning on DPMS"
   xset s on +dpms
+  xautolock -enable
 else
   notify-send -t 3000 -a DPMS "Turning off DPMS"
   xset s off -dpms
+  xautolock -disable
 fi
 

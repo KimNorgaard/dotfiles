@@ -57,6 +57,7 @@ Plug 'fatih/vim-go'
 
 Plug 'NLKNguyen/papercolor-theme'      " papercolor
 Plug 'rakr/vim-one'                    " vim-one color-schemes
+Plug 'rakr/vim-two-firewatch'          " vim-two-firewatch color-schemes
 Plug 'widatama/vim-phoenix'            " phoenix color-schemes
 
 call plug#end()
@@ -217,12 +218,14 @@ call plug#end()
         set t_Co=256                        " 256 colors
 
         let g:one_allow_italics = 1         " italic comments in 'one'
+        let g:two_firewatch_italics=1       " italic comments in 'two'
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
         "colorscheme one
         colorscheme PaperColor
         set background=dark
+        "colorscheme two-firewatch
     endif
 
     if has("gui_running")
@@ -618,12 +621,12 @@ autocmd VimEnter *
     set statusline+=%#warningmsg#%{LinterErrFlag()}%*
     set statusline+=%=                           " align right
     set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
-    set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
-    set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
-    set statusline+=\ 
-    set statusline+=b:%-3n                      " buffer number
-    set statusline+=\ 
-    set statusline+=w:%-3.3{WindowNumber()}     " window number
+    "set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
+    "set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
+    "set statusline+=\ 
+    "set statusline+=b:%-3n                      " buffer number
+    "set statusline+=\ 
+    "set statusline+=w:%-3.3{WindowNumber()}     " window number
     set statusline+=%03c                        " column
     set statusline+=-
     set statusline+=%03v                        " virtual column

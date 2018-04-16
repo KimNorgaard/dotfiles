@@ -12,11 +12,8 @@ export GPG_AGENT_INFO
 export GNOME_KEYRING_CONTROL
 export GNOME_KEYRING_PID
 
-export TERMINAL=urxvtc
-urxvtd &
-
 xsetroot -solid "#333333" &
-~/bin/set_background.sh &
+# ~/bin/set_background.sh &
 
 /usr/bin/redshift-gtk &
 

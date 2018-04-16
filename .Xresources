@@ -56,73 +56,45 @@ URxvt.keysym.C-M-Down: font-size:decglobal
 ! other amber
 #define amber2           #cc8505
 #define crt_green        #50fa7b
-#define dark_black       #373b41
-#define light_black      #000000
-#define dark_red         #a54242
-#define light_red        #cc6666
-#define dark_green       #8c9440
-#define light_green      #b5bd68
-#define dark_yellow      #de935f
-#define light_yellow     #f0c674
-#define dark_blue        #5f819d
-#define light_blue       #81a2be
-#define dark_magenta     #85678f
-#define light_magenta    #b294bb
-#define dark_cyan        #5e8d87
-#define light_cyan       #8abeb7
-#define dark_white       #707880
-#define light_white      #c5c8c6
-#define gray15           #262626
-!#define gray16           #262626
 
-*foreground:             amber2
-*cursorColor:            dark_amber
-!*background:             gray15
-!*background:             #221100
-*background:             #111110
-urxvt*background:        [95]#2c1c0d
-
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
 ! black
-*color0:                 dark_black
-*color8:                 light_black
-
+*.color0:     #000000
+*.color8:     #4D4D4D
 ! red
-*color1:                 dark_red
-*color9:                 light_red
-
+*.color1:     #FF5555
+*.color9:     #FF6E67
 ! green
-*color2:                 dark_green
-*color10:                light_green
-
+*.color2:     #50FA7B
+*.color10:    #5AF78E
 ! yellow
-*color3:                 dark_yellow
-*color11:                light_yellow
-
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
 ! blue
-*color4:                 dark_blue
-*color12:                light_blue
-
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
 ! magenta
-*color5:                 dark_magenta
-*color13:                light_magenta
-
+*.color5:     #FF79C6
+*.color13:    #FF92D0
 ! cyan
-*color6:                 dark_cyan
-*color14:                light_cyan
-
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
 ! white
-*color7:                 dark_white
-*color15:                light_white
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
 
+urxvt*background:        #1c1c1c
 
 ! rofi
 rofi.color-enabled: true
 !                  bg          border     separator
-rofi.color-window: gray15,     crt_green, #a89984
+rofi.color-window: #282a36,    #8BE9FD,   #40FA7B
 !                  bg          fg         bg-alt      hl-bg      hl-fg
-rofi.color-normal: gray15,     crt_green, gray15,     crt_green, gray15
-rofi.color-active: dark_amber, gray15,    dark_amber, amber,     gray15
-rofi.color-urgent: gray15,     dark_red,  gray15,     gray15,    light_red
+rofi.color-normal: #282a36,    #9AEDFE,   #282a36,    #9AEDFE,   #000000
+rofi.color-active: #282a36,    #FF92D0,   #282a36,    #FF79C6,   #000000
+rofi.color-urgent: #282a36,    #FF5555,   #282a36,    #FF5555,   #F1FA8C
 
 rofi.separator-style: solid
 rofi.sidebar-mode: false

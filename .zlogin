@@ -11,7 +11,7 @@ done
 #-------------------------------------------------------------------------------
 # .zprofile.local
 #-------------------------------------------------------------------------------
-[ -f ~/.zprofile.local ] && source ~/.zprofile.local
+[ -f ~/.zlogin.local ] && source ~/.zlogin.local
 
 # Autostart X on vt1
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then

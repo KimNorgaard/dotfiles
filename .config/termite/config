@@ -76,6 +76,15 @@ color13 = #FF92D0
 color14 = #9AEDFE
 color15 = #E6E6E6
 
+color16 = #b45bcf
+color17 = #00f769
+color18 = #3a3c4e
+color19 = #4d4f68
+color20 = #62d6e8
+color21 = #f1f2f8
+
+# Other themes
+# - https://github.com/khamer/base16-termite/blob/master/themes/base16-nord.config
 
 [hints]
 #font = Monospace 12

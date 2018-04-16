@@ -12,8 +12,8 @@ set $ws8 8
 set $ws9 9
 set $ws10 10
 
-set_from_resource $fg i3wm.color7 #f0f0f0
-set_from_resource $bg i3wm.color2 #f0f0f0
+set_from_resource $fg .color7 #f0f0f0
+set_from_resource $bg .color8 #A0A0A0
 
 font pango:Hack 8
 
@@ -24,7 +24,7 @@ floating_modifier $mod
 # switching to the workspace that is currently focused.
 workspace_auto_back_and_forth yes
 
-new_window pixel 0
+new_window pixel 2
 hide_edge_borders smart
 
 # class                 border  backgr. text indicator child_border
@@ -37,10 +37,10 @@ client.placeholder      $bg     $bg     $fg  $bg       $bg
 client.background       $bg
 
 # i3-gaps
-gaps inner 10
-# gaps outer 20
-smart_gaps on
-smart_borders no_gaps
+# gaps inner 10
+# # gaps outer 20
+# smart_gaps on
+# smart_borders no_gaps
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -51,6 +51,7 @@ bindsym $mod+Shift+q kill
 # rofi
 bindsym $mod+d exec "rofi -combi-modi run,ssh,window -show combi -modi combi,run,ssh,window -separator-style none -hide-scrollbar"
 bindsym $mod+x exec =
+bindsym $mod+c exec "clipster -o -n 5 -0 | rofi -dmenu -i -sep '\x00' -eh 3 -p paste | sed -ze 's/\n$//' | clipster"
 
 # change focus
 bindsym $mod+j focus left
@@ -99,6 +100,9 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# Toggle the bar
+bindsym $mod+b bar mode toggle
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -207,26 +211,28 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 for_window [class="MPlayer"] floating enable
-for_window [instance="^teststatus$" class="^URxvt$"] floating enable, move absolute position 2054 10, sticky enable
 
-# bar {
-#   position top
-#   status_command i3blocks
-#   font pango:Hack 11
-#   tray_output primary
-#   tray_padding 5
-#   separator_symbol "•"
-#   strip_workspace_numbers yes
-#   colors {
-#     background #120901
-#     statusline #efe38f
-#     focused_workspace #120901 #120901 #df9c15
-#     active_workspace #120901 #120901 #df9c15
-#     inactive_workspace #120901 #120901 #efe38f
-#     urgent_workspace #120901 #120901 #bd2c40
-#   }
-# }
+bar {
+  position top
+  status_command i3blocks
+  mode hide
+  modifier none
+  font pango:Hack 10
+  tray_output primary
+  tray_padding 5
+  separator_symbol "•"
+  strip_workspace_numbers yes
+  colors {
+    background $bg
+    statusline $fg
+    focused_workspace $bg $bg #df9c15
+    active_workspace $bg $bg #df9c15
+    inactive_workspace $bg $bg $fg
+    urgent_workspace $bg $bg #bd2c40
+  }
+}
 
+exec --no-startup-id clipster -d
 exec --no-startup-id compton --config ~/.config/compton.conf
 exec --no-startup-id i3-msg "workspace $ws2; exec i3-sensible-terminal -e mutt"
 exec --no-startup-id i3-msg "workspace $ws3; split h; exec i3-sensible-terminal; exec i3-sensible-terminal"
