@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=termite-nvim
+Type=Application
+Exec=termite -e nvim %F
