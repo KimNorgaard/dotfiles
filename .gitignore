@@ -17,6 +17,7 @@
 .zshenv.local
 
 .cache/
+.calendar/
 .contacts/
 .docker/
 .dotfiles/

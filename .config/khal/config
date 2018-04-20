@@ -1,0 +1,34 @@
+[calendars]
+
+[[kn@netic.dk]]
+path = ~/.calendar/gsuite_calendar_netic/kn@netic.dk
+color = dark green
+
+[[netic birthdays]]
+path = ~/.calendar/gsuite_calendar_netic/4dhmurjkc5hn8sq0ctp6utbg5pr2sor1dhimsp31e8n6errfctm6abj3dtmg@virtual
+color = light blue
+readonly = True
+
+[[holidays]]
+path = ~/.calendar/gsuite_calendar_netic/cln2sp31dpkn6q13d1nmoqb4c5sk0pridtqn0bjm5phm2r35dpi62shectnmuprcckn66rrd@virtual
+color = light magenta
+readonly = True
+
+[locale]
+timeformat = %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
+weeknumbers = left
+
+[default]
+default_calendar = kn@netic.dk
+highlight_event_days = True
+timedelta = 3d
+
+[highlight_days]
+color = light blue
+
+[view]
+frame = top

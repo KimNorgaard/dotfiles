@@ -230,43 +230,34 @@ fi
 #-------------------------------------------------------------------------------
 # fzf
 #-------------------------------------------------------------------------------
-#if _has fzf && _has ag; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 _gen_fzf_default_opts() {
+  local color00='#1c1c1c'
+  local color01='#3a3c4e'
+  local color02='#4d4f68'
+  local color03='#626483'
+  local color04='#62d6e8'
+  local color05='#e9e9f4'
+  local color06='#f1f2f8'
+  local color07='#f7f7fb'
+  local color08='#ea51b2'
+  local color09='#b45bcf'
+  local color0A='#00f769'
+  local color0B='#ebff87'
+  local color0C='#a1efe4'
+  local color0D='#62d6e8'
+  local color0E='#b45bcf'
+  local color0F='#00f769'
 
-local color00='#1c1c1c'
-local color01='#3a3c4e'
-local color02='#4d4f68'
-local color03='#626483'
-local color04='#62d6e8'
-local color05='#e9e9f4'
-local color06='#f1f2f8'
-local color07='#f7f7fb'
-local color08='#ea51b2'
-local color09='#b45bcf'
-local color0A='#00f769'
-local color0B='#ebff87'
-local color0C='#a1efe4'
-local color0D='#62d6e8'
-local color0E='#b45bcf'
-local color0F='#00f769'
-
-export FZF_DEFAULT_OPTS="
-  --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
-  --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
-  --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
-"
-
+  export FZF_DEFAULT_OPTS="
+    --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
+    --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
+    --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
+  "
 }
-
 _gen_fzf_default_opts
-  #export FZF_DEFAULT_OPTS='
-  #--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  #--color info:108,prompt:109,spinner:108,pointer:168,marker:168
-  #'
-#fi
 
 #-------------------------------------------------------------------------------
 # .zshrc.local
