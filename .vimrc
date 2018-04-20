@@ -576,8 +576,8 @@ autocmd VimEnter *
         autocmd BufRead,BufNewFile *temp/mutt-* setlocal noautoindent wm=0 tw=78 nonumber digraph nolist
         autocmd CursorMoved,CursorMovedI *temp/mutt-* if line('.') < 8 | set fo-=a | else | set fo+=a | endif
         autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
-        autocmd BufRead *temp/mutt-* execute ":put \n"
-        autocmd BufRead *temp/mutt-* execute ":startinsert"
+        autocmd BufRead *temp/mutt-* execute "normal o"
+        autocmd BufRead *temp/mutt-* execute ":startinsert | \n"
     augroup END
 " }}}
 
