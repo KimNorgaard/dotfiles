@@ -7,6 +7,8 @@ application/pdf    ; zathura %s ; copiousoutput
 
 text/calendar      ; ~/.mutt/mutt-ical.py -i -e "kn@netic.dk" %s
 
+text/plain         ; less %s
+
 text/html          ; w3m -dump -I %{charset} -T text/html -cols 70 ; copiousoutput;
 
 video/*            ; mpv %s; test=test -n "$DISPLAY"

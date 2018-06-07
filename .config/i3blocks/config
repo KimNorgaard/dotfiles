@@ -72,6 +72,10 @@ separator=true
 #interval=once
 #signal=12
 
+[battery]
+command=~/bin/bat
+interval=60
+
 [time]
 command=date '+%b %d %H:%M'
 interval=60

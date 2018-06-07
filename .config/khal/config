@@ -4,6 +4,11 @@
 path = ~/.calendar/gsuite_calendar_netic/kn@netic.dk
 color = dark green
 
+[[netic common]]
+path = ~/.calendar/gsuite_calendar_netic/netic.dk_78ujg9jpbrc8a9jocvlsnjp9dc@group.calendar.google.com
+color = light gray
+readonly = True
+
 [[netic birthdays]]
 path = ~/.calendar/gsuite_calendar_netic/4dhmurjkc5hn8sq0ctp6utbg5pr2sor1dhimsp31e8n6errfctm6abj3dtmg@virtual
 color = light blue
@@ -28,7 +33,7 @@ highlight_event_days = True
 timedelta = 3d
 
 [highlight_days]
-color = light blue
+multiple = dark blue
 
 [view]
 frame = top

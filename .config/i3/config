@@ -184,13 +184,15 @@ mode "workspace" {
 
     bindsym r      exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
-    bindsym h    move workspace to output left
-    bindsym l    move workspace to output right
+    bindsym h      move workspace to output left
+    bindsym l      move workspace to output right
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+bindsym $mod+n move workspace to output left
+bindsym $mod+m move workspace to output right
 bindsym XF86LaunchB mode "workspace"
 bindsym $mod3+F4 mode "workspace"
 bindsym $mod+shift+F4 mode "workspace"
@@ -223,16 +225,15 @@ bar {
   separator_symbol "•"
   strip_workspace_numbers yes
   colors {
-    background $bg
+    background #1c1c1c
     statusline $fg
-    focused_workspace $bg $bg #df9c15
-    active_workspace $bg $bg #df9c15
-    inactive_workspace $bg $bg $fg
-    urgent_workspace $bg $bg #bd2c40
+    focused_workspace #1c1c1c #1c1c1c #df9c15
+    active_workspace #1c1c1c #1c1c1c #df9c15
+    inactive_workspace #1c1c1c #1c1c1c $fg
+    urgent_workspace #1c1c1c #1c1c1c #bd2c40
   }
 }
 
-exec --no-startup-id clipster -d
 exec --no-startup-id compton --config ~/.config/compton.conf
 exec --no-startup-id i3-msg "workspace $ws2; exec i3-sensible-terminal -e mutt"
 exec --no-startup-id i3-msg "workspace $ws3; split h; exec i3-sensible-terminal; exec i3-sensible-terminal"

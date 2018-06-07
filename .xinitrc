@@ -15,6 +15,9 @@ export GNOME_KEYRING_PID
 xsetroot -solid "#333333" &
 # ~/bin/set_background.sh &
 
+rm -f ~/.local/share/clipster/clipster.pid
+clipster -d &
+
 /usr/bin/redshift-gtk &
 
 xautolock -detectsleep \
