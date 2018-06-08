@@ -1,0 +1,163 @@
+#!/usr/bin/env python
+from __future__ import print_function
+
+import os
+import sys
+import requests
+import argparse
+try:
+    import urllib.parse
+    urlencode = urllib.parse.quote
+except ImportError:
+    import urllib
+    urlencode = urllib.quote
+from functools import partial
+
+
+DEFAULT_KAREN_CERT = "~/.karen.crt"
+DEFAULT_KAREN_KEY = "~/.karen.key"
+
+
+def color(t, fg=None, style=None):
+    COLORS = ('black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white')
+    STYLES = ('bold')
+    sgr = []
+    if fg and fg in COLORS:
+        sgr.append(str(30 + COLORS.index(fg)))
+    if style and style in STYLES:
+        sgr.append(str(1 + STYLES.index(style)))
+
+    if sgr:
+        return '\033[' + ';'.join(sgr) + 'm' + str(t) + '\033[0m'
+    else:
+        return t
+
+
+red = partial(color, fg='red')
+green = partial(color, fg='green')
+yellow = partial(color, fg='yellow')
+magenta = partial(color, fg='magenta')
+blue = partial(color, fg='blue')
+bold = partial(color, style='bold')
+
+
+prod_states = {
+    1000: 'Production',
+    900: 'Customer-Only',
+    500: "Pre-Production",
+    400: 'Test',
+    300: 'Maintenance',
+    100: 'Disabled',
+    -1: 'Decommissioned',
+}
+
+
+def parse_states(states):
+    states_list = [s.strip().lower() for s in states.split(',')]
+    for i, s in enumerate(states_list):
+        if s.isdigit() or s == "-1":
+            states_list[i] = int(s)
+        else:
+            try:
+                states_list[i] = [k for k, v in prod_states.items() if v.lower() == s][0]
+            except IndexError:
+                states_list[i] = None
+    return list(set([s for s in states_list if s is not None]))
+
+
+parser = argparse.ArgumentParser(description='Zenoss thingy')
+parser.add_argument('search_str', help='Search string.')
+parser.add_argument('--verbose', '-v', dest='verbose',
+                    action='store_true', help='More verbose output.')
+parser.add_argument('--states', '-s', dest='states', type=parse_states,
+                    default=list(prod_states.keys()),
+                    help='Only list devices in production states specified.')
+parser.add_argument('--karen-cert', dest='karen_cert',
+                    default=os.path.expanduser(os.getenv('KAREN_CERT', DEFAULT_KAREN_CERT)),
+                    help='Location of karen client certificate.')
+parser.add_argument('--karen-key', dest='karen_key',
+                    default=os.path.expanduser(os.getenv('KAREN_KEY', DEFAULT_KAREN_KEY)),
+                    help='Location of karen client certificate.')
+args = parser.parse_args()
+
+
+if not os.path.isfile(args.karen_cert):
+    print("File does not exist: {}. "
+          "Create it, set KAREN_CERT or use --karen-cert.".format(args.karen_cert))
+    sys.exit(1)
+if not os.path.isfile(args.karen_key):
+    print("File does not exist: {}. "
+          "Create it, set KAREN_KEY or use --karen-key.".format(args.karen_key))
+    sys.exit(1)
+
+if args.verbose:
+    print("{} Searching for {}...".format(blue('::'), bold(args.search_str)), end='')
+
+r_body = {
+    'jsonrpc': '2.0',
+    'method': 'zenoss.get_devices',
+    'id': 1,
+    'params': [args.search_str, args.states],
+}
+
+res = requests.post(
+    'https://karen.netic.dk/rpc',
+    json=r_body,
+    cert=(args.karen_cert, args.karen_key)
+)
+
+if res.status_code != 200:
+    print()
+    print('{} Error from Zenoss.'.format(red('::')))
+    print("   status code: {}".format(bold(res.status_code)))
+    if args.verbose:
+        print("{}:\n{}".format(bold("Body"), res.text))
+    sys.exit(1)
+
+res_body = res.json()
+devices = res_body.get('result', None).get('devices', [])
+if args.verbose:
+    print(" found {} matching devices.".format(bold(len(devices))))
+
+    if len(devices):
+        print()
+
+for d in devices:
+    link = 'http://zen01{}'.format(urlencode(d['uid']))
+    w_cnt = d['events']['warning']['count']
+    e_cnt = d['events']['error']['count']
+    c_cnt = d['events']['critical']['count']
+    print(bold(d['name']))
+    if d['productionState'] == 1000:
+        pstate = green(prod_states.get(d['productionState'], 'Unknown'))
+    else:
+        pstate = red(prod_states.get(d['productionState'], 'Unknown'))
+    print("   {:>19s} : {}".format(blue('State'), pstate))
+    print("   {:>19s} : {}".format(blue('UID'), d['uid']))
+    print("   {:>19s} : {} {} ({} acknowledged)".format(
+        blue('Events'),
+        red(str(w_cnt)) if w_cnt > 0 else str(w_cnt),
+        red("warnings") if w_cnt > 0 else "warnings",
+        d['events']['warning']['acknowledged_count']))
+    print("{:>15s} {} {} ({} acknowledged)".format(
+        '',
+        red(str(e_cnt)) if e_cnt > 0 else str(e_cnt),
+        red("errors") if e_cnt > 0 else "errors",
+        d['events']['error']['acknowledged_count']))
+    print("{:>15s} {} {} ({} acknowledged)".format(
+        '',
+        red(str(c_cnt)) if c_cnt > 0 else str(c_cnt),
+        red("critical") if c_cnt > 0 else "critical",
+        d['events']['critical']['acknowledged_count']))
+    print("   {:>19s} : {}".format(blue('IP Address'), d['ipAddressString']))
+    if d['location']:
+        print("   {:>19s} : {}".format(blue('Location'), d.get('location', {}).get('name', 'N/A')))
+    print("   {:>19s} : {}".format(blue('Link'), link))
+    if args.verbose:
+        for s in d['systems']:
+            print("   {:>19s} : {}".format(blue('System'), s['name']))
+        for g in d['groups']:
+            print("   {:>19s} : {}".format(blue('Group'), g['name']))
+        print("   {:>19s} : {}".format(blue('Collector'), d['collector']))
+
+    print()
