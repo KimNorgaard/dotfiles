@@ -45,6 +45,14 @@ Channel gsuite-jira
     Sync All
     SyncState *
 
+Channel gsuite-alerts
+    Master :gsuite-remote:Alerts
+    Slave :netic-local:Alerts
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
 Channel gsuite-trash
     Master :gsuite-remote:"[Gmail]/Trash"
     Slave :netic-local:Trash
@@ -58,4 +66,5 @@ Group netic
     Channel gsuite-sent
     Channel gsuite-drafts
     Channel gsuite-jira
+    Channel gsuite-alerts
     Channel gsuite-trash

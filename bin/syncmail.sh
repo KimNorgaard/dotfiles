@@ -1,6 +1,6 @@
 #!/bin/sh
 
-HOST=zimbra.netic.dk
+HOST=imap.gmail.com
 PORT=993
 
 if ! nc -z -w 2 $HOST $PORT; then
