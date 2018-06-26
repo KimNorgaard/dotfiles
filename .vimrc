@@ -47,6 +47,9 @@ Plug 'widatama/vim-phoenix'                                 " phoenix color-sche
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 Plug 'junegunn/limelight.vim'                               " section highlight
 
+Plug 'soywod/kronos.vim'
+Plug 'junegunn/vader.vim'
+
 call plug#end()
 " }}}
 

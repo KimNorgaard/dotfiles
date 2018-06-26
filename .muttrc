@@ -85,7 +85,7 @@ set wrap              = 80
 
 #set query_command     = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 #set query_command     = "contacts -m '%s'"
-set query_command= "khard email --search-in-source-files --parsable %s"
+set query_command= "khard email --search-in-source-files --parsable '%s'"
 
 # --- Headers
 ignore *
