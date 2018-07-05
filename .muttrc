@@ -1,7 +1,7 @@
 # muttrc -----------------------------------------------------------------------
 
 # settings ---------------------------------------------------------------------
-set folder               = ~/mail
+set folder               = ~/mail/netic
 set alias_file           = ~/.mutt/alias
 set header_cache         = ~/.mutt/cache/headers
 set message_cachedir     = ~/.mutt/cache/bodies
@@ -15,18 +15,18 @@ set from                 = "kn@netic.dk"
 set envelope_from
 alternates jasen@jasen.dk kk@jasen.dk junk@jasen.dk
 
-mailboxes +netic/INBOX
-mailboxes +netic/Sent
-mailboxes +netic/Drafts
-mailboxes +netic/JIRA
-mailboxes +netic/Alerts
-mailboxes +netic/Trash
-mailboxes +temporary/search
+mailboxes +INBOX
+mailboxes +Sent
+mailboxes +Drafts
+mailboxes +JIRA
+mailboxes +Alerts
+mailboxes +Trash
+mailboxes +../temporary/search
 
-set postponed            = "+netic/Drafts"
-set record               = "+netic/Sent"
-set spoolfile            = "+netic/INBOX"
-set trash                = "+netic/Trash"
+set postponed            = "+Drafts"
+set record               = "+Sent"
+set spoolfile            = "+INBOX"
+set trash                = "+Trash"
 set mbox_type            = Maildir
 
 set askcc
@@ -107,7 +107,9 @@ macro index,pager  H  ":toggle help<enter>"
 macro index        O  "<shell-escape>systemctl --user start mbsync<enter>"
 macro index        C  "<copy-message>?<toggle-mailboxes>"
 macro index        M  "<save-message>?<toggle-mailboxes>"
-macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>"
+macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+../temporary/search<enter>"
+macro index,pager  gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager  gs "<change-folder>=Sent<enter>" "Go to sent"
 
 
 # basic colors -----------------------------------------------------------------
