@@ -76,6 +76,19 @@ function CONFIG() {
    /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
+function onmodify() {
+    TARGET=${1:-.}; shift
+    CMD="$@"
+
+    echo "$TARGET" "$CMD"
+    while inotifywait --exclude '.git' -qq -r -e close_write,moved_to,move_self $TARGET; do
+        sleep 0.2
+        bash -c "$CMD"
+        echo
+    done
+}
+
+
 #-------------------------------------------------------------------------------
 # AUTOCOMPLETION
 #-------------------------------------------------------------------------------
@@ -234,22 +247,22 @@ export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 _gen_fzf_default_opts() {
-  local color00='#1c1c1c'
-  local color01='#3a3c4e'
-  local color02='#4d4f68'
-  local color03='#626483'
-  local color04='#62d6e8'
-  local color05='#e9e9f4'
-  local color06='#f1f2f8'
-  local color07='#f7f7fb'
-  local color08='#ea51b2'
-  local color09='#b45bcf'
-  local color0A='#00f769'
-  local color0B='#ebff87'
-  local color0C='#a1efe4'
-  local color0D='#62d6e8'
-  local color0E='#b45bcf'
-  local color0F='#00f769'
+  local color00='#282828'
+  local color01='#3c3836'
+  local color02='#504945'
+  local color03='#665c54'
+  local color04='#bdae93'
+  local color05='#d5c4a1'
+  local color06='#ebdbb2'
+  local color07='#fbf1c7'
+  local color08='#fb4934'
+  local color09='#fe8019'
+  local color0A='#fabd2f'
+  local color0B='#b8bb26'
+  local color0C='#8ec07c'
+  local color0D='#83a598'
+  local color0E='#d3869b'
+  local color0F='#d65d0e'
 
   export FZF_DEFAULT_OPTS="
     --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
