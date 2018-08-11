@@ -51,6 +51,9 @@ Plug 'junegunn/limelight.vim'                               " section highlight
 Plug 'soywod/kronos.vim'
 Plug 'junegunn/vader.vim'
 
+Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
+Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
+
 call plug#end()
 " }}}
 
@@ -444,6 +447,24 @@ let g:polyglot_disabled = ['ansible', 'markdown', 'python', 'python-compiler']
 " Plugin: gitgutter {{{
 let g:gitgutter_enabled = 0
 nmap <leader>G :GitGutterToggle<CR>
+" }}}
+
+" Plugin: vim-signify {{{
+let g:signify_realtime = 1
+let g:signify_vcs_list = ['git']
+" }}}
+
+" Plugin: vimwiki {{{
+let wiki_1 = {}
+let wiki_1.path = '~/data/doc/vimwiki'
+let wiki_1.template_path = '~/data/doc/vimwiki/templates'
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext = '.md'
+
+let g:vimwiki_custom_wiki2html = '~/data/doc/vimwiki/wiki2html.py'
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [wiki_1]
+let g:vimwiki_folding = 'expr'
 " }}}
 
 " Plugin: vim-go {{{
