@@ -43,6 +43,7 @@ Plug 'pangloss/vim-simplefold'                              " smarter folding
 Plug 'NLKNguyen/papercolor-theme'                           " papercolor
 Plug 'rakr/vim-one'                                         " vim-one color-schemes
 Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
+Plug 'morhetz/gruvbox'                                      " gruvbox
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 Plug 'junegunn/limelight.vim'                               " section highlight
@@ -207,13 +208,13 @@ endif
 
         let g:one_allow_italics = 1         " italic comments in 'one'
         let g:two_firewatch_italics=1       " italic comments in 'two'
+        let g:gruvbox_italic=1              " italic comments in 'gruvbox'
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
-        "colorscheme one
-        colorscheme PaperColor
+        "colorscheme PaperColor
+        colorscheme gruvbox
         set background=dark
-        "colorscheme two-firewatch
     endif
 
     if has("gui_running")
