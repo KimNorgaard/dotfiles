@@ -145,8 +145,7 @@ set mouse=                      " No mouse
 
 set history=50                  " keep 50 lines of command line history
 set lazyredraw                  " don't update screen inside macros, etc
-set matchtime=5                 " ms to show the matching paren for
-" showmatch
+set matchtime=5                 " ms to show the matching paren for showmatch
 
 set number                      " line numbers
 set numberwidth=5               " width of numbers column
