@@ -21,7 +21,7 @@ Plug 'mhinz/vim-signify'                                    " vcs-signs in the s
 
 Plug 'sheerun/vim-polyglot'                                 " language support galore
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
-Plug 'KimNorgaard/ansible-vim'                              " ansible
+Plug 'pearofducks/ansible-vim'                              " ansible
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}         " markdown
 Plug 'fatih/vim-go'                                         " go
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}     " python pep8 indent
