@@ -10,5 +10,3 @@ i3-msg "workspace 2:mail; move workspace to output primary"
 i3-msg "workspace 3:term; move workspace to output primary"
 i3-msg "workspace 4:chat; move workspace to output primary"
 i3-msg "workspace 5; move workspace to output primary"
-
-i3-msg "workspace $CURRENT_WS"
