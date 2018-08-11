@@ -12,12 +12,12 @@ export GPG_AGENT_INFO
 export GNOME_KEYRING_CONTROL
 export GNOME_KEYRING_PID
 
-xsetroot -solid "#333333" &
-# ~/bin/set_background.sh &
+~/bin/set_background.sh &
 
 rm -f ~/.local/share/clipster/clipster.pid
 clipster -d &
 
+/usr/lib/geoclue-2.0/demos/agent &
 /usr/bin/redshift-gtk &
 
 xautolock -detectsleep \
