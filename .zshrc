@@ -1,15 +1,11 @@
-#-------------------------------------------------------------------------------
 # LOCALE
-#-------------------------------------------------------------------------------
 LANG=en_US.UTF-8
 LC_CTYPE=en_US.UTF-8
 
 setopt noautomenu
 setopt nomenucomplete
 
-#-------------------------------------------------------------------------------
 # ALIASES
-#-------------------------------------------------------------------------------
 # vim
 which nvim > /dev/null
 if [ $? -eq 0 ]; then
@@ -27,11 +23,11 @@ alias netctl='sudo netctl'
 alias t=todo.sh
 alias history='fc -l 1'
 alias ls='ls -F'
-alias syi='sudo pacman -Syu'
+alias syu='sudo pacman -Syu'
 
 # clipboard
-alias pbcopy='xsel -i -b'
-alias pbpaste='xsel -b'
+alias yy='xsel -i -b'
+alias p='xsel -b'
 
 # ls
 alias ll='ls -lFh'
@@ -43,16 +39,18 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
 done
 
-#-------------------------------------------------------------------------------
 # FUNCTIONS
-#-------------------------------------------------------------------------------
 _has(){
    return $( whence $1 >/dev/null )
 }
 
 function vpn() {
-  sudo -- openconnect --config $VPN_CONFIG --syslog --pid-file=/var/run/openconnect.pid --background $VPN_SERVER || return
-  dunstify -i connect_established -u normal "<b>VPN Connected</b><br>$VPN_SERVER"
+  sudo -- openconnect --config $VPN_CONFIG \
+                      --syslog \
+                      --pid-file=/var/run/openconnect.pid \
+                      --background $VPN_SERVER || return
+  dunstify -i connect_established \
+           -u normal "<b>VPN Connected</b><br>$VPN_SERVER"
 }
 
 function novpn() {
@@ -60,20 +58,18 @@ function novpn() {
     sudo kill -INT $(cat /var/run/openconnect.pid)
   fi
   sleep 2
-  dunstify -i connect_no -t 8000 -u critical "<b>VPN Disconnected</b><br>$VPN_SERVER"
+  dunstify -i connect_no \
+           -t 8000 \
+           -u critical "<b>VPN Disconnected</b><br>$VPN_SERVER"
 }
 
-function pi() {
-  puppet describe --providers $1|less -F
-}
-
-lsp() {
+function lsp() {
   clipster -i
-  lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+  lpass show --clip --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 
 function CONFIG() {
-   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+   /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@
 }
 
 function onmodify() {
@@ -88,10 +84,7 @@ function onmodify() {
     done
 }
 
-
-#-------------------------------------------------------------------------------
 # AUTOCOMPLETION
-#-------------------------------------------------------------------------------
 autoload -Uz compinit
 compinit
 
@@ -116,8 +109,6 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 # Increase the number of errors based on the length of the typed word.
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
-#zstyle ':completion:*' menu select yes
-##zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*'
 
 # Group results by category
@@ -149,9 +140,9 @@ zstyle ':completion:*' show-completer true
 # Auto rehash
 zstyle ':completion:*' rehash true
 
-#-------------------------------------------------------------------------------
-# PROMPT
-#-------------------------------------------------------------------------------
+#
+# :: PROMPT
+#
 setopt promptsubst
 autoload -Uz colors && colors
 
@@ -181,13 +172,12 @@ function git_prompt_info() {
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
 local ret_cwd="%(?:%{$fg[green]%}:%{$fg[red]%})%~"
 
-#PROMPT='${ret_status} %{$fg_bold[blue]%}%c $(git_prompt_info)% %{$reset_color%}'
 PROMPT='%m:${ret_cwd} $(git_prompt_info)% %{$reset_color%}'
 
 
-#-------------------------------------------------------------------------------
-# HISTORY
-#-------------------------------------------------------------------------------
+#
+# :: HISTORY
+#
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -201,48 +191,36 @@ setopt incappendhistory
 
 # Emacs key bindings
 bindkey -e
+# Map 'v' to edit-command-line in vicmd
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
-#-------------------------------------------------------------------------------
-# FZF completion
-#-------------------------------------------------------------------------------
-for f in /usr/share/fzf/key-bindings.zsh /usr/share/fzf/completion.zsh; do
-  [ -f $f ] && source $f
-done
-
-if [ -d $HOME/perl5 ]; then
-  eval $(/usr/bin/perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)
-  PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-  PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-  PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-  PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-  PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-fi
-
-if [ -e "${HOME}/.iterm2_shell_integration.zsh" ]; then
-  source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
-#-------------------------------------------------------------------------------
-# virtualenvwrapper
-#-------------------------------------------------------------------------------
+#
+# :: virtualenvwrapper
+#
 if [ -e /usr/bin/virtualenvwrapper_lazy.sh ]; then
   source /usr/bin/virtualenvwrapper_lazy.sh
 elif [ -e /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh ]; then
   source /usr/share/virtualenvwrapper/virtualenvwrapper_lazy.sh
 fi
 
-#-------------------------------------------------------------------------------
-# PONYSAY
-#-------------------------------------------------------------------------------
+#
+# :: ponysay
+#
 if [ ! -z $DISPLAY ]; then
   if which ponysay > /dev/null; then
     ponysay -o
   fi
 fi
 
-#-------------------------------------------------------------------------------
-# fzf
-#-------------------------------------------------------------------------------
+#
+# :: fzf
+#
+for f in /usr/share/fzf/key-bindings.zsh /usr/share/fzf/completion.zsh; do
+  [ -f $f ] && source $f
+done
+
 export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -272,9 +250,7 @@ _gen_fzf_default_opts() {
 }
 _gen_fzf_default_opts
 
-#-------------------------------------------------------------------------------
-# .zshrc.local
-#-------------------------------------------------------------------------------
+# ==> .zshrc.local
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
