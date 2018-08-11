@@ -1,0 +1,14 @@
+rofi.color-enabled:        true
+rofi.separator-style:      solid
+rofi.sidebar-mode:         false
+rofi.columns:              1
+rofi.lines:                15
+rofi.width:                50
+rofi.bw:                   1
+rofi.padding:              16
+rofi.yoffset:              0
+rofi.location:             0
+rofi.font:                 Hack 12
+rofi.fixed-num-lines:      true
+
+rofi.theme: ~/.config/rofi/themes/gruvbox/gruvbox-dark.rasi
