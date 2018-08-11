@@ -34,6 +34,3 @@ timedelta = 3d
 
 [highlight_days]
 multiple = dark blue
-
-[view]
-frame = top
