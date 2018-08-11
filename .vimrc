@@ -17,7 +17,7 @@ Plug 'tpope/vim-surround'                                   " parentheses, brack
 Plug 'tpope/vim-repeat'                                     " let plugins use '.'
 Plug 'tpope/vim-endwise'                                    " auto-add endings
 Plug 'tpope/vim-fugitive'                                   " git
-Plug 'airblade/vim-gitgutter'                               " git in the gutter
+Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
 
 Plug 'sheerun/vim-polyglot'                                 " language support galore
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
