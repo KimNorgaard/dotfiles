@@ -115,14 +115,14 @@ macro index,pager  gs "<change-folder>=Sent<enter>" "Go to sent"
 # basic colors -----------------------------------------------------------------
 color normal       white           default
 color error        red             default
-color tilde        black           default
+color tilde        white           default
 color message      cyan            default
-color markers      red             white
+color markers      red             default
 color attachment   blue            default
-color search       brightmagenta   default
-color status       color248        color236
-color indicator    white           color54
-color tree         color96         default
+color search       black           white
+color status       cyan            default
+color indicator    black           cyan
+color tree         white           default
 
 # basic mono colors ------------------------------------------------------------
 mono  bold         bold
@@ -131,29 +131,29 @@ mono  indicator    reverse
 mono  error        bold
 
 # index ------------------------------------------------------------------------
-color index        color243        default   "~A"
+color index        white           default   "~A"
 color index        brightred       default   "~E"     #  expired messages
 color index        cyan            default   "~N"     #  new messages
 color index        cyan            default   "~O"     #  old messages
 color index        cyan            default   "~U"     #  unread messages
-color index        brightyellow    default   "~P"     #  messages from me
-color index        red             default   "~F"     #  flagged messages
+color index        green           default   "~P"     #  messages from me
+color index        yellow          default   "~F"     #  flagged messages
 color index        black           red       "~D"     #  deleted messages
-color index        color154        default   "~v"     #  messages part of a collapsed thread
+color index        brightgreen     default   "~v"     #  messages part of a collapsed thread
 
 # message headers --------------------------------------------------------------
-color hdrdefault   color243        default
-color header       color148        default   "^(Subject)"
+color hdrdefault   white           default
+color header       blue            default   "^(Subject)"
 
 # message body -----------------------------------------------------------------
-color quoted       color93         default
-color quoted1      color99         default
-color quoted2      color105        default
-color quoted3      color111        default
-color quoted4      color117        default
-color quoted5      color123        default
+color quoted       cyan            default
+color quoted1      brightcyan      default
+color quoted2      blue            default
+color quoted3      brightblue      default
+color quoted4      magenta         default
+color quoted5      brightmagenta   default
 
-color signature    brightwhite     default
+color signature    white           default
 color bold         black           brightwhite
 color underline    black           brightyellow
 
@@ -170,4 +170,4 @@ mono  body         bold                      "^gpg: BAD signature from.*"
 color body         blue            default   "( *[-+=#*~_]){6,}"
 
 # URLs -------------------------------------------------------------------------
-color body         brightgreen     default   "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+color body         brightblue      default   "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"

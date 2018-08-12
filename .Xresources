@@ -4,29 +4,7 @@
 #define amber_600nm        #ffb000
 #define crt_green          #50fa7b
 
-#define gray02             #DCDCCC
-#define gray01             #1C1C1C
-
-! Dracula
-#define D_fg               #F8F8F2
-#define D_bg               #282A36
-#define D_base00           #000000
-#define D_base01           #FF5555
-#define D_base02           #50FA7B
-#define D_base03           #F1FA8C
-#define D_base04           #BD93F9
-#define D_base05           #FF79C6
-#define D_base06           #8BE9FD
-#define D_base07           #BFBFBF
-#define D_base08           #4D4D4D
-#define D_base09           #FF6E67
-#define D_base0A           #5AF78E
-#define D_base0B           #F4F99D
-#define D_base0C           #CAA9FA
-#define D_base0D           #FF92D0
-#define D_base0E           #9AEDFE
-#define D_base0F           #E6E6E6
-
+! gruvbox-dark
 ! hard contrast: *background: #1d2021
 *background: #282828
 ! soft contrast: *background: #32302f
@@ -54,7 +32,7 @@
 *color14: #8ec07c
 ! LightGrey + White
 *color7:  #a89984
-*color15: #ebdbb2<Paste>
+*color15: #ebdbb2
 ! }}}
 
 ! Xft {{{
@@ -79,7 +57,8 @@ URxvt.clipboard.autocopy:  true
 URxvt.clipboard.copycmd:   xsel -i -b
 URxvt.clipboard.pastecmd:  xsel -b
 URxvt.depth:               32
-URxvt.font:                xft:Iosevka Term:hinting=True:size=12:style=Regular:antialias=True
+! URxvt.font:                xft:Iosevka Term:hinting=True:size=12:style=Regular:antialias=True
+URxvt.font:                xft:Fantasque Sans Mono:size=12
 URxvt.internalBorder:      5
 URxvt.keysym.C-Delete:     matcher:last
 URxvt.keysym.C-M-Down:     font-size:decglobal
@@ -98,31 +77,4 @@ URxvt.scrollBar:           false
 URxvt.scrollStyle:         rxvt
 URxvt.url-select.launcher: firefox
 URxvt.urlLauncher:         xdg-open
-
-URxvt.foreground:          gray02
-URxvt.background:          gray01
-! black dark/light
-URxvt.color0:              D_base00
-URxvt.color8:              D_base08
-! red dark/light
-URxvt.color1:              D_base01
-URxvt.color9:              D_base09
-! green dark/light
-URxvt.color2:              D_base02
-URxvt.color10:             D_base0A
-! yellow dark/light
-URxvt.color3:              D_base03
-URxvt.color11:             D_base0B
-! blue dark/light
-URxvt.color4:              D_base04
-URxvt.color12:             D_base0C
-! magenta dark/light
-URxvt.color5:              D_base05
-URxvt.color13:             D_base0D
-! cyan dark/light
-URxvt.color6:              D_base06
-URxvt.color14:             D_base0E
-! white dark/light
-URxvt.color7:              D_base07
-URxvt.color15:             D_base0F
 ! }}}
