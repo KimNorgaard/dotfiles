@@ -1,5 +1,5 @@
 xrdb -merge ~/.Xresources
-fixmodmap
+hotplug_display.sh
 xsetroot -solid "#333333"
 
 xrandr --dpi 144
