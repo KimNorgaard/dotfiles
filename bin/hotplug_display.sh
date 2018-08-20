@@ -20,9 +20,4 @@ done
 
 echo Primary monitor is $PRIMARY_MONITOR
 
-/home/kn/bin/move_workspaces.sh $PRIMARY_MONITOR
-
-xmodmap ~/.Xmodmap
-xset r rate 350 40
-
-/home/kn/bin/set_background.sh
+/home/kn/bin/fixmodmap

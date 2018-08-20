@@ -36,7 +36,7 @@
 ! }}}
 
 ! Xft {{{
-Xft.dpi:                   168.0
+Xft.dpi:                   144.0
 Xft.autohint:              0
 Xft.lcdfilter:             lcddefault
 Xft.hintstyle:             hintfull
@@ -58,15 +58,14 @@ URxvt.clipboard.copycmd:   xsel -i -b
 URxvt.clipboard.pastecmd:  xsel -b
 URxvt.depth:               32
 ! URxvt.font:                xft:Iosevka Term:hinting=True:size=12:style=Regular:antialias=True
-URxvt.font:                xft:Fantasque Sans Mono:size=12
-URxvt.internalBorder:      5
-URxvt.keysym.C-Delete:     matcher:last
+!URxvt.font:                xft:Fantasque Sans Mono:size=12
+URxvt.font:                xft:IBM Plex Mono:size=12
 URxvt.keysym.C-M-Down:     font-size:decglobal
 URxvt.keysym.C-M-Up:       font-size:incglobal
 URxvt.keysym.M-Delete:     matcher:list
 URxvt.keysym.M-Escape:     perl:keyboard-select:activate
 URxvt.keysym.M-u:          perl:url-select:select_next
-URxvt.letterSpace:         2
+URxvt.letterSpace:         0
 URxvt.lineSpace:           0
 URxvt.loginShell:          true
 URxvt.matcher.button:      1

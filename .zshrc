@@ -9,8 +9,8 @@ setopt nomenucomplete
 # vim
 which nvim > /dev/null
 if [ $? -eq 0 ]; then
-  alias vim=nvim
-  alias vi=nvim
+  alias vim="TERM=xterm-256color nvim"
+  alias vi="TERM=xterm-256color nvim"
   alias ovim="\vim"
   alias vimdiff="nvim -d"
 else
@@ -254,3 +254,10 @@ _gen_fzf_default_opts
 if [ -f ~/.zshrc.local ]; then
   source ~/.zshrc.local
 fi
+
+case $TERM in
+  xterm*|rxvt*|st-*)
+    precmd () {print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a" }
+    preexec () {printf "\033]0;%s\a" "$1" }
+    ;;
+esac

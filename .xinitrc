@@ -1,7 +1,7 @@
 xrdb -merge ~/.Xresources
-xmodmap ~/.Xmodmap
-xset -b
-xset r rate 350 40
+fixmodmap
+xsetroot -solid "#333333"
+
 xrandr --dpi 144
 
 . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
@@ -12,13 +12,24 @@ export GPG_AGENT_INFO
 export GNOME_KEYRING_CONTROL
 export GNOME_KEYRING_PID
 
-~/bin/set_background.sh &
+# force XFT
+export GDK_USE_XFT=1
+export QT_XFT=true
 
-rm -f ~/.local/share/clipster/clipster.pid
-clipster -d &
+export _JAVA_AWT_WM_NONREPARENTING="1"
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 
-/usr/lib/geoclue-2.0/demos/agent &
-/usr/bin/redshift-gtk &
+
+#rm -f ~/.local/share/clipster/clipster.pid
+#clipster -d &
+
+clipmenud &
+
+dwmstatus &
+
+redshift &
+
+compton --config ~/.config/compton.conf &
 
 xautolock -detectsleep \
           -corners -000 \
@@ -26,4 +37,7 @@ xautolock -detectsleep \
           -time 5 -locker "~/bin/lock.sh" \
           -killtime 60 -killer "systemctl suspend" &
 
-exec i3
+st -e mutt &
+firefox &
+
+exec dwm
