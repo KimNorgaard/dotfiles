@@ -1,0 +1,31 @@
+#!/bin/sh
+
+get_layout() {
+  LAYOUT=$(setxkbmap -query | awk '/layout/{ print $2 }' | cut -d ',' -f 1)
+}
+
+toggle() {
+  case $LAYOUT in
+    us) setxkbmap -layout dk ;;
+    *) setxkbmap -layout us -variant altgr-intl ;;
+  esac
+}
+
+notify() {
+  dunstify -i keyboard -t 2000 -r 4242 -u normal $LAYOUT
+}
+
+get_layout
+
+case $1 in
+  toggle)
+    toggle
+    ;;
+  togglenotify)
+    toggle
+    get_layout
+    notify
+    ;;
+  get) echo $LAYOUT ;;
+  notify) notify;;
+esac

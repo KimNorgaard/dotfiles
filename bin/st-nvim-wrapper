@@ -1,0 +1,3 @@
+#!/bin/sh
+# nvim crashes when starting nvim from st with default TERM (st-256color)
+TERM=xterm-256colors nvim
