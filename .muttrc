@@ -33,7 +33,7 @@ set askcc
 set date_format          = "%d-%m-%y"
 set delete                                          # don't ask on delete
 set edit_headers                                    # show headers on edit
-set editor               = "vim"
+set editor               = "TERM=xterm-256color nvim"
 set fast_reply                                      # skip to compose when replying
 set forward_format       = "Fwd: %s"
 set forward_quote                                   # include message in forwards
@@ -110,6 +110,8 @@ macro index        M  "<save-message>?<toggle-mailboxes>"
 macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+../temporary/search<enter>"
 macro index,pager  gi "<change-folder>=INBOX<enter>" "Go to inbox"
 macro index,pager  gs "<change-folder>=Sent<enter>" "Go to sent"
+macro pager        w ":set wrap=80<enter>"
+macro pager        W ":set wrap=0<enter>"
 
 
 # basic colors -----------------------------------------------------------------

@@ -29,12 +29,12 @@ dwmstatus &
 
 redshift &
 
-compton --config ~/.config/compton.conf &
+# compton --config ~/.config/compton.conf &
 
 xautolock -detectsleep \
           -corners -000 \
           -notify 120 -notifier "xset dpms force off" \
-          -time 5 -locker "~/bin/lock.sh" \
+          -time 5 -locker "~/bin/lockscreen" \
           -killtime 60 -killer "systemctl suspend" &
 
 st -e mutt &

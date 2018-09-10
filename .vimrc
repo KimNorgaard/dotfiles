@@ -13,8 +13,8 @@ Plug 'w0rp/ale'                                             " linting, making
 " Plug 'Shougo/neosnippet'
 " Plug 'Shougo/neosnippet-snippets'
 
-Plug 'tpope/vim-surround'                                   " parentheses, brackets, quotes!
 Plug 'tpope/vim-repeat'                                     " let plugins use '.'
+Plug 'tpope/vim-surround'                                   " parentheses, brackets, quotes!
 Plug 'tpope/vim-endwise'                                    " auto-add endings
 Plug 'tpope/vim-fugitive'                                   " git
 Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
@@ -44,6 +44,7 @@ Plug 'NLKNguyen/papercolor-theme'                           " papercolor
 Plug 'rakr/vim-one'                                         " vim-one color-schemes
 Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
 Plug 'morhetz/gruvbox'                                      " gruvbox
+Plug 'kamwitsta/flatwhite-vim'                              " flatwhite
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 Plug 'junegunn/limelight.vim'                               " section highlight

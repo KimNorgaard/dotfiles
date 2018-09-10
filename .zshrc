@@ -64,7 +64,7 @@ function novpn() {
 }
 
 function lsp() {
-  clipster -i
+  # clipster -i
   lpass show --clip --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
 }
 
@@ -261,3 +261,7 @@ case $TERM in
     preexec () {printf "\033]0;%s\a" "$1" }
     ;;
 esac
+
+#if [ -z $TMUX ]; then
+#    (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
+#fi
