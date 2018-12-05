@@ -1,2 +1,6 @@
 " puppet documentation for K
-setl keywordprg=pi
+setlocal keywordprg=pi
+
+setlocal isk+=:
+setlocal foldmethod=marker
+setlocal foldmarker={,}
