@@ -6,7 +6,7 @@ Before=suspend.target
 User=kn
 Type=forking
 Environment=DISPLAY=:0
-ExecStart=/home/kn/bin/lock.sh
+ExecStart=/home/kn/bin/lockscreen
 
 [Install]
 WantedBy=suspend.target

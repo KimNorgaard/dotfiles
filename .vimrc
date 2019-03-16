@@ -1,17 +1,21 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldlevel=0 foldmethod=marker:
-" Kim Nørgard <jasen@jasen.dk>
+" Kim Nørgaard <jasen@jasen.dk>
 
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
 
-Plug 'Shougo/deoplete.nvim'                                 " completion
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " completion
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'zchee/deoplete-jedi', {'for': 'python'}               " python completion
 Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}      " go completion
 
 Plug 'w0rp/ale'                                             " linting, making
-
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
 
 Plug 'tpope/vim-repeat'                                     " let plugins use '.'
 Plug 'tpope/vim-surround'                                   " parentheses, brackets, quotes!
@@ -19,12 +23,9 @@ Plug 'tpope/vim-endwise'                                    " auto-add endings
 Plug 'tpope/vim-fugitive'                                   " git
 Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
 
+Plug 'fatih/vim-go', {'for': 'go'}                          " go
 Plug 'sheerun/vim-polyglot'                                 " language support galore
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
-Plug 'pearofducks/ansible-vim'                              " ansible
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}         " markdown
-Plug 'fatih/vim-go'                                         " go
-Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}     " python pep8 indent
 
 Plug 'tomtom/tlib_vim'                                      " tcomment dependency
 Plug 'tomtom/tcomment_vim'                                  " comments
@@ -45,6 +46,9 @@ Plug 'rakr/vim-one'                                         " vim-one color-sche
 Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
 Plug 'morhetz/gruvbox'                                      " gruvbox
 Plug 'kamwitsta/flatwhite-vim'                              " flatwhite
+Plug 'https://gitlab.com/ducktape/monotone-termnial.git'
+Plug 'altercation/vim-colors-solarized'                     " solarized
+Plug 'KKPMW/distilled-vim'                                  " distiled
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 Plug 'junegunn/limelight.vim'                               " section highlight
@@ -68,6 +72,7 @@ endif
 if has('termguicolors')
     set termguicolors
 endif
+
 set notimeout                     " don't timeout on mappings
 set ttimeout                      " do timeout on terminal key codes
 set ttimeoutlen=10                " key code timeout
@@ -75,15 +80,13 @@ set timeoutlen=500                " mapped key sequence timeout
 
 set hidden                        " switch between buffers without saving
 
-set shiftwidth=2                  " one tab = two spaces (autoindent)
+set tabstop=8                     " one tab = eight columns
 set softtabstop=2                 " one tab = two spaces (tab key)
-set tabstop=2                     " one tab = two columns
+set shiftwidth=2                  " one tab = two spaces (autoindent)
 set expandtab                     " never use hard tabs
 
 set autoindent                    " keep indenting on <CR>
-set smartindent                   " be smart about indentation
 
-set wrap                          " wrap long lines
 set textwidth=80                  " wrap after 80 columns
 set colorcolumn=+1                " highlight 81st column
 set linebreak                     " break on what looks like boundaries
@@ -92,8 +95,7 @@ set formatoptions=qrn1
 
 set incsearch                     " Jump while searching
 set ignorecase                    " Case insensitive searches
-set smartcase                     " Ignore 'ignorecase' when uppercase is
-" used
+set smartcase                     " Ignore 'ignorecase' when uppercase is used
 set hlsearch                      " Highlight searches
 set showmatch                     " Show matching brackets while typing
 set gdefault                      " Append /g to replace regex
@@ -106,11 +108,11 @@ set splitbelow                    " Split windows below current window.
 set splitright                    " Split windows right of current window
 set modeline                      " Check modeline in beginning of file
 
-set complete=.,w,b,u,t
 set completeopt=longest,menuone,preview
 set wildmode=longest,list,full    " complete longest common prefix first
 set wildignore+=.*.sw*,__pycache__,*.pyc " ignore junk files
 set wildmenu                      " show a menu of completions like zsh
+set pumheight=16                  " max height of completion menu
 set omnifunc=syntaxcomplete#Complete
 
 set backupdir=~/.vim/tmp/backup//
@@ -127,19 +129,6 @@ set magic
 " Title string
 set title
 set titlestring=vim\ %{expand(\"%t\")}
-if &term =~ "^screen"
-    " pretend this is xterm.  it probably is anyway, but if term is left
-    " as `screen`, vim doesn't understand ctrl-arrow.
-    if &term == "screen-256color"
-        set term=xterm-256color
-    else
-        set term=xterm
-    endif
-
-    " gotta set these *last*, since `set term` resets everything
-    set t_ts=k
-    set t_fs=\
-endif
 
 set mousehide                   " Hide mouse when typing
 set mouse=                      " No mouse
@@ -148,34 +137,32 @@ set history=50                  " keep 50 lines of command line history
 set lazyredraw                  " don't update screen inside macros, etc
 set matchtime=5                 " ms to show the matching paren for showmatch
 
-set number                      " line numbers
+set nonumber                    " no line numbers
 set numberwidth=5               " width of numbers column
 set laststatus=2                " always show status line
 set ruler                       " show the cursor position all the time
 set showcmd                     " display incomplete commands
-set cursorline                  " highlight current line
+set nocursorline                  " highlight current line
 set scrolloff=5                 " keep at lest N lines while scrolling
 set noerrorbells                " Do not use bells on errors
 set helpheight=0                " Height of help screen is 50%
 set list
 set listchars=tab:▸\ ,extends:>,precedes:<,nbsp:␠,trail:⌴,eol:¬
 
-set fileformats=unix,dos,mac    " unix linebreaks in new files please
+set fileformats=unix,dos,mac        " unix linebreaks in new files please
 if !has('nvim')
-    set encoding=utf-8            " best default encoding
+    set encoding=utf-8              " best default encoding
 endif
-setglobal fileencoding=utf-8    " ...
-set nobomb                      " do not write utf-8 BOM!
-set fileencodings=utf-8,iso-8859-1
-" order to detect Unicodeyness
-set shortmess+=I                " Don't display intro message
+setglobal fileencoding=utf-8        " ...
+set nobomb                          " do not write utf-8 BOM!
+set fileencodings=utf-8,iso-8859-1  " order to detect Unicodeyness
+set shortmess+=I                    " Don't display intro message
 
-set pastetoggle=<F6>            " Toggle paste mode
+set pastetoggle=<F6>                " Toggle paste mode
 
 set tags=./tags;
 
 set diffopt+=vertical
-
 
 " neovim
 if has('nvim')
@@ -207,7 +194,9 @@ endif
 " Vim UI {
     if &t_Co > 2 || has("gui_running")
         syntax on                           " syntax highlighting
-        set t_Co=256                        " 256 colors
+        " set t_Co=256                        " 256 colors
+        set t_8f=[38;2;%lu;%lu;%lum       " 24 bit colors
+        set t_8b=[48;2;%lu;%lu;%lum
 
         let g:one_allow_italics = 1         " italic comments in 'one'
         let g:two_firewatch_italics=1       " italic comments in 'two'
@@ -215,9 +204,10 @@ endif
 
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
-        "colorscheme PaperColor
-        colorscheme gruvbox
-        set background=dark
+
+        " colorscheme frign
+        colorscheme monotone-terminal
+        " colorscheme distilled
     endif
 
     if has("gui_running")
@@ -280,6 +270,9 @@ nnoremap <leader>. :lcd %:p:h<CR>
 " Resolve symlink in order to use fugitive
 nnoremap <Leader>L :<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar>
             \ call fugitive#detect(fnameescape(expand('%:p:h')))<CR>
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call theming#SynStack()<CR>
 " }}}
 
 " Navigation {{{
@@ -358,7 +351,11 @@ map <leader>pb :r!xsel -b<CR><CR>
 " }}}
 
 " Plugin: ale {{{
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 0
+let g:ale_fixers = {
+    \ 'terraform': ['terraform'],
+    \ }
+" let g:ale_fix_on_save = 1
 " }}}
 
 " Plugin: tabular {{{
@@ -381,21 +378,16 @@ nnoremap <silent> <leader>r :Tags<CR>
 " Plugin: deoplete {{{
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#jedi#show_docstring = 1
 " Auto close scratch window
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " TAB-complete
-set completeopt+=noinsert,noselect
+set completeopt+=noinsert,noselect,preview
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " }}}
-
-" Plugin: nerdcommenter {{{
-let g:NERDCustomDelimiters = {
-            \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
-            \ }
-" }}}
 
 " Plugin: tagbar {{{
 let g:tagbar_type_puppet = {
@@ -415,33 +407,8 @@ let g:tagbar_type_puppet = {
 let g:vim_markdown_folding_disabled=0
 " }}}
 
-" Plugin: neosnippet {{{
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" }}}
-
-" Plugin: snipmate {{{
-let g:snipMate = get(g:, 'snipMate', {})
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['mkd'] = 'markdown,mkd'
-" }}}
-
-" Plugin: pymode {{{
-let g:pymode_python = 'python3'
-let g:pymode_lint = 0
-let g:pymode_folding = 1
-let g:pymode_rope = 0
-let g:pymode_breakpoint = 0
-let g:pymode_runcode = 0
-" }}}
-
-" Plugin: neomake {{{
-"autocmd! FileType python autocmd BufWritePost * Neomake
-" }}}
-
 " Plugin: polyglot {{{
-let g:polyglot_disabled = ['ansible', 'markdown', 'python', 'python-compiler']
+let g:polyglot_disabled = ['go']
 " }}}
 
 " Plugin: gitgutter {{{
@@ -456,164 +423,25 @@ let g:signify_vcs_list = ['git']
 
 " Plugin: vimwiki {{{
 let wiki_1 = {}
-let wiki_1.path = '~/data/doc/vimwiki'
-let wiki_1.template_path = '~/data/doc/vimwiki/templates'
+let wiki_1.path = '~/data/vimwiki'
+let wiki_1.template_path = '~/data/vimwiki/templates'
 let wiki_1.syntax = 'markdown'
 let wiki_1.ext = '.md'
 
-let g:vimwiki_custom_wiki2html = '~/data/doc/vimwiki/wiki2html.py'
+let wiki_2 = {}
+let wiki_2.path = '~/data/vimwiki.work'
+let wiki_2.template_path = '~/data/vimwiki.work/templates'
+let wiki_2.syntax = 'markdown'
+let wiki_2.ext = '.md'
+
+let g:vimwiki_custom_wiki2html = '~/data/vimwiki/wiki2html.py'
 let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [wiki_1]
+let g:vimwiki_list = [wiki_1, wiki_2]
 let g:vimwiki_folding = 'expr'
 " }}}
 
 " Plugin: vim-go {{{
 let g:go_fmt_command = "goimports"
-" }}}
-
-" text files {{{
-augroup ft_text
-    au!
-    autocmd FileType text setlocal textwidth=78
-augroup END
-" }}}
-
-" eyaml {{{
-augroup ft_eyaml
-    au!
-    au BufRead,BufNewFile *.eyaml setfiletype yaml
-augroup END
-" }}}
-
-" Crontab {{{
-augroup crontab
-    au!
-    au BufEnter /private/tmp/crontab.* setl backupcopy=yes
-augroup END
-" }}}
-
-" General Editing {{{
-" When editing a file, always jump to the last known cursor position.
-autocmd BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal g`\"" |
-            \ endif
-
-augroup cline
-    au!
-    au WinLeave,InsertEnter * set nocursorline
-    au WinEnter,InsertLeave * set cursorline
-augroup END
-
-augroup trailing
-    au!
-    au InsertEnter * :set listchars-=trail:⌴,eol:¬
-    au InsertLeave * :set listchars+=trail:⌴,eol:¬
-augroup END
-" }}}
-
-" Puppet {{{
-augroup ft_puppet
-    au!
-    au FileType puppet setlocal isk+=:
-    au Filetype puppet setlocal foldmethod=marker
-    au Filetype puppet setlocal foldmarker={,}
-augroup END
-" }}}
-
-" Perl {{{
-augroup ft_perl
-    au!
-    au Filetype perl setlocal foldmethod=marker
-    au Filetype perl setlocal foldmarker={,}
-augroup END
-" }}}
-
-" Ruby {{{
-augroup ft_ruby
-    au!
-    au Filetype ruby setlocal foldmethod=syntax
-augroup END
-" }}}
-
-" Ansible {{{
-augroup ft_ansible
-    au!
-    au Filetype ansible setlocal keywordprg=ansible-doc\ \-s
-augroup END
-" }}}
-
-" Mutt {{{
-augroup ft_mail
-    au!
-    autocmd BufRead,BufNewFile *temp/mutt-* setfiletype mail
-    autocmd BufRead,BufNewFile *temp/mutt-* setlocal fo+=aw
-    autocmd BufRead,BufNewFile *temp/mutt-* setlocal spell
-    autocmd BufRead,BufNewFile *temp/mutt-* setlocal noautoindent wm=0 tw=78 nonumber digraph nolist
-    autocmd CursorMoved,CursorMovedI *temp/mutt-* if line('.') < 8 | set fo-=a | else | set fo+=a | endif
-    autocmd BufRead *temp/mutt-* execute "normal /^$/\n"
-    autocmd BufRead *temp/mutt-* execute "normal o"
-    autocmd BufRead *temp/mutt-* execute ":startinsert | \n"
-augroup END
-" }}}
-
-" Statusline {{{
-function! WindowNumber()
-    return tabpagewinnr(tabpagenr())
-endfunction
-
-function! TrailingSpaceWarning()
-    if !exists("b:statline_trailing_space_warning")
-        let lineno = search('\s$', 'nw')
-        if lineno != 0
-            let b:statline_trailing_space_warning = '[TRL: '.lineno.']'
-        else
-            let b:statline_trailing_space_warning = ''
-        endif
-    endif
-    return b:statline_trailing_space_warning
-endfunction
-
-" recalculate when idle, and after saving
-augroup statline_trail
-    autocmd!
-    autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-augroup END
-
-function! LinterErrFlag()
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : printf(
-                \   '[%dW %dE]',
-                \   all_non_errors,
-                \   all_errors
-                \)
-endfunction
-
-set statusline=
-set statusline+=%(%m%r%h%w\ %)               " modified, ro, help, preview
-"set statusline+=%{expand('%:h')}/            " relative path
-set statusline+=%t                           " file name
-set statusline+=\ 
-set statusline+=%{&paste?\"PASTE\ \":\"\"}   " paste
-set statusline+=%<                           " truncate if needed
-set statusline+=%#warningmsg#%{TrailingSpaceWarning()}%*
-set statusline+=\ 
-set statusline+=%#errormsg#%{LinterErrFlag()}%*
-set statusline+=%=                           " align right
-set statusline+=%{&ft!=\"\"?&ft.\"\ \":\"\"} " file type
-"set statusline+=%{&fenc!=\"\"?&fenc.\"\ \":&enc.\"\ \"}   " file encoding
-"set statusline+=%{&ff!=\"\"?&ff:\"\"}                     " file format
-"set statusline+=\ 
-"set statusline+=b:%-3n                      " buffer number
-"set statusline+=\ 
-"set statusline+=w:%-3.3{WindowNumber()}     " window number
-set statusline+=%03c                        " column
-set statusline+=-
-set statusline+=%03v                        " virtual column
-set statusline+=\ 
-set statusline+=%3p%%                       " pct
 " }}}
 
 silent! source ~/.vimrc.local

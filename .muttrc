@@ -19,6 +19,7 @@ mailboxes +INBOX
 mailboxes +Sent
 mailboxes +Drafts
 mailboxes +JIRA
+mailboxes +Lists
 mailboxes +Alerts
 mailboxes +Trash
 mailboxes +../temporary/search

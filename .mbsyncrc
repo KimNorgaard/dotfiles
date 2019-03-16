@@ -45,6 +45,14 @@ Channel gsuite-jira
     Sync All
     SyncState *
 
+Channel gsuite-jira
+    Master :gsuite-remote:Lists
+    Slave :netic-local:Lists
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
 Channel gsuite-alerts
     Master :gsuite-remote:Alerts
     Slave :netic-local:Alerts

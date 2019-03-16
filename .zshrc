@@ -9,8 +9,9 @@ setopt nomenucomplete
 # vim
 which nvim > /dev/null
 if [ $? -eq 0 ]; then
-  alias vim="TERM=xterm-256color nvim"
-  alias vi="TERM=xterm-256color nvim"
+  #alias vim="TERM=xterm-256color nvim"
+  #alias vi="TERM=xterm-256color nvim"
+  alias vim=nvim
   alias ovim="\vim"
   alias vimdiff="nvim -d"
 else
@@ -23,7 +24,7 @@ alias netctl='sudo netctl'
 alias t=todo.sh
 alias history='fc -l 1'
 alias ls='ls -F'
-alias syu='sudo pacman -Syu'
+alias syu='yay -Syu'
 
 # clipboard
 alias yy='xsel -i -b'
@@ -33,6 +34,8 @@ alias p='xsel -b'
 alias ll='ls -lFh'
 alias lla='ls -lFhA'
 alias llrt='ls -lFhArt'
+
+alias gcloud='docker run -ti --volumes-from gcloud-config google/cloud-sdk gcloud'
 
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
@@ -262,6 +265,6 @@ case $TERM in
     ;;
 esac
 
-#if [ -z $TMUX ]; then
-#    (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
-#fi
+if [ -z $TMUX ] && [ -n "$DISPLAY" ]; then
+    (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
+fi
