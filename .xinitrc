@@ -31,6 +31,8 @@ redshift &
 
 # compton --config ~/.config/compton.conf &
 
+xset dpms 180 180 180
+
 xautolock -detectsleep \
           -corners -000 \
           -notify 120 -notifier "xset dpms force off" \
