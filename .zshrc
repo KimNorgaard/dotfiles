@@ -53,7 +53,7 @@ function vpn() {
                       --pid-file=/var/run/openconnect.pid \
                       --background $VPN_SERVER || return
   dunstify -i connect_established \
-           -u normal "<b>VPN Connected</b><br>$VPN_SERVER"
+           -u normal "VPN Connected$VPN_SERVER"
 }
 
 function novpn() {
@@ -63,7 +63,7 @@ function novpn() {
   sleep 2
   dunstify -i connect_no \
            -t 8000 \
-           -u critical "<b>VPN Disconnected</b><br>$VPN_SERVER"
+           -u critical "VPN Disconnected$VPN_SERVER"
 }
 
 function lsp() {
