@@ -21,6 +21,8 @@ Plug 'tpope/vim-repeat'                                     " let plugins use '.
 Plug 'tpope/vim-surround'                                   " parentheses, brackets, quotes!
 Plug 'tpope/vim-endwise'                                    " auto-add endings
 Plug 'tpope/vim-fugitive'                                   " git
+
+Plug 'romainl/vim-qlist'                                    " Ilist, Dlist
 Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
 
 Plug 'fatih/vim-go', {'for': 'go'}                          " go
@@ -30,7 +32,6 @@ Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
 Plug 'tomtom/tlib_vim'                                      " tcomment dependency
 Plug 'tomtom/tcomment_vim'                                  " comments
 
-Plug 'majutsushi/tagbar'                                    " browse tags
 Plug 'godlygeek/tabular'                                    " tabularize text
 Plug 'ervandew/supertab'                                    " use <TAB> for insert completions
 
@@ -41,20 +42,13 @@ Plug 'jlanzarotta/bufexplorer'                              " fancy buffer-handl
 
 Plug 'pangloss/vim-simplefold'                              " smarter folding
 
-Plug 'NLKNguyen/papercolor-theme'                           " papercolor
 Plug 'rakr/vim-one'                                         " vim-one color-schemes
 Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
-Plug 'morhetz/gruvbox'                                      " gruvbox
-Plug 'kamwitsta/flatwhite-vim'                              " flatwhite
 Plug 'https://gitlab.com/ducktape/monotone-termnial.git'
-Plug 'altercation/vim-colors-solarized'                     " solarized
-Plug 'KKPMW/distilled-vim'                                  " distiled
+Plug 'axvr/photon.vim'                                      " photon
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 Plug 'junegunn/limelight.vim'                               " section highlight
-
-Plug 'soywod/kronos.vim'
-Plug 'junegunn/vader.vim'
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
 Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
@@ -92,6 +86,11 @@ set colorcolumn=+1                " highlight 81st column
 set linebreak                     " break on what looks like boundaries
 set showbreak=↳\                  " shown at the start of a wrapped line
 set formatoptions=qrn1
+"                 ||||
+"                 |||+-- ?
+"                 ||+--- recognize numbered lists
+"                 |+---- insert current comment leader after hitting enter
+"                 +----- format comments with gq
 
 set incsearch                     " Jump while searching
 set ignorecase                    " Case insensitive searches
@@ -163,6 +162,11 @@ set pastetoggle=<F6>                " Toggle paste mode
 set tags=./tags;
 
 set diffopt+=vertical
+
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " neovim
 if has('nvim')
@@ -238,9 +242,6 @@ map <tab> %
 " Hard-wrap paragraphs of text
 nnoremap <leader>q gqip
 
-" Map code completion to , + tab
-imap <leader><tab> <C-x><C-o>
-
 " Use better regexp
 nnoremap / /\v
 vnoremap / /\v
@@ -282,72 +283,21 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-nnoremap <leader>l :ls<CR>:b<space>
 noremap <M-k> :bn<cr>
-noremap <A-k> :bn<r>
-noremap ∆ :bn<cr>
-noremap k :bn<cr>
-noremap ‹ :bp<cr>
-noremap j :bp<cr>
 noremap <M-j> :bp<cr>
+noremap <A-k> :bn<cr>
 noremap <A-j> :bp<cr>
-
-inoremap <M-1> <Esc>:tabn 1<CR>i
-inoremap <M-2> <Esc>:tabn 2<CR>i
-inoremap <M-3> <Esc>:tabn 3<CR>i
-inoremap <M-4> <Esc>:tabn 4<CR>i
-inoremap <M-5> <Esc>:tabn 5<CR>i
-inoremap <M-6> <Esc>:tabn 6<CR>i
-inoremap <M-7> <Esc>:tabn 7<CR>i
-inoremap <M-8> <Esc>:tabn 8<CR>i
-inoremap <M-9> <Esc>:tabn 9<CR>i
-
-noremap <M-1> :tabn 1<CR>
-noremap <M-2> :tabn 2<CR>
-noremap <M-3> :tabn 3<CR>
-noremap <M-4> :tabn 4<CR>
-noremap <M-5> :tabn 5<CR>
-noremap <M-6> :tabn 6<CR>
-noremap <M-7> :tabn 7<CR>
-noremap <M-8> :tabn 8<CR>
-noremap <M-9> :tabn 9<CR>
-
-" Bind gb to toggle between the last two tabs
-map å :exe "tabn ".g:ltv<CR>
-function! Setlasttabpagevisited()
-    let g:ltv = tabpagenr()
-endfunction
-
-augroup localtl
-    autocmd!
-    autocmd TabLeave * call Setlasttabpagevisited()
-augroup END
-autocmd VimEnter * let g:ltv = 1
-
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
-nnoremap td  :tabclose<CR>
 " }}}
 
 " Copy/Pasting {{{
-" Copy/paste
-noremap <leader>p mz:r!pbpaste<cr>`z
-noremap <leader>y :.w !pbcopy<CR><CR>
-vnoremap <leader>y :w !pbcopy<CR><CR>
-
-" Copy to X CLIPBOARD
-map <leader>cc :w !xsel -i -b<CR><CR>
-map <leader>cp :w !xsel -i -p<CR><CR>
-map <leader>cs :w !xsel -i -s<CR><CR>
-" Paste from X CLIPBOARD
-map <leader>pp :r!xsel -p<CR><CR>
-map <leader>ps :r!xsel -s<CR><CR>
-map <leader>pb :r!xsel -b<CR><CR>
+nnoremap <leader>d "+d
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+xnoremap <leader>d "+d
+xnoremap <leader>y "+y
+xnoremap <leader>p "+p
+xnoremap <leader>P "+P
 " }}}
 
 " Plugin: ale {{{
@@ -376,8 +326,7 @@ nnoremap <silent> <leader>r :Tags<CR>
 " }}}
 
 " Plugin: deoplete {{{
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1                        " Use deoplete.
 let g:deoplete#sources#jedi#show_docstring = 1
 " Auto close scratch window
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -389,31 +338,12 @@ imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " }}}
 
-" Plugin: tagbar {{{
-let g:tagbar_type_puppet = {
-    \ 'ctagstype': 'puppet',
-    \ 'kinds': [
-        \'c:class',
-        \'s:site',
-        \'n:node',
-        \'d:definition',
-        \'r:resource',
-        \'f:default'
-    \]
-    \}
-" }}}
-
 " Plugin: vim-markdown {{{
 let g:vim_markdown_folding_disabled=0
 " }}}
 
 " Plugin: polyglot {{{
 let g:polyglot_disabled = ['go']
-" }}}
-
-" Plugin: gitgutter {{{
-let g:gitgutter_enabled = 0
-nmap <leader>G :GitGutterToggle<CR>
 " }}}
 
 " Plugin: vim-signify {{{
