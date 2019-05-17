@@ -14,7 +14,7 @@ done
 
 for MONITOR in $(xrandr -q | grep "\bconnected" | grep -iv eDP | awk '{print $1}'); do
   echo Found $MONITOR
-  xrandr --output $MONITOR --auto --primary --right-of $LAPTOP_MONITOR
+  xrandr --output $MONITOR --auto --primary --left-of $LAPTOP_MONITOR
   PRIMARY_MONITOR=$MONITOR
 done
 
