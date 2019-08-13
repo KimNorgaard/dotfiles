@@ -210,8 +210,8 @@ endif
         let g:nofrils_strbackgrounds = 1    " make strings stand out
 
         " colorscheme frign
-        colorscheme monotone-terminal
-        " colorscheme distilled
+        " colorscheme monotone-terminal
+        colorscheme phoenix
     endif
 
     if has("gui_running")

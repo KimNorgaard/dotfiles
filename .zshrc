@@ -21,10 +21,8 @@ fi
 # misc
 alias open=xdg-open
 alias netctl='sudo netctl'
-alias t=todo.sh
 alias history='fc -l 1'
 alias ls='ls -F'
-alias syu='yay -Syu'
 
 # clipboard
 alias yy='xsel -i -b'
@@ -173,7 +171,7 @@ function git_prompt_info() {
 }
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
-local ret_cwd="%(?:%{$fg[green]%}:%{$fg[red]%})%~"
+local ret_cwd="%(?:%{$fg[blue]%}:%{$fg[red]%})%~"
 
 PROMPT='%m:${ret_cwd} $(git_prompt_info)% %{$reset_color%}'
 
