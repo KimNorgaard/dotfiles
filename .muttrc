@@ -31,7 +31,7 @@ set trash                = "+Trash"
 set mbox_type            = Maildir
 
 set askcc
-set date_format          = "%d-%m-%y"
+set date_format          = "%d-%m-%y %H:%M"
 set delete                                          # don't ask on delete
 set edit_headers                                    # show headers on edit
 set editor               = "TERM=xterm-256color nvim"
