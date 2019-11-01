@@ -35,6 +35,9 @@ alias llrt='ls -lFhArt'
 
 alias gcloud='docker run -ti --volumes-from gcloud-config google/cloud-sdk gcloud'
 
+alias kb=kubectl
+alias tf=terraform
+
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
@@ -50,6 +53,9 @@ function vpn() {
                       --syslog \
                       --pid-file=/var/run/openconnect.pid \
                       --background $VPN_SERVER || return
+  sleep 2
+  devid=$(ip -o link show tun0 | cut -d" " -f1 | tr -d :)
+  sudo busctl call org.freedesktop.resolve1 /org/freedesktop/resolve1 org.freedesktop.resolve1.Manager SetLinkDNS 'ia(iay)' $devid 2 2 4 77 243 50 250 2 4 77 243 50 251
   dunstify -i connect_established \
            -u normal "VPN Connected$VPN_SERVER"
 }
