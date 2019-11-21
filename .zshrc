@@ -37,6 +37,8 @@ alias gcloud='docker run -ti --volumes-from gcloud-config google/cloud-sdk gclou
 
 alias kb=kubectl
 alias tf=terraform
+alias gp='git pull'
+alias gP='git push'
 
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
@@ -215,7 +217,7 @@ fi
 #
 # :: ponysay
 #
-if [ ! -z $DISPLAY ]; then
+if [ ! -z $DISPLAY ] && [ ! -z $TMUX ]; then
   if which ponysay > /dev/null; then
     ponysay -o
   fi
