@@ -30,3 +30,10 @@ export LC_CTYPE=en_US.UTF-8
 export BROWSER=firefox
 
 [ -f ~/.zshenv.local ] && source ~/.zshenv.local
+
+#AWSume alias to source the AWSume script
+alias awsume=". awsume"
+
+#Auto-Complete function for AWSume
+#Auto-Complete function for AWSume
+fpath=(~/.awsume/zsh-autocomplete/ $fpath)

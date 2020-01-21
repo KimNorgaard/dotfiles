@@ -13,3 +13,5 @@ text/plain         ; less %s
 text/html          ; w3m -dump -I %{charset} -T text/html -cols 70 ; copiousoutput;
 
 video/*            ; mpv %s; test=test -n "$DISPLAY"
+
+message/rfc822     ; formail -b < %s > %s.mbox && mutt -f '%s.mbox'; needsterminal
