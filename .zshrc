@@ -106,8 +106,8 @@ setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a traili
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
 
-if [ -d ~/src/lpasszsh ]; then
-  autoload -U ~/src/lpasszsh/*(:t)
+if [ -d ~/src/kn/lpasszsh ]; then
+  autoload -U ~/src/kn/lpasszsh/*(:t)
 fi
 
 # Enable approximate completions

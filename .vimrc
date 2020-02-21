@@ -311,10 +311,10 @@ let g:ale_fixers = {
 " Plugin: tabular {{{
 autocmd VimEnter *
             \ if exists(":Tabularize") |
-                \ nmap <leader>a= :Tabularize /=<CR> |
-                \ vmap <leader>a= :Tabularize /=<CR> |
-                \ nmap <leader>a: :Tabularize /:\zs<CR> |
-                \ vmap <leader>a: :Tabularize /:\zs<CR> |
+                \ nmap <leader>a= :Tabularize /=<CR>|
+                \ vmap <leader>a= :Tabularize /=<CR>|
+                \ nmap <leader>a: :Tabularize /:\zs<CR>|
+                \ vmap <leader>a: :Tabularize /:\zs<CR>|
             \ endif
 " }}}
 
@@ -352,21 +352,15 @@ let g:signify_vcs_list = ['git']
 " }}}
 
 " Plugin: vimwiki {{{
-let wiki_1 = {}
-let wiki_1.path = '~/data/vimwiki'
-let wiki_1.template_path = '~/data/vimwiki/templates'
-let wiki_1.syntax = 'markdown'
-let wiki_1.ext = '.md'
-
-let wiki_2 = {}
-let wiki_2.path = '~/data/vimwiki.work'
-let wiki_2.template_path = '~/data/vimwiki.work/templates'
-let wiki_2.syntax = 'markdown'
-let wiki_2.ext = '.md'
+let wiki = {}
+let wiki.path = '~/data/vimwiki'
+let wiki.template_path = '~/data/vimwiki/templates'
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
 
 let g:vimwiki_custom_wiki2html = '~/data/vimwiki/wiki2html.py'
 let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [wiki_1, wiki_2]
+let g:vimwiki_list = [wiki]
 let g:vimwiki_folding = 'expr'
 " }}}
 
