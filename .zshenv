@@ -5,6 +5,7 @@ export TODOTXT_DEFAULT_ACTION=ls
 export LPASS_AGENT_TIMEOUT=28800
 
 export EDITOR=nvim
+export VISUAL=nvim
 export PAGER=less
 
 export LESS='-RM'
@@ -16,7 +17,7 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'          # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m'       # begin underline
 
-export TERMINAL=st
+export TERMINAL=termite
 
 export REPORTTIME=5
 
@@ -36,4 +37,4 @@ alias awsume=". awsume"
 
 #Auto-Complete function for AWSume
 #Auto-Complete function for AWSume
-fpath=(~/.awsume/zsh-autocomplete/ $fpath)
+fpath=(~/.awsume/zsh-autocomplete/ ~/.zsh/autocomp $fpath)

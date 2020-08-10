@@ -14,30 +14,18 @@ endfunction
 autocmd CursorHold,BufWritePost * unlet! b:statline_trailing_space_warning
 
 set statusline=
-set statusline+=%F%(\ [%M%R%H%W%{&paste?\",PASTE\":\"\"}%{TrailingSpaceWarning()}]%)%<\ %=
-"               | |    | | | | | |                                                | |   |
-"               | |    | | | | | |                                                | |   +-- align right
-"               | |    | | | | | |                                                | +-- truncate
-"               | |    | | | | | |                                                +-- end item group
-"               | |    | | | | | |
-"               | |    | | | | | |
-"               | |    | | | | | |
-"               | |    | | | | | +-- paste mode indication
-"               | |    | | | | +-- begin evaluation
-"               | |    | | | +-- preview flag
-"               | |    | | +-- help flagin
-"               | |    | +-- readonly flag
-"               | |    +-- modified flag
-"               | +-- begin item group
-"               +-- full path to file in the buffer
-
-set statusline+=%(%{&ft}\ %)%03c-%03v\ %04l/%04L\ %3p%%
-"               | |       | |    |     |    |     |
-"               | |       | |    |     |    |     +-- percent
-"               | |       | |    |     |    +-- lines
-"               | |       | |    |     +-- current line
-"               | |       | |    +-- virtual column
-"               | |       | +-- column
-"               | |       +-- end item group
-"               | +-- file type
-"               +-- begin item group
+" buffer name
+set statusline+=%f
+" %Y - file type
+" %M - modified flag
+" %R - readonly flag
+" %H - help flag
+" %W - preview flag
+set statusline+=%(\ [%Y%M%R%H%W%{&paste?\",PASTE\":\"\"}%{TrailingSpaceWarning()}]%)
+" %< - truncate
+" %= - right align (ruler)
+" %l - line number
+" %c - colum number
+" %V - virtual column number
+" %P - percent
+set statusline+=%<\ %=%-14.(%l,%c%V%)\ %P

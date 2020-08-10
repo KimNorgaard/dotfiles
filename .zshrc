@@ -50,7 +50,10 @@ _has(){
    return $( whence $1 >/dev/null )
 }
 
-function vpn() {
+alias vpn='/opt/cisco/anyconnect/bin/vpn connect "Netic tech profile"'
+alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
+
+function ovpn() {
   sudo -- openconnect --config $VPN_CONFIG \
                       --syslog \
                       --pid-file=/var/run/openconnect.pid \
@@ -62,7 +65,7 @@ function vpn() {
            -u normal "VPN Connected$VPN_SERVER"
 }
 
-function novpn() {
+function noovpn() {
   if [ -f /var/run/openconnect.pid ]; then
     sudo kill -INT $(cat /var/run/openconnect.pid)
   fi

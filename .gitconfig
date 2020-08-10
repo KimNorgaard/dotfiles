@@ -1,6 +1,6 @@
 [user]
-    name = Kim Nørgaard
-    email = jasen@jasen.dk
+	name = Kim Nørgaard
+	email = kn@netic.dk
 [core]
     excludesfile = /Users/kn/.gitignore_global
     editor = vim
@@ -39,3 +39,10 @@
 
 [include]
     path = ~/.gitconfig.local
+
+[difftool]
+  prompt = true
+[diff]
+  tool = nvimdiff
+[difftool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""

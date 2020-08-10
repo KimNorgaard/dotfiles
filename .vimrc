@@ -22,7 +22,6 @@ Plug 'tpope/vim-surround'                                   " parentheses, brack
 Plug 'tpope/vim-endwise'                                    " auto-add endings
 Plug 'tpope/vim-fugitive'                                   " git
 
-Plug 'romainl/vim-qlist'                                    " Ilist, Dlist
 Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
 
 Plug 'fatih/vim-go', {'for': 'go'}                          " go
@@ -46,12 +45,16 @@ Plug 'rakr/vim-one'                                         " vim-one color-sche
 Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
 Plug 'https://gitlab.com/ducktape/monotone-termnial.git'
 Plug 'axvr/photon.vim'                                      " photon
+Plug 'hardselius/warlock'
+Plug 'andreypopp/vim-colors-plain'
+Plug 'ajgrf/parchment'
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
-Plug 'junegunn/limelight.vim'                               " section highlight
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
 Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
+
+Plug 'ledger/vim-ledger', {'for': 'ledger'}
 
 call plug#end()
 " }}}
@@ -141,7 +144,7 @@ set numberwidth=5               " width of numbers column
 set laststatus=2                " always show status line
 set ruler                       " show the cursor position all the time
 set showcmd                     " display incomplete commands
-set nocursorline                  " highlight current line
+set nocursorline                " highlight current line
 set scrolloff=5                 " keep at lest N lines while scrolling
 set noerrorbells                " Do not use bells on errors
 set helpheight=0                " Height of help screen is 50%
@@ -211,7 +214,7 @@ endif
 
         " colorscheme frign
         " colorscheme monotone-terminal
-        colorscheme phoenix
+        colorscheme plain
     endif
 
     if has("gui_running")
@@ -328,6 +331,8 @@ nnoremap <silent> <leader>r :Tags<CR>
 " Plugin: deoplete {{{
 let g:deoplete#enable_at_startup = 1                        " Use deoplete.
 let g:deoplete#sources#jedi#show_docstring = 1
+" Support for vim-go
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 " Auto close scratch window
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
