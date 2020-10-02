@@ -8,6 +8,13 @@ clickable_url = false
 #font = DejaVu Sans Mono 10
 #font = Iosevka 12
 font = Fira Mono 10
+font = RobotoMono Nerd Font Mono Light 10
+font = RobotoMono Nerd Font Mono 10
+#:style=Light:size=12:antialias=True:hinting=True
+#font = RobotoMono Nerd Font Mono 12
+#font= Roboto Mono Light Nerd Font
+#:style
+#=Light,Regular
 #fullscreen = true
 #geometry = 640x480
 #icon_name = terminal
@@ -52,10 +59,14 @@ scrollback_lines = -1
 #foreground_bold = #ffffff
 #background = #3f3f3f
 #foreground = #F8F8F2
-background = #1C1C1C
+#background = #1C1C1C
 #foreground = #000000
 #background = #e0e0e0
+# purple
 background = #381938
+#  prussian blue
+background = #003153
+background = #002e43
 
 # 20% background transparency (requires a compositor)
 #background = rgba(63, 63, 63, 0.8)

@@ -2,7 +2,7 @@ application/msword ; antiword %s; copiousoutput;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document ; soffice %s;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet ; soffice %s;
 
-image/*            ; feh --scale %s; test=test -n "$DISPLAY"
+image/*            ; sxiv %s; test=test -n "$DISPLAY"
 
 # application/pdf    ; xpdf %s
 application/pdf    ; zathura %s ; copiousoutput

@@ -1,19 +1,75 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldlevel=0 foldmethod=marker:
 " Kim Nørgaard <jasen@jasen.dk>
 
+" Plugin: polyglot {{{
+let g:polyglot_disabled = ['go']
+" }}}
+"
+" Plugin: ale {{{
+let g:ale_sign_column_always = 0
+let g:ale_fixers = {
+    \ 'terraform': ['terraform'],
+    \ }
+" let g:ale_fix_on_save = 1
+" }}}
+
+" Plugin: tabular {{{
+autocmd VimEnter *
+            \ if exists(":Tabularize") |
+                \ nmap <leader>a= :Tabularize /=<CR>|
+                \ vmap <leader>a= :Tabularize /=<CR>|
+                \ nmap <leader>a: :Tabularize /:\zs<CR>|
+                \ vmap <leader>a: :Tabularize /:\zs<CR>|
+            \ endif
+" }}}
+
+" Plugin: fzf {{{
+nnoremap ; :Buffers<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>t :Files<CR>
+nnoremap <silent> <leader>r :Tags<CR>
+" }}}
+
+" Plugin: vim-markdown {{{
+let g:vim_markdown_folding_disabled=0
+" }}}
+
+" Plugin: vim-signify {{{
+let g:signify_realtime = 1
+let g:signify_vcs_list = ['git']
+" }}}
+
+" Plugin: vimwiki {{{
+let wiki = {}
+let wiki.path = '~/data/vimwiki'
+let wiki.template_path = '~/data/vimwiki/templates'
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
+
+let g:vimwiki_custom_wiki2html = '~/data/vimwiki/wiki2html.py'
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [wiki]
+let g:vimwiki_folding = 'expr'
+" }}}
+
+" Plugin: vim-go {{{
+let g:go_fmt_command = "goimports"
+" }}}
+
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
 
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " completion
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" if has('nvim')
+"     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " completion
+" else
+"     Plug 'Shougo/deoplete.nvim'
+"     Plug 'roxma/nvim-yarp'
+"     Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 
-Plug 'zchee/deoplete-jedi', {'for': 'python'}               " python completion
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}      " go completion
+" Plug 'zchee/deoplete-jedi', {'for': 'python'}               " python completion
+" Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}      " go completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'w0rp/ale'                                             " linting, making
 
@@ -32,7 +88,7 @@ Plug 'tomtom/tlib_vim'                                      " tcomment dependenc
 Plug 'tomtom/tcomment_vim'                                  " comments
 
 Plug 'godlygeek/tabular'                                    " tabularize text
-Plug 'ervandew/supertab'                                    " use <TAB> for insert completions
+"Plug 'ervandew/supertab'                                    " use <TAB> for insert completions
 
 Plug 'junegunn/fzf'                                         " fuzzy searching
 Plug 'junegunn/fzf.vim'                                     " fuzzy searching
@@ -42,12 +98,8 @@ Plug 'jlanzarotta/bufexplorer'                              " fancy buffer-handl
 Plug 'pangloss/vim-simplefold'                              " smarter folding
 
 Plug 'rakr/vim-one'                                         " vim-one color-schemes
-Plug 'widatama/vim-phoenix'                                 " phoenix color-schemes
-Plug 'https://gitlab.com/ducktape/monotone-termnial.git'
-Plug 'axvr/photon.vim'                                      " photon
-Plug 'hardselius/warlock'
 Plug 'andreypopp/vim-colors-plain'
-Plug 'ajgrf/parchment'
+Plug 'adigitoleo/vim-mellow'
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 
@@ -57,6 +109,61 @@ Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown sy
 Plug 'ledger/vim-ledger', {'for': 'ledger'}
 
 call plug#end()
+" }}}
+
+" Plugin: coc.vim {{{
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : <SID>check_back_space() ? "\<tab>" : coc#refresh()
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+" set completeopt+=noinsert,noselect,preview
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+
+" inoremap <expr><cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+
+" }}}
+
+" Plugin: deoplete {{{
+let g:deoplete#enable_at_startup = 1                        " Use deoplete.
+let g:deoplete#sources#jedi#show_docstring = 1
+" Support for vim-go
+"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+" Auto close scratch window
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" TAB-complete
+" set completeopt+=noinsert,noselect,preview
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+" imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " }}}
 
 " General Settings {{{
@@ -74,6 +181,7 @@ set notimeout                     " don't timeout on mappings
 set ttimeout                      " do timeout on terminal key codes
 set ttimeoutlen=10                " key code timeout
 set timeoutlen=500                " mapped key sequence timeout
+set updatetime=750
 
 set hidden                        " switch between buffers without saving
 
@@ -159,6 +267,7 @@ setglobal fileencoding=utf-8        " ...
 set nobomb                          " do not write utf-8 BOM!
 set fileencodings=utf-8,iso-8859-1  " order to detect Unicodeyness
 set shortmess+=I                    " Don't display intro message
+set shortmess+=c                    " Don't give ins-completion-menu messages
 
 set pastetoggle=<F6>                " Toggle paste mode
 
@@ -214,6 +323,7 @@ endif
 
         " colorscheme frign
         " colorscheme monotone-terminal
+        set background=dark
         colorscheme plain
     endif
 
@@ -303,74 +413,4 @@ xnoremap <leader>p "+p
 xnoremap <leader>P "+P
 " }}}
 
-" Plugin: ale {{{
-let g:ale_sign_column_always = 0
-let g:ale_fixers = {
-    \ 'terraform': ['terraform'],
-    \ }
-" let g:ale_fix_on_save = 1
-" }}}
-
-" Plugin: tabular {{{
-autocmd VimEnter *
-            \ if exists(":Tabularize") |
-                \ nmap <leader>a= :Tabularize /=<CR>|
-                \ vmap <leader>a= :Tabularize /=<CR>|
-                \ nmap <leader>a: :Tabularize /:\zs<CR>|
-                \ vmap <leader>a: :Tabularize /:\zs<CR>|
-            \ endif
-" }}}
-
-" Plugin: fzf {{{
-nnoremap ; :Buffers<CR>
-nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>t :Files<CR>
-nnoremap <silent> <leader>r :Tags<CR>
-" }}}
-
-" Plugin: deoplete {{{
-let g:deoplete#enable_at_startup = 1                        " Use deoplete.
-let g:deoplete#sources#jedi#show_docstring = 1
-" Support for vim-go
-call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-" Auto close scratch window
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" TAB-complete
-set completeopt+=noinsert,noselect,preview
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" }}}
-
-" Plugin: vim-markdown {{{
-let g:vim_markdown_folding_disabled=0
-" }}}
-
-" Plugin: polyglot {{{
-let g:polyglot_disabled = ['go']
-" }}}
-
-" Plugin: vim-signify {{{
-let g:signify_realtime = 1
-let g:signify_vcs_list = ['git']
-" }}}
-
-" Plugin: vimwiki {{{
-let wiki = {}
-let wiki.path = '~/data/vimwiki'
-let wiki.template_path = '~/data/vimwiki/templates'
-let wiki.syntax = 'markdown'
-let wiki.ext = '.md'
-
-let g:vimwiki_custom_wiki2html = '~/data/vimwiki/wiki2html.py'
-let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [wiki]
-let g:vimwiki_folding = 'expr'
-" }}}
-
-" Plugin: vim-go {{{
-let g:go_fmt_command = "goimports"
-" }}}
-
-silent! source ~/.vimrc.local
+silent source ~/.vimrc.local
