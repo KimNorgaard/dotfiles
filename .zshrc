@@ -40,6 +40,9 @@ alias tf=terraform
 alias gp='git pull'
 alias gP='git push'
 
+alias k=kubectl
+alias g=git
+
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
