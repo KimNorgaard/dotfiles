@@ -11,4 +11,5 @@ rofi.location:             0
 rofi.font:                 Hack 12
 rofi.fixed-num-lines:      true
 
-rofi.theme: /usr/share/rofi/themes/gruvbox-dark.rasi
+#rofi.theme: /usr/share/rofi/themes/gruvbox-dark.rasi
+rofi.theme: solarized_alternate

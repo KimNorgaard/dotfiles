@@ -194,10 +194,11 @@ PROMPT='%m:${ret_cwd} $(git_prompt_info)% %{$reset_color%}'
 # :: HISTORY
 #
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
+HISTSIZE=12001
 SAVEHIST=10000
 setopt extendedhistory
 setopt histexpiredupsfirst
+setopt histfindnodups
 setopt histignoredups
 setopt histignorespace
 setopt histverify
@@ -263,7 +264,7 @@ _gen_fzf_default_opts() {
     --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
   "
 }
-_gen_fzf_default_opts
+#_gen_fzf_default_opts
 
 # ==> .zshrc.local
 if [ -f ~/.zshrc.local ]; then

@@ -7,9 +7,10 @@ clickable_url = false
 #font = Fira Code 12
 #font = DejaVu Sans Mono 10
 #font = Iosevka 12
-font = Fira Mono 10
-font = RobotoMono Nerd Font Mono Light 10
-font = RobotoMono Nerd Font Mono 10
+#font = Fira Mono 10
+#font = RobotoMono Nerd Font Mono Light 10
+#font = RobotoMono Nerd Font Mono 10
+font = IBM Plex Mono 10
 #:style=Light:size=12:antialias=True:hinting=True
 #font = RobotoMono Nerd Font Mono 12
 #font= Roboto Mono Light Nerd Font
@@ -49,7 +50,7 @@ scrollback_lines = -1
 # "off", "left" or "right"
 #scrollbar = off
 
-[colors]
+[Xcolors]
 # If both of these are unset, cursor falls back to the foreground color,
 # and cursor_foreground falls back to the background color.
 #cursor = #dcdccc
@@ -133,44 +134,45 @@ color15 = #ebdbb2
 # Other themes
 # - https://github.com/khamer/base16-termite/blob/master/themes/base16-nord.config
 
-[Xcolors]
+[colors]
 # hard contrast: background = #1d2021
-background = #282828
+background = #002b36
 # soft contrast: background = #32302f
-foreground = #ebdbb2
-foreground_bold = #ebdbb2
+foreground = #839496
+foreground_bold = #eee8d5
+cursor = #93a1a1
 
 # dark0 + gray
-color0 = #282828
-color8 = #928374
+color0 = #073642
+color8 = #002b36
 
 # neutral_red + bright_red
-color1 = #cc241d
-color9 = #fb4934
+color1 = #dc322f
+color9 = #cb4b16
 
 # neutral_green + bright_green
-color2 = #98971a
-color10 = #b8bb26
+color2 =  #859900
+color10 = #586e75
 
 # neutral_yellow + bright_yellow
-color3 = #d79921
-color11 = #fabd2f
+color3 = #b58900
+color11 = #657b83
 
 # neutral_blue + bright_blue
-color4 = #458588
-color12 = #83a598
+color4 = #268bd2
+color12 = #839496
 
 # neutral_purple + bright_purple
-color5 = #b16286
-color13 = #d3869b
+color5 = #d33682
+color13 = #6c71c4
 
 # neutral_aqua + faded_aqua
-color6 = #689d6a
-color14 = #8ec07c
+color6 = #2aa198
+color14 = #93a1a1
 
 # light4 + light1
-color7 = #a89984
-color15 = #ebdbb2
+color7 = #eee8d5
+color15 = #fdf6e3
 
 [hints]
 font = Monospace 12

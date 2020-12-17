@@ -99,7 +99,7 @@ Plug 'pangloss/vim-simplefold'                              " smarter folding
 
 Plug 'rakr/vim-one'                                         " vim-one color-schemes
 Plug 'andreypopp/vim-colors-plain'
-Plug 'adigitoleo/vim-mellow'
+Plug 'lifepillar/vim-solarized8'
 
 Plug 'junegunn/goyo.vim'                                    " distraction free writing
 
@@ -324,7 +324,8 @@ endif
         " colorscheme frign
         " colorscheme monotone-terminal
         set background=dark
-        colorscheme plain
+        " colorscheme plain
+        colorscheme solarized8
     endif
 
     if has("gui_running")
