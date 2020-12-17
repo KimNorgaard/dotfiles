@@ -1,32 +1,28 @@
-set default-bg                  "#282936"
-set default-fg                  "#3a3c4e"
-
-set statusbar-fg                "#62d6e8"
-set statusbar-bg                "#4d4f68"
-
-set inputbar-bg                 "#282936"
-set inputbar-fg                 "#f7f7fb"
-
-set notification-bg             "#282936"
-set notification-fg             "#f7f7fb"
-
-set notification-error-bg       "#282936"
-set notification-error-fg       "#ea51b2"
-
-set notification-warning-bg     "#282936"
-set notification-warning-fg     "#ea51b2"
-
-set highlight-color             "#00f769"
-set highlight-active-color      "#62d6e8"
-
-set completion-bg               "#3a3c4e"
-set completion-fg               "#62d6e8"
-
-set completion-highlight-fg     "#f7f7fb"
-set completion-highlight-bg     "#62d6e8"
-
-set recolor-lightcolor          "#282936"
-set recolor-darkcolor           "#f1f2f8"
-
-set recolor                     "false"
-set recolor-keephue             "false"
+set font                        "Hack NF 12"
+set recolor                     true
+set completion-group-bg         "#002b36"
+set completion-group-fg         "#839496"
+set completion-bg               "#073642"
+set completion-fg               "#93a1a1"
+set completion-highlight-bg     "#586e75"
+set completion-highlight-fg     "#eee8d5"
+set notification-error-bg       "#074D40"
+set notification-error-fg       "#E5E5E5"
+set notification-warning-bg     "#074D40"
+set notification-warning-fg     "#E5E5E5"
+set notification-bg             "#074D40"
+set notification-fg             "#b58900"
+set index-bg                    "#26354b"
+set index-fg                    "#E5E5E5"
+set index-active-bg             "#586e75"
+set index-active-fg             "#eee8d5"
+set inputbar-bg                 "#26354b"
+set inputbar-fg                 "#E5E5E5"
+set statusbar-bg                "#26354b"
+set statusbar-fg                "#93a1a1"
+set highlight-color             "#268bd2"
+set highlight-active-color      "#074D40"
+set default-bg                  "#101a2c"
+set default-fg                  "#101a2c"
+set recolor-lightcolor          "#101a2c"
+set recolor-darkcolor           "#E5E5E5"
