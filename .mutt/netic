@@ -1,0 +1,6 @@
+set postponed            = "+netic/Drafts"
+set record               = "+netic/Sent"
+set spoolfile            = "+netic/INBOX"
+set trash                = "+netic/Trash"
+set from                 = "kn@netic.dk"
+set signature            = ~/.mutt/sig_netic

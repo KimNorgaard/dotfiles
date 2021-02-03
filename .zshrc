@@ -79,8 +79,7 @@ function noovpn() {
 }
 
 function lsp() {
-  # clipster -i
-  lpass show --clip --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+  lpass show --clip --password $(lpass ls  | fzf | awk '{gsub("]$", ""); print $(NF)}')
 }
 
 function CONFIG() {
