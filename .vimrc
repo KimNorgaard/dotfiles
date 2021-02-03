@@ -321,6 +321,8 @@ endif
         let g:nofrils_heavycomments = 1     " make comments stand out
         let g:nofrils_strbackgrounds = 1    " make strings stand out
 
+        let g:solarized_visibility = "low"
+
         " colorscheme frign
         " colorscheme monotone-terminal
         set background=dark

@@ -45,9 +45,33 @@ Channel gsuite-jira
     Sync All
     SyncState *
 
-Channel gsuite-jira
+Channel gsuite-lists
     Master :gsuite-remote:Lists
     Slave :netic-local:Lists
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel gsuite-car
+    Master :gsuite-remote:Car
+    Slave :netic-local:Car
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel gsuite-invoice
+    Master :gsuite-remote:Invoice
+    Slave :netic-local:Invoice
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel gsuite-employment
+    Master :gsuite-remote:Employment
+    Slave :netic-local:Employment
     Create Both
     Expunge Both
     Sync All
@@ -76,3 +100,7 @@ Group netic
     Channel gsuite-jira
     Channel gsuite-alerts
     Channel gsuite-trash
+    Channel gsuite-employment
+    Channel gsuite-car
+    Channel gsuite-lists
+    Channel gsuite-invoice
