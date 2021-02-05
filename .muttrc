@@ -1,36 +1,38 @@
 # muttrc -----------------------------------------------------------------------
 
 # settings ---------------------------------------------------------------------
-set folder               = ~/mail/netic
+set folder               = ~/mail
 set alias_file           = ~/.mutt/alias
 set header_cache         = ~/.mutt/cache/headers
 set message_cachedir     = ~/.mutt/cache/bodies
 set certificate_file     = ~/.mutt/certificates
 set mailcap_path         = ~/.mutt/mailcap
 set tmpdir               = ~/.mutt/temp
-set signature            = ~/.mutt/sig
 
 set realname             = "Kim Nørgaard"
-set from                 = "kn@netic.dk"
 set envelope_from
 alternates jasen@jasen.dk kk@jasen.dk junk@jasen.dk
 
-mailboxes +INBOX
-mailboxes +Sent
-mailboxes +Drafts
-mailboxes +JIRA
-mailboxes +Lists
-mailboxes +Invoice
-mailboxes +Car
-mailboxes +Employment
-mailboxes +Alerts
-mailboxes +Trash
+mailboxes +netic/INBOX
+mailboxes +netic/Sent
+mailboxes +netic/Drafts
+mailboxes +netic/JIRA
+mailboxes +netic/Lists
+mailboxes +netic/Invoice
+mailboxes +netic/Car
+mailboxes +netic/Employment
+mailboxes +netic/Alerts
+mailboxes +netic/Trash
+mailboxes +jasendk/INBOX
+mailboxes +jasendk/Sent
+mailboxes +jasendk/Trash
 mailboxes +../temporary/search
 
-set postponed            = "+Drafts"
-set record               = "+Sent"
-set spoolfile            = "+INBOX"
-set trash                = "+Trash"
+source ~/.mutt/netic
+
+folder-hook netic/ 'source ~/.mutt/netic'
+folder-hook jasendk/ 'source ~/.mutt/jasendk'
+
 set mbox_type            = Maildir
 
 set askcc
@@ -112,8 +114,10 @@ macro index        O  "<shell-escape>systemctl --user start mbsync<enter>"
 macro index        C  "<copy-message>?<toggle-mailboxes>"
 macro index        M  "<save-message>?<toggle-mailboxes>"
 macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+../temporary/search<enter>"
-macro index,pager  gi "<change-folder>=INBOX<enter>" "Go to inbox"
-macro index,pager  gs "<change-folder>=Sent<enter>" "Go to sent"
+macro index,pager  gi "<change-folder>=netic/INBOX<enter>" "Go to inbox"
+macro index,pager  gj "<change-folder>=jasendk/INBOX<enter>" "Go to jasendk inbox"
+macro index,pager  gsi "<change-folder>=netic/Sent<enter>" "Go to sent"
+macro index,pager  gss "<change-folder>=jasendk/Sent<enter>" "Go to jasendk sent"
 macro pager        w ":set wrap=80<enter>"
 macro pager        W ":set wrap=0<enter>"
 

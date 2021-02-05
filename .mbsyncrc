@@ -104,3 +104,57 @@ Group netic
     Channel gsuite-car
     Channel gsuite-lists
     Channel gsuite-invoice
+
+IMAPAccount jasendk
+    Host imap.gmail.com
+    User jasen@jasen.dk
+    Pass "aahoykpinrmfcypl"
+    #PassCmd "~/bin/mail-credential-helper.sh jasendk-gmail"
+    SSLType IMAPS
+    AuthMechs LOGIN
+
+IMAPStore jasendk-remote
+    Account jasendk
+
+MaildirStore jasendk-local
+    # The trailing "/" is important
+    Path ~/mail/jasendk/
+    Inbox ~/mail/jasendk/INBOX
+
+Channel jasendk-inbox
+    Master :jasendk-remote:INBOX
+    Slave :jasendk-local:INBOX
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel jasendk-sent
+    Master :jasendk-remote:"[Gmail]/Sent Mail"
+    Slave :jasendk-local:Sent
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel jasendk-drafts
+    Master :jasendk-remote:"[Gmail]/Drafts"
+    Slave :jasendk-local:Drafts
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Channel jasendk-trash
+    Master :jasendk-remote:"[Gmail]/Trash"
+    Slave :jasendk-local:Trash
+    Create Both
+    Expunge Both
+    Sync All
+    SyncState *
+
+Group jasendk
+    Channel jasendk-inbox
+    Channel jasendk-sent
+    Channel jasendk-drafts
+    Channel jasendk-trash
