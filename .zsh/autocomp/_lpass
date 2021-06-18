@@ -1,0 +1,76 @@
+#compdef lpass
+
+_lpass_list_all() {
+  local IFS=$'\n'
+  password_list=($(lpass ls --sync=auto | sed -e "s/ \[id.*//g"))
+}
+
+local -a _1st_arguments
+_1st_arguments=(
+  'login'
+  'logout'
+  'passwd'
+  'show'
+  'ls'
+  'mv'
+  'add'
+  'edit'
+  'generate'
+  'duplicate'
+  'rm'
+  'status'
+  'sync'
+  'export'
+  'share'
+)
+
+_arguments \
+  '(-h --help)'{-h,--help}'[show help]' \
+  '(-v --version)'{-v,--version}'[show version number of program and exit]' \
+  '*:: :->subcmds' && return 0
+
+if (( CURRENT == 1 )); then
+  _describe -t commands "lpass subcommand" _1st_arguments
+  return
+fi
+
+_lpass_sync_mode() {
+  _values 'sync mode' 'auto' 'no' 'yes'
+}
+
+_lpass_color_mode() {
+  _values 'color mode' 'auto' 'never' 'always'
+}
+
+case "$words[1]" in
+  login)
+    _arguments \
+      '(--trust)--trust[something trust something]' \
+      '(--plaintext-key)--plaintext-key[something else plaintext]' \
+      '(-f --force)'{-f,--force}'[force]' \
+      '(--color)--color+[what is this]:color mode:_lpass_color_mode'
+      ;;
+  show)
+    _arguments \
+      '(--sync)--sync+[set sync mode]:sync mode:_lpass_sync_mode' \
+      '(--all)--all[show all fields]' \
+      '(--username)--username[only show username]' \
+      '(--password)--password[only show password]' \
+      '(--url)--url[only show url]' \
+      '(--notes)--notes[only show notes]' \
+      '(--id)--id[only show id]' \
+      '(--name)--name[only show name]' \
+      '(--field=FIELD)--field+[only show field]:show field:' \
+      '(--color)--color+[what is this]:color mode:_lpass_color_mode' \
+      '(-G --basic-regexp)'{-G,--basic-regexp}'[use basic regexp]' \
+      '(-F --fixed-strings)'{-F,--fixed-strings}'[use fixed strings]' \
+      '(-x --expand-multi)'{-x,--expand-multi}'[stuff]' \
+      '(-c --clip)'{-c,--clip}'[copy password til clipboard]' \
+      '1: :->passwords' &&  return 0
+
+      if [[ "$state" == passwords ]]; then
+        _lpass_list_all
+        _wanted password_list expl 'passwords' compadd -a password_list
+      fi
+      ;;
+esac

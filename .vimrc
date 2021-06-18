@@ -4,7 +4,7 @@
 " Plugin: polyglot {{{
 let g:polyglot_disabled = ['go']
 " }}}
-"
+
 " Plugin: ale {{{
 let g:ale_sign_column_always = 0
 let g:ale_fixers = {
@@ -21,13 +21,6 @@ autocmd VimEnter *
                 \ nmap <leader>a: :Tabularize /:\zs<CR>|
                 \ vmap <leader>a: :Tabularize /:\zs<CR>|
             \ endif
-" }}}
-
-" Plugin: fzf {{{
-nnoremap ; :Buffers<CR>
-nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>t :Files<CR>
-nnoremap <silent> <leader>r :Tags<CR>
 " }}}
 
 " Plugin: vim-markdown {{{
@@ -56,19 +49,12 @@ let g:vimwiki_folding = 'expr'
 let g:go_fmt_command = "goimports"
 " }}}
 
+let g:UltiSnipsExpandTrigger = '<f9>'
+
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
 
-" if has('nvim')
-"     Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'} " completion
-" else
-"     Plug 'Shougo/deoplete.nvim'
-"     Plug 'roxma/nvim-yarp'
-"     Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
-" Plug 'zchee/deoplete-jedi', {'for': 'python'}               " python completion
-" Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}      " go completion
+Plug 'SirVer/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'w0rp/ale'                                             " linting, making
@@ -88,7 +74,6 @@ Plug 'tomtom/tlib_vim'                                      " tcomment dependenc
 Plug 'tomtom/tcomment_vim'                                  " comments
 
 Plug 'godlygeek/tabular'                                    " tabularize text
-"Plug 'ervandew/supertab'                                    " use <TAB> for insert completions
 
 Plug 'junegunn/fzf'                                         " fuzzy searching
 Plug 'junegunn/fzf.vim'                                     " fuzzy searching
@@ -97,11 +82,7 @@ Plug 'jlanzarotta/bufexplorer'                              " fancy buffer-handl
 
 Plug 'pangloss/vim-simplefold'                              " smarter folding
 
-Plug 'rakr/vim-one'                                         " vim-one color-schemes
-Plug 'andreypopp/vim-colors-plain'
 Plug 'lifepillar/vim-solarized8'
-
-Plug 'junegunn/goyo.vim'                                    " distraction free writing
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
 Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
@@ -115,7 +96,14 @@ call plug#end()
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : <SID>check_back_space() ? "\<tab>" : coc#refresh()
+inoremap <silent><expr><tab>
+            \ pumvisible() ? "\<c-n>" : <SID>check_back_space() ? "\<tab>" : coc#refresh()
+" inoremap <silent><expr><tab>
+"             \ pumvisible() ? coc#_select_confirm() :
+"             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"             \ <SID>check_back_space() ? "\<tab>" :
+"             \ coc#refresh()
+let g:coc_snippet_next = '<tab>'
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
 " set completeopt+=noinsert,noselect,preview
 " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -134,6 +122,8 @@ endif
 
 
 " inoremap <expr><cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -147,23 +137,13 @@ endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+"imap <C-l> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 
-" }}}
 
-" Plugin: deoplete {{{
-let g:deoplete#enable_at_startup = 1                        " Use deoplete.
-let g:deoplete#sources#jedi#show_docstring = 1
-" Support for vim-go
-"call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-" Auto close scratch window
-"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" TAB-complete
-" set completeopt+=noinsert,noselect,preview
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-" imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " }}}
 
 " General Settings {{{
@@ -271,6 +251,8 @@ set shortmess+=c                    " Don't give ins-completion-menu messages
 
 set pastetoggle=<F6>                " Toggle paste mode
 
+set signcolumn=yes
+
 set tags=./tags;
 
 set diffopt+=vertical
@@ -309,36 +291,15 @@ endif
 
 " Vim UI {
     if &t_Co > 2 || has("gui_running")
-        syntax on                           " syntax highlighting
+        syntax enable                       " syntax highlighting
         " set t_Co=256                        " 256 colors
         set t_8f=[38;2;%lu;%lu;%lum       " 24 bit colors
         set t_8b=[48;2;%lu;%lu;%lum
 
-        let g:one_allow_italics = 1         " italic comments in 'one'
-        let g:two_firewatch_italics=1       " italic comments in 'two'
-        let g:gruvbox_italic=1              " italic comments in 'gruvbox'
-
-        let g:nofrils_heavycomments = 1     " make comments stand out
-        let g:nofrils_strbackgrounds = 1    " make strings stand out
-
         let g:solarized_visibility = "low"
 
-        " colorscheme frign
-        " colorscheme monotone-terminal
         set background=dark
-        " colorscheme plain
         colorscheme solarized8
-    endif
-
-    if has("gui_running")
-        "set macligatures
-        set guifont=Fira\ Code:h10
-        set linespace=3
-        set noicon
-        "set macmeta
-        set guioptions-=r
-        set guioptions-=L
-        set guioptions-=T
     endif
 " }}}
 
@@ -390,9 +351,12 @@ nnoremap <Leader>L :<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar
 
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call theming#SynStack()<CR>
-" }}}
 
-" Navigation {{{
+nnoremap ; :Buffers<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>t :Files<CR>
+nnoremap <silent> <leader>r :Tags<CR>
+
 " Easy buffer/window/tab navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -403,9 +367,8 @@ noremap <M-k> :bn<cr>
 noremap <M-j> :bp<cr>
 noremap <A-k> :bn<cr>
 noremap <A-j> :bp<cr>
-" }}}
 
-" Copy/Pasting {{{
+" Copy/Pasting
 nnoremap <leader>d "+d
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p

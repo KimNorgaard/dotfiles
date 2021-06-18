@@ -1,0 +1,66 @@
+#compdef _jk jk
+
+
+function _jk {
+  local -a commands
+
+  _arguments -C \
+    '--config[config file (default is $HOME/.jk.yaml)]:' \
+    '--jira-url[JIRA url]:' \
+    '--jira-username[JIRA username]:' \
+    '(-v --verbose)'{-v,--verbose}'[Verbose output]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "help:Help about any command"
+      "login:Login to JIRA"
+      "view:View time logged on issue"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  help)
+    _jk_help
+    ;;
+  login)
+    _jk_login
+    ;;
+  view)
+    _jk_view
+    ;;
+  esac
+}
+
+function _jk_help {
+  _arguments \
+    '--config[config file (default is $HOME/.jk.yaml)]:' \
+    '--jira-url[JIRA url]:' \
+    '--jira-username[JIRA username]:' \
+    '(-v --verbose)'{-v,--verbose}'[Verbose output]'
+}
+
+function _jk_login {
+  _arguments \
+    '--config[config file (default is $HOME/.jk.yaml)]:' \
+    '--jira-url[JIRA url]:' \
+    '--jira-username[JIRA username]:' \
+    '(-v --verbose)'{-v,--verbose}'[Verbose output]'
+}
+
+function _jk_view {
+  _arguments \
+    '(-e --end-time)'{-e,--end-time}'[End time]:' \
+    '(-s --start-time)'{-s,--start-time}'[Start time]:' \
+    '(-u --username)'{-u,--username}'[Username to view time for]:' \
+    '--config[config file (default is $HOME/.jk.yaml)]:' \
+    '--jira-url[JIRA url]:' \
+    '--jira-username[JIRA username]:' \
+    '(-v --verbose)'{-v,--verbose}'[Verbose output]' \
+    '1:jira issue:(())'
+}
+

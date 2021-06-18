@@ -44,7 +44,7 @@ xautolock -detectsleep \
           -time 5 -locker "~/bin/lockscreen" \
           -killtime 60 -killer "systemctl suspend" &
 
-termite -e mutt &
+alacritty --title mutt -e mutt &
 firefox &
 
 exec dwm

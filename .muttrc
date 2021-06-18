@@ -63,7 +63,7 @@ set quote_regexp         = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 set reply_regexp         = "^(([RrSs][EeVv]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 set reply_to                                        # reply to Reply to: field
 set reverse_name                                    # reply as whomever it was to
-set sendmail             = "/usr/bin/msmtp"
+set sendmail             = "/usr/bin/msmtp -a netic-gmail"
 set sidebar_divider_char = '  │'
 set sidebar_visible      = no
 set sidebar_width        = 24

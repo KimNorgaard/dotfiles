@@ -43,6 +43,10 @@ alias gP='git push'
 alias k=kubectl
 alias g=git
 
+kl() {
+  khal list --notstarted today ${*:-today} --format '{calendar-color}{start-end-time-style} {title}{repeat-symbol} {location} {cancelled}'
+}
+
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
@@ -110,10 +114,6 @@ setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
 setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a trailing slash.
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
-
-if [ -d ~/src/kn/lpasszsh ]; then
-  autoload -U ~/src/kn/lpasszsh/*(:t)
-fi
 
 # Enable approximate completions
 zstyle ':completion:*' completer _complete _match _approximate

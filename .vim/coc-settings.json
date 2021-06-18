@@ -1,3 +1,15 @@
 {
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+  "coc.preferences.snippets.enable": true,
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "gosnippets/UltiSnips"
+  ],
+  "languageserver": {
+        "golang": {
+        "command": "gopls",
+        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+        "filetypes": ["go"]
+        }
+  }
 }

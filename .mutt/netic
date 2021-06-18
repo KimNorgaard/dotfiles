@@ -4,3 +4,4 @@ set spoolfile            = "+netic/INBOX"
 set trash                = "+netic/Trash"
 set from                 = "kn@netic.dk"
 set signature            = ~/.mutt/sig_netic
+set sendmail             = "/usr/bin/msmtp -a netic-gmail"

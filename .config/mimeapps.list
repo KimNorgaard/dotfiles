@@ -19,6 +19,7 @@ image/jpg=sxiv.desktop;
 image/jpeg=sxiv.desktop;
 image/gif=sxiv.desktop;
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/gitkraken=GitKraken.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;

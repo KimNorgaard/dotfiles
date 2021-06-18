@@ -4,3 +4,4 @@ set spoolfile            = "+jasendk/INBOX"
 set trash                = "+jasendk/Trash"
 set from                 = "jasen@jasen.dk"
 set signature            = ~/.mutt/sig_jasendk
+set sendmail             = "/usr/bin/msmtp -a jasendk-gmail"
