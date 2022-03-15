@@ -2,7 +2,7 @@
 typeset -U path
 
 # Add paths if they exist and are not symlinks
-for p in /bin /usr/bin /sbin /usr/sbin /usr/local/bin /usr/local/sbin $GOPATH/bin /usr/local/MacGPG2/bin ~/bin; do
+for p in /bin /usr/bin /sbin /usr/sbin /usr/local/bin /usr/local/sbin $GOPATH/bin /usr/local/MacGPG2/bin ~/bin $HOME/.krew/bin; do
   [ -e $p -a ! -L $p ] && path+=($p)
 done
 

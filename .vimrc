@@ -49,7 +49,9 @@ let g:vimwiki_folding = 'expr'
 let g:go_fmt_command = "goimports"
 " }}}
 
+" Plugin: ultisnips {{{
 let g:UltiSnipsExpandTrigger = '<f9>'
+" }}}
 
 " Plugin Loading {{{
 call plug#begin('~/.vim/plugged')
@@ -68,6 +70,7 @@ Plug 'mhinz/vim-signify'                                    " vcs-signs in the s
 
 Plug 'fatih/vim-go', {'for': 'go'}                          " go
 Plug 'sheerun/vim-polyglot'                                 " language support galore
+"Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
 
 Plug 'tomtom/tlib_vim'                                      " tcomment dependency
@@ -81,8 +84,6 @@ Plug 'junegunn/fzf.vim'                                     " fuzzy searching
 Plug 'jlanzarotta/bufexplorer'                              " fancy buffer-handler
 
 Plug 'pangloss/vim-simplefold'                              " smarter folding
-
-Plug 'lifepillar/vim-solarized8'
 
 Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
 Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
@@ -149,10 +150,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " General Settings {{{
 filetype plugin indent on         " load plugins and indent
 
-if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
 if has('termguicolors')
     set termguicolors
 endif
@@ -212,9 +209,7 @@ set undodir=~/.vim/tmp/undo       " persistent undo storage
 set undofile                      " persistent undo on
 set autowrite
 
-set backspace=indent,eol,start
 set ttyfast
-set magic
 
 " Title string
 set title
@@ -225,14 +220,13 @@ set mouse=                      " No mouse
 
 set history=50                  " keep 50 lines of command line history
 set lazyredraw                  " don't update screen inside macros, etc
-set matchtime=5                 " ms to show the matching paren for showmatch
 
 set nonumber                    " no line numbers
 set numberwidth=5               " width of numbers column
 set laststatus=2                " always show status line
 set ruler                       " show the cursor position all the time
 set showcmd                     " display incomplete commands
-set nocursorline                " highlight current line
+set cursorline                  " highlight current line
 set scrolloff=5                 " keep at lest N lines while scrolling
 set noerrorbells                " Do not use bells on errors
 set helpheight=0                " Height of help screen is 50%
@@ -240,11 +234,7 @@ set list
 set listchars=tab:▸\ ,extends:>,precedes:<,nbsp:␠,trail:⌴,eol:¬
 
 set fileformats=unix,dos,mac        " unix linebreaks in new files please
-if !has('nvim')
-    set encoding=utf-8              " best default encoding
-endif
 setglobal fileencoding=utf-8        " ...
-set nobomb                          " do not write utf-8 BOM!
 set fileencodings=utf-8,iso-8859-1  " order to detect Unicodeyness
 set shortmess+=I                    " Don't display intro message
 set shortmess+=c                    " Don't give ins-completion-menu messages

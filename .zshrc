@@ -223,11 +223,11 @@ fi
 #
 # :: ponysay
 #
-if [ ! -z $DISPLAY ] && [ ! -z $TMUX ]; then
-  if which ponysay > /dev/null; then
-    ponysay -o
-  fi
-fi
+# if [ ! -z $DISPLAY ] && [ ! -z $TMUX ]; then
+#   if which ponysay > /dev/null; then
+#     ponysay -o
+#   fi
+# fi
 
 #
 # :: fzf
