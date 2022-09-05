@@ -2,7 +2,7 @@
 " Kim Nørgaard <jasen@jasen.dk>
 
 " Plugin: polyglot {{{
-let g:polyglot_disabled = ['go']
+" let g:polyglot_disabled = ['go']
 " }}}
 
 " Plugin: ale {{{
@@ -68,8 +68,8 @@ Plug 'tpope/vim-fugitive'                                   " git
 
 Plug 'mhinz/vim-signify'                                    " vcs-signs in the sign column
 
-Plug 'fatih/vim-go', {'for': 'go'}                          " go
 Plug 'sheerun/vim-polyglot'                                 " language support galore
+Plug 'fatih/vim-go', {'for': 'go'}                          " go
 "Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rodjek/vim-puppet', {'for': 'puppet'}                 " puppet
 
@@ -95,19 +95,13 @@ call plug#end()
 
 " Plugin: coc.vim {{{
 " Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
 inoremap <silent><expr><tab>
-            \ pumvisible() ? "\<c-n>" : <SID>check_back_space() ? "\<tab>" : coc#refresh()
-" inoremap <silent><expr><tab>
-"             \ pumvisible() ? coc#_select_confirm() :
-"             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"             \ <SID>check_back_space() ? "\<tab>" :
-"             \ coc#refresh()
+            \ coc#pum#visible() ? coc#pum#next(1) : <SID>check_back_space() ? "\<tab>" : coc#refresh()
 let g:coc_snippet_next = '<tab>'
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<c-h>"
+inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
 " set completeopt+=noinsert,noselect,preview
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -122,18 +116,20 @@ else
 endif
 
 
-" inoremap <expr><cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call feedkeys('K', 'in')
   endif
+
+  " if (index(['vim','help'], &filetype) >= 0)
+  "   execute 'h '.expand('<cword>')
+  " else
+  "   call CocAction('doHover')
+  " endif
 endfunction
 
 " Symbol renaming.
