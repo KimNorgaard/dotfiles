@@ -14,80 +14,80 @@ MaildirStore netic-local
     Inbox ~/mail/netic/INBOX
 
 Channel gsuite-inbox
-    Master :gsuite-remote:INBOX
-    Slave :netic-local:INBOX
+    Far :gsuite-remote:INBOX
+    Near :netic-local:INBOX
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-sent
-    Master :gsuite-remote:"[Gmail]/Sent Mail"
-    Slave :netic-local:Sent
+    Far :gsuite-remote:"[Gmail]/Sent Mail"
+    Near :netic-local:Sent
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-drafts
-    Master :gsuite-remote:"[Gmail]/Drafts"
-    Slave :netic-local:Drafts
+    Far :gsuite-remote:"[Gmail]/Drafts"
+    Near :netic-local:Drafts
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-jira
-    Master :gsuite-remote:JIRA
-    Slave :netic-local:JIRA
+    Far :gsuite-remote:JIRA
+    Near :netic-local:JIRA
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-lists
-    Master :gsuite-remote:Lists
-    Slave :netic-local:Lists
+    Far :gsuite-remote:Lists
+    Near :netic-local:Lists
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-car
-    Master :gsuite-remote:Car
-    Slave :netic-local:Car
+    Far :gsuite-remote:Car
+    Near :netic-local:Car
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-invoice
-    Master :gsuite-remote:Invoice
-    Slave :netic-local:Invoice
+    Far :gsuite-remote:Invoice
+    Near :netic-local:Invoice
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-employment
-    Master :gsuite-remote:Employment
-    Slave :netic-local:Employment
+    Far :gsuite-remote:Employment
+    Near :netic-local:Employment
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-alerts
-    Master :gsuite-remote:Alerts
-    Slave :netic-local:Alerts
+    Far :gsuite-remote:Alerts
+    Near :netic-local:Alerts
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel gsuite-trash
-    Master :gsuite-remote:"[Gmail]/Trash"
-    Slave :netic-local:Trash
+    Far :gsuite-remote:"[Gmail]/Trash"
+    Near :netic-local:Trash
     Create Both
     Expunge Both
     Sync All
@@ -121,32 +121,32 @@ MaildirStore jasendk-local
     Inbox ~/mail/jasendk/INBOX
 
 Channel jasendk-inbox
-    Master :jasendk-remote:INBOX
-    Slave :jasendk-local:INBOX
+    Far :jasendk-remote:INBOX
+    Near :jasendk-local:INBOX
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel jasendk-sent
-    Master :jasendk-remote:"[Gmail]/Sent Mail"
-    Slave :jasendk-local:Sent
+    Far :jasendk-remote:"[Gmail]/Sent Mail"
+    Near :jasendk-local:Sent
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel jasendk-drafts
-    Master :jasendk-remote:"[Gmail]/Drafts"
-    Slave :jasendk-local:Drafts
+    Far :jasendk-remote:"[Gmail]/Drafts"
+    Near :jasendk-local:Drafts
     Create Both
     Expunge Both
     Sync All
     SyncState *
 
 Channel jasendk-trash
-    Master :jasendk-remote:"[Gmail]/Trash"
-    Slave :jasendk-local:Trash
+    Far :jasendk-remote:"[Gmail]/Trash"
+    Near :jasendk-local:Trash
     Create Both
     Expunge Both
     Sync All

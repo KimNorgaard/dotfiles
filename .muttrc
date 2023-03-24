@@ -93,6 +93,7 @@ alternative_order text/plain text/enriched text/html
 bind index       gg         first-entry
 bind index       G          last-entry
 bind index       R          group-reply
+bind index       P          collapse-all
 bind index       <tab>      sync-mailbox
 bind index       <space>    collapse-thread
 bind index,pager <down>     sidebar-next

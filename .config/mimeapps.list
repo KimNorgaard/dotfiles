@@ -20,6 +20,7 @@ image/jpeg=sxiv.desktop;
 image/gif=sxiv.desktop;
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/gitkraken=GitKraken.desktop
+x-scheme-handler/pdfstudio.weblauncher=install4j_rstpck-pdfstudio2022.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;

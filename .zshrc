@@ -42,6 +42,7 @@ alias gP='git push'
 
 alias k=kubectl
 alias g=git
+alias lg=lazygit
 
 kl() {
   khal list --notstarted today ${*:-today} --format '{calendar-color}{start-end-time-style} {title}{repeat-symbol} {location} {cancelled}'
@@ -57,7 +58,7 @@ _has(){
    return $( whence $1 >/dev/null )
 }
 
-alias vpn='/opt/cisco/anyconnect/bin/vpn connect "Netic tech profile"'
+# alias vpn='/opt/cisco/anyconnect/bin/vpn connect "Netic tech profile"'
 alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
 
 function ovpn() {
@@ -105,6 +106,10 @@ function onmodify() {
 # AUTOCOMPLETION
 autoload -Uz compinit
 compinit
+
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete futctl)"
 
 setopt COMPLETE_IN_WORD    # Complete from both ends of a word.
 setopt ALWAYS_TO_END       # Move cursor to the end of a completed word.

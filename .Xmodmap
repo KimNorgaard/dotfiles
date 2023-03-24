@@ -1,7 +1,19 @@
 !left super
 keycode 133 = Super_L NoSymbol Super_L
+keycode 102 = Super_L NoSymbol Super_L
+keycode 100 = Mode_switch NoSymbol Super_R
 
 !menu is mod3
 clear mod3
 keycode 135 = Menu NoSymbol Menu
 add mod3 = Menu
+
+keycode 43 = h H Left Left h H h H
+keycode 44 = j J Down Down idiaeresis Idiaeresis idiaeresis Idiaeresis
+keycode 45 = k K Up Up oe OE oe OE
+keycode 46 = l L Right Right oslash Oslash oslash Oslash
+keycode 25 = w W aring Aring aring Aring aring Aring
+keycode 52 = z Z ae AE ae AE ae AE
+
+keycode 9 = Escape asciitilde
+

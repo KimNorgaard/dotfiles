@@ -1,2 +1,5 @@
-autocmd InsertEnter * :set listchars-=trail:⌴,eol:¬
-autocmd InsertLeave * :set listchars+=trail:⌴,eol:¬
+augroup hidelistchartoninsert
+  autocmd!
+  autocmd InsertEnter * :set listchars-=trail:⌴ | set listchars-=eol:¬
+  autocmd InsertLeave * :set listchars+=trail:⌴ | set listchars+=eol:¬
+augroup END

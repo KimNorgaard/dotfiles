@@ -81,6 +81,8 @@ Plug 'godlygeek/tabular'                                    " tabularize text
 Plug 'junegunn/fzf'                                         " fuzzy searching
 Plug 'junegunn/fzf.vim'                                     " fuzzy searching
 
+Plug 'sainnhe/edge'
+
 Plug 'jlanzarotta/bufexplorer'                              " fancy buffer-handler
 
 Plug 'pangloss/vim-simplefold'                              " smarter folding
@@ -89,6 +91,8 @@ Plug 'vimwiki/vimwiki', {'branch': 'dev'}                   " vimwiki
 Plug 'vim-pandoc/vim-pandoc-syntax'                         " pandoc markdown syntax
 
 Plug 'ledger/vim-ledger', {'for': 'ledger'}
+
+"Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 " }}}
@@ -285,7 +289,10 @@ endif
         let g:solarized_visibility = "low"
 
         set background=dark
-        colorscheme solarized8
+        " colorscheme solarized8
+        let g:edge_style = 'aura'
+        let g:edge_better_performance = 1
+        colorscheme edge
     endif
 " }}}
 
@@ -364,5 +371,14 @@ xnoremap <leader>y "+y
 xnoremap <leader>p "+p
 xnoremap <leader>P "+P
 " }}}
+
+" Ledger
+nnoremap <leader>A vip:LedgerAlign<cr>
+
+" lua <<EOF
+"   require'lspconfig'.terraformls.setup{}
+" EOF
+" autocmd BufWritePre *.tfvars lua vim.lsp.buf.format()
+" autocmd BufWritePre *.tf lua vim.lsp.buf.format()
 
 silent source ~/.vimrc.local
