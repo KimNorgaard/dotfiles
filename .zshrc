@@ -282,6 +282,7 @@ case $TERM in
     ;;
 esac
 
+# not in a TMUX session but in an X session
 if [ -z $TMUX ] && [ -n "$DISPLAY" ]; then
     (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
 fi

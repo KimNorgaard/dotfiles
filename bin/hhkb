@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# See /etc/udev/rules.d/90-hhkb.rules
+
+(
+id=$(xinput list --id-only "PFU Limited HHKB-Hybrid")
+while [ -z "$id" ]; do
+  sleep 1
+  id=$(xinput list --id-only "PFU Limited HHKB-Hybrid")
+done
+
+xkbcomp -i "${id}" -w 0 "/home/kn/.config/xkb/hhkb.xkb" "${DISPLAY}"
+) &

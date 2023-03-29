@@ -1,0 +1,75 @@
+xkb_keymap {
+        xkb_compat    { include "complete" };
+        xkb_geometry  { include "hhk(win1)" };
+        xkb_keycodes  { include "evdev+aliases(qwerty)" };
+        xkb_symbols   {
+                include "pc+us(altgr-intl)+inet(evdev)"
+
+                key <ESC>  { [                      Escape, asciitilde ] };
+                key <MUHE> { [                     Super_L ] };
+                key <LVL3> {
+                        type[group1]= "TWO_LEVEL",
+                        symbols[Group1]= [ ISO_Level3_Shift, Multi_key ]
+                };
+
+                key <HENK> {
+                        symbols[Group1]= [     Mode_switch ],
+                        symbols[Group2]= [         Super_R ]
+                };
+                key <AC06> {
+                        // type[group1]= "MOD4_ALPHABETIC",
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               h,               H,               h,               H ],
+                        symbols[Group2]= [            Left,            Left ],
+                        symbols[Group3]= [               h,               H ]
+                };
+                key <AC07> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               j,               J,      idiaeresis,      Idiaeresis ],
+                        symbols[Group2]= [            Down,            Down ],
+                        symbols[Group3]= [      idiaeresis,      Idiaeresis ]
+                };
+                key <AC08> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               k,               K,              oe,              OE ],
+                        symbols[Group2]= [              Up,              Up ],
+                        symbols[Group3]= [              oe,              OE ]
+                };
+                key <AC09> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               l,               L,          oslash,          Oslash ],
+                        symbols[Group2]= [           Right,           Right ],
+                        symbols[Group3]= [          oslash,          Oslash ]
+                };
+                key <AD02> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               w,               W,           aring,           Aring ],
+                        symbols[Group2]= [           aring,           Aring ],
+                        symbols[Group3]= [           aring,           Aring ]
+                };
+                key <AB01> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               z,               Z,              ae,              AE ],
+                        symbols[Group2]= [              ae,              AE ],
+                        symbols[Group3]= [              ae,              AE ]
+                };
+        };
+        xkb_types     {
+                include "complete"
+                //type "MOD4_ALPHABETIC" {
+                //        modifiers = Shift+Lock+LevelThree+Mod4;
+                //        map[Shift]= Level2;
+                //        map[Lock]= Level2;
+                //        map[LevelThree]= Level3;
+                //        map[Shift+LevelThree]= Level4;
+                //        map[Lock+LevelThree]= Level4;
+                //        map[Shift+Lock+LevelThree]= Level3;
+                //        map[Shift+Mod4]= Level5;
+                //        level_name[Level1]= "Base";
+                //        level_name[Level2]= "Shift";
+                //        level_name[Level3]= "Alt Base";
+                //        level_name[Level4]= "Shift Alt";
+                //        level_name[Level5]= "Shift Mod4";
+                //};
+        };
+};

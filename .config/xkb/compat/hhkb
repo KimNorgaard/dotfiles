@@ -1,0 +1,9 @@
+xkb_compat {
+    include "complete"
+
+    interpret Super_L+43 {
+        action= RedirectKey(keycode=<AC06>, modifiers=Mod5);
+        // virtualModifier= Super;
+        // action= SetMods(modifiers=modMapMods,clearLocks);
+    };
+};

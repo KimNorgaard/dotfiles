@@ -1,0 +1,48 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "us" {
+
+    include "us(altgr-intl)"
+
+    key <ESC>  {         [ Escape, asciitilde ] };
+    key <MUHE> {         [         Super_L ] };
+    key <HENK> {
+        symbols[Group1]= [     Mode_switch ],
+        symbols[Group2]= [         Super_R ]
+    };
+    key <AC06> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               h,               H,               h,               H ],
+        symbols[Group2]= [            Left,            Left ],
+        symbols[Group3]= [               h,               H ]
+    };
+    key <AC07> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               j,               J,      idiaeresis,      Idiaeresis ],
+        symbols[Group2]= [            Down,            Down ],
+        symbols[Group3]= [      idiaeresis,      Idiaeresis ]
+    };
+    key <AC08> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               k,               K,              oe,              OE ],
+        symbols[Group2]= [              Up,              Up ],
+        symbols[Group3]= [              oe,              OE ]
+    };
+    key <AC09> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               l,               L,          oslash,          Oslash ],
+        symbols[Group2]= [           Right,           Right ],
+        symbols[Group3]= [          oslash,          Oslash ]
+    };
+    key <AD02> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               w,               W,           aring,           Aring ],
+        symbols[Group2]= [           aring,           Aring ],
+        symbols[Group3]= [           aring,           Aring ]
+    };
+    key <AB01> {
+        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+        symbols[Group1]= [               z,               Z,              ae,              AE ],
+        symbols[Group2]= [              ae,              AE ],
+        symbols[Group3]= [              ae,              AE ]
+    };
+};

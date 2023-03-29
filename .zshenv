@@ -30,7 +30,7 @@ export LC_CTYPE=en_US.UTF-8
 
 export BROWSER=firefox
 
-[ -f ~/.zshenv.local ] && source ~/.zshenv.local
+[ -f ~/.env.local ] && source ~/.env.local
 
 #AWSume alias to source the AWSume script
 alias awsume=". awsume"
