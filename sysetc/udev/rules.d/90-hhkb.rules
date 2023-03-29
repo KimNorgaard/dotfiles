@@ -1,0 +1,1 @@
+TAG=="power-switch", ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="04fe", ATTRS{id/product}=="0021", ATTRS{name}=="PFU Limited HHKB-Hybrid", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/kn/.Xauthority", RUN+="/home/kn/bin/hhkb"
