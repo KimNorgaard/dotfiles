@@ -1,0 +1,42 @@
+xkb_keymap {
+        xkb_compat    { include "complete" };
+        xkb_geometry  { include "pc(pc105)"     };
+        xkb_keycodes  { include "evdev+aliases(qwerty)" };
+        xkb_symbols   {
+                include "pc+us(altgr-intl)+inet(evdev)+capslock(ctrl_modifier)"
+
+                key <BKSP> { [    backslash,          bar,      asciitilde,       asciitilde ] };
+                key <BKSL> { [  BackSpace,  BackSpace  ]};
+                key <CAPS> {
+                    type[Group1]= "TWO_LEVEL",
+                    symbols[Group1]= [ Caps_Lock,      Caps_Lock ],
+                    actions[Group1]= [ setmods(modifiers=control), LockMods(modifiers=Lock) ]
+                };
+
+                key <AC06> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               h,               H,               h,               H ],
+                        symbols[Group2]= [            Left,            Left ],
+                        symbols[Group3]= [               h,               H ]
+                };
+                key <AC07> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               j,               J,      idiaeresis,      Idiaeresis ],
+                        symbols[Group2]= [            Down,            Down ],
+                        symbols[Group3]= [      idiaeresis,      Idiaeresis ]
+                };
+                key <AC08> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               k,               K,              oe,              OE ],
+                        symbols[Group2]= [              Up,              Up ],
+                        symbols[Group3]= [              oe,              OE ]
+                };
+                key <AC09> {
+                        type[group1]= "FOUR_LEVEL_ALPHABETIC",
+                        symbols[Group1]= [               l,               L,          oslash,          Oslash ],
+                        symbols[Group2]= [           Right,           Right ],
+                        symbols[Group3]= [          oslash,          Oslash ]
+                };
+        };
+        xkb_types     { include "complete" };
+};

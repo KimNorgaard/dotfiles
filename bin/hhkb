@@ -10,4 +10,6 @@ while [ -z "$id" ]; do
 done
 
 xkbcomp -i "${id}" -w 0 "/home/kn/.config/xkb/hhkb.xkb" "${DISPLAY}"
+
+xset r rate 350 40
 ) &
