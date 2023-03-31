@@ -67,7 +67,7 @@ function parse_git_info() {
    local ref
    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
       ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-   printf " \033[36m(${ref#refs/heads/}$(parse_git_dirty)\033[36m)"
+   printf " \[\e[0;36m\](%s%s\[\e[0;36m\])" "${ref#refs/heads/}" "$(parse_git_dirty)"
 }
 
 function __prompt_command() {
@@ -85,11 +85,11 @@ function __prompt_command() {
    local git_info
    git_info=$(parse_git_info)
 
-   PS1="\t $ret\w${git_info}$reset "
+   PS1="\t ${ret}\w${git_info}$reset "
 }
 
 # Record each line as it gets issued
-PROMPT_COMMAND='__prompt_command; history -a'
+PROMPT_COMMAND='__prompt_command; history -a; history -n'
 
 # Prevent file overwrite on stdout redirection
 # Use `>|` to force redirection to an existing file

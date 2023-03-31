@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#
+# See /etc/udev/rules.d/90-hhkb.rules
+
+id=$(xinput list --id-only "AT Translated Set 2 keyboard")
+
+xkbcomp -i "${id}" -w 0 "/home/kn/.config/xkb/t470s.xkb" "${DISPLAY}"
+
+xset r rate 350 40

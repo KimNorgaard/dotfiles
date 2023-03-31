@@ -34,10 +34,9 @@ dwmstatus &
 
 redshift &
 
-# compton --config ~/.config/compton.conf &
-
 xset dpms 180 180 180
 
+xinput list | grep "PFU Limited HHKB-Hybrid" && ~/bin/hhkb
 ~/bin/t470kb
 
 xautolock -detectsleep \

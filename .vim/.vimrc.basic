@@ -1,0 +1,63 @@
+filetype plugin indent on
+syntax on
+
+set nonumber numberwidth=5 laststatus=2 ruler showcmd cursorline visualbell background=dark textwidth=80 colorcolumn=+1 formatoptions=qrn1 pumheight=16 scrolloff=5 noerrorbells helpheight=0 list listchars=tab:▸\ ,extends:>,precedes:<,nbsp:␠,trail:⌴,eol:¬ shortmess+=Ic signcolumn=yes diffopt+=vertical
+set autoindent linebreak showbreak=↳\
+set hlsearch incsearch ignorecase smartcase showmatch gdefault
+set tabstop=8 softtabstop=2 shiftwidth=2 expandtab
+set hidden
+set notimeout timeoutlen=500 updatetime=750 ttimeout ttimeoutlen=10
+set splitright splitbelow
+set foldenable foldlevel=100 foldmethod=indent
+set modeline
+setglobal fileencoding=utf-8
+set fileformats=unix,dos,mac fileencodings=utf-8,iso-8859-1
+set wildmenu wildignore+=.*.sw*,__pycache__,*.pyc wildmode=longest,list,full
+set completeopt=longest,menuone,preview omnifunc=syntaxcomplete#Complete
+set backup backupdir=~/.vim/tmp/backup// directory=~/.vim/tmp/swap// undofile undodir=~/.vim/tmp/undo autowrite
+set ttyfast lazyredraw
+set title titlestring=vim\ %{expand(\"%t\")}
+set mouse= mousehide
+set history=50
+set pastetoggle=<F6>
+
+set t_8f=[38;2;%lu;%lu;%lum       " 24 bit colors
+set t_8b=[48;2;%lu;%lu;%lum
+set termguicolors
+
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    set inccommand=nosplit
+endif
+
+try
+    let g:solarized_visibility = "low"
+    colorscheme solarized8
+catch
+endtry
+
+let mapleader = ","
+" Clear search highlight
+noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
+" Use better regexp
+nnoremap / /\v
+vnoremap / /\v
+" Save using sudo
+cnoremap w!! w !sudo tee % >/dev/null
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+" Easy buffer/window/tab navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+noremap <M-k> :bn<cr>
+noremap <M-j> :bp<cr>
+noremap <A-k> :bn<cr>
+noremap <A-j> :bp<cr>
