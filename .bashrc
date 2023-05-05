@@ -55,37 +55,46 @@ alias clock='tty-clock -b -c -C 6 -f \"%A %d/%m/%y\" -B -a 100000000 -d 0'
 
 alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
 
+alias dockerledger="docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /home/kn/data/accounting/:/data --user $(id --user) knhlg bash"
+
 function CONFIG() {
    /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@
 }
 
 function parse_git_dirty() {
-   [[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]] && printf "\033[33m*"
+   local yellow=$'\001\e[33m\002'
+   [[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]] && echo -n "${yellow}*"
 }
 
 function parse_git_info() {
    local ref
+   local color=$'\001\e[36m\002'
+
    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
       ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-   printf " \[\e[0;36m\](%s%s\[\e[0;36m\])" "${ref#refs/heads/}" "$(parse_git_dirty)"
+   ref=${ref#refs/heads/}
+   dirty=$(parse_git_dirty)
+   echo -n " ${color}(${ref}${dirty}${color})"
 }
 
 function __prompt_command() {
    local exit="$?"
 
-   local reset='\[\e[0m\]'
+   local reset=$'\001\e[0m\002'
+   local blue=$'\001\e[34m\002'
+   local red=$'\001\e[31m\002'
 
    local ret=''
    if [ $exit -eq 0 ]; then
-      ret='\[\e[0;34m\]'
+      ret=$blue
    else
-      ret='\[\e[0;31m\]'
+      ret=$red
    fi
 
    local git_info
    git_info=$(parse_git_info)
 
-   PS1="\t ${ret}\w${git_info}$reset "
+   PS1="\t ${ret}\w${git_info}${reset} "
 }
 
 # Record each line as it gets issued
