@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case $1 in
+  aalborg|aal)
+    xrandr --output HDMI2 --right-of DP1-1-8 --auto --rotate left
+    xrandr --output eDP1 --below DP1-1-8 --auto
+    ;;
+  aarhus|aar)
+    xrandr --output DP1 --primary --left-of eDP1 --auto
+    ;;
+  home)
+    xrandr --output eDP1 --left-of DP1 --auto
+    xrandr --output DP1 --primary --auto
+    ;;
+  *)
+    xrandr --auto
+esac

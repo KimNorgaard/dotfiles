@@ -1,0 +1,61 @@
+[colors.bright]
+black = "0x363a49"
+blue = "0x6cb6eb"
+cyan = "0x5dbbc1"
+green = "0xa0c980"
+magenta = "0xd38aea"
+red = "0xec7279"
+white = "0xc5cdd9"
+yellow = "0xdeb974"
+
+[colors.normal]
+black = "0x363a49"
+blue = "0x6cb6eb"
+cyan = "0x5dbbc1"
+green = "0xa0c980"
+magenta = "0xd38aea"
+red = "0xec7279"
+white = "0xc5cdd9"
+yellow = "0xdeb974"
+
+[colors.primary]
+background = "0x242424"
+foreground = "0xc8c8c8"
+
+[font]
+size = 10
+
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
+style = "Regular"
+
+[hints]
+alphabet = "jfkdls;ahgurieowpq"
+
+[[hints.enabled]]
+command = "xdg-open"
+post_processing = true
+regex = "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+# enabled = true
+key = "U"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 0
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t¬"
+
+[window]
+decorations = "none"
+dynamic_title = true
