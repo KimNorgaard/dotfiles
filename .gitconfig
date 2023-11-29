@@ -11,7 +11,7 @@
     status = auto
 [color "branch"]
     current = yellow reverse
-    local = yellow
+    local = 241
     remote = green
 [color "diff"]
     meta = yellow bold
@@ -19,9 +19,9 @@
     old = red bold
     new = green bold
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+    added = green
+    changed = yellow
+    untracked = magenta
 [push]
     default = simple
     autoSetupRemote = true

@@ -1,110 +1,112 @@
-IMAPAccount gsuite
-    Host imap.gmail.com
-    User kn@netic.dk
-    PassCmd "~/bin/mail-credential-helper.sh netic-gmail"
-    SSLType IMAPS
-    AuthMechs LOGIN
-
-IMAPStore gsuite-remote
-    Account gsuite
-
-MaildirStore netic-local
-    # The trailing "/" is important
-    Path ~/mail/netic/
-    Inbox ~/mail/netic/INBOX
-
-Channel gsuite-inbox
-    Far :gsuite-remote:INBOX
-    Near :netic-local:INBOX
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-sent
-    Far :gsuite-remote:"[Gmail]/Sent Mail"
-    Near :netic-local:Sent
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-drafts
-    Far :gsuite-remote:"[Gmail]/Drafts"
-    Near :netic-local:Drafts
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-jira
-    Far :gsuite-remote:JIRA
-    Near :netic-local:JIRA
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-lists
-    Far :gsuite-remote:Lists
-    Near :netic-local:Lists
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-car
-    Far :gsuite-remote:Car
-    Near :netic-local:Car
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-invoice
-    Far :gsuite-remote:Invoice
-    Near :netic-local:Invoice
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-employment
-    Far :gsuite-remote:Employment
-    Near :netic-local:Employment
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-alerts
-    Far :gsuite-remote:Alerts
-    Near :netic-local:Alerts
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Channel gsuite-trash
-    Far :gsuite-remote:"[Gmail]/Trash"
-    Near :netic-local:Trash
-    Create Both
-    Expunge Both
-    Sync All
-    SyncState *
-
-Group netic
-    Channel gsuite-inbox
-    Channel gsuite-sent
-    Channel gsuite-drafts
-    Channel gsuite-jira
-    Channel gsuite-alerts
-    Channel gsuite-trash
-    Channel gsuite-employment
-    Channel gsuite-car
-    Channel gsuite-lists
-    Channel gsuite-invoice
-
+#IMAPAccount gsuite
+#    Host imap.gmail.com
+#    User kn@netic.dk
+#    # PassCmd "~/bin/mail-credential-helper.sh netic-gmail"
+#    Pass "ya29.a0AfB_byAduIAcAC-EPEjGB82OpfxTiY3iMFJOLbxoS1cET0UpLwfi9xY1bfU8izTI2o3QLJrN3LQDq7V1oj3RlRCC5hleNR17WV6fHT9ezlhMO2aaLzoUJLTIjABCkMs3BD_7C1GmZjGmcXGtWBOS6NEbCsfVn0tYbVwgaCgYKAS8SARASFQGOcNnCUnBA5EtcUreR-rlWSfltCA0171"
+#    SSLType IMAPS
+#    #AuthMechs LOGIN
+#    AuthMechs XOAUTH2
+#
+#IMAPStore gsuite-remote
+#    Account gsuite
+#
+#MaildirStore netic-local
+#    # The trailing "/" is important
+#    Path ~/mail/netic/
+#    Inbox ~/mail/netic/INBOX
+#
+#Channel gsuite-inbox
+#    Far :gsuite-remote:INBOX
+#    Near :netic-local:INBOX
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-sent
+#    Far :gsuite-remote:"[Gmail]/Sent Mail"
+#    Near :netic-local:Sent
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-drafts
+#    Far :gsuite-remote:"[Gmail]/Drafts"
+#    Near :netic-local:Drafts
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-jira
+#    Far :gsuite-remote:JIRA
+#    Near :netic-local:JIRA
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-lists
+#    Far :gsuite-remote:Lists
+#    Near :netic-local:Lists
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-car
+#    Far :gsuite-remote:Car
+#    Near :netic-local:Car
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-invoice
+#    Far :gsuite-remote:Invoice
+#    Near :netic-local:Invoice
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-employment
+#    Far :gsuite-remote:Employment
+#    Near :netic-local:Employment
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-alerts
+#    Far :gsuite-remote:Alerts
+#    Near :netic-local:Alerts
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Channel gsuite-trash
+#    Far :gsuite-remote:"[Gmail]/Trash"
+#    Near :netic-local:Trash
+#    Create Both
+#    Expunge Both
+#    Sync All
+#    SyncState *
+#
+#Group netic
+#    Channel gsuite-inbox
+#    Channel gsuite-sent
+#    Channel gsuite-drafts
+#    Channel gsuite-jira
+#    Channel gsuite-alerts
+#    Channel gsuite-trash
+#    Channel gsuite-employment
+#    Channel gsuite-car
+#    Channel gsuite-lists
+#    Channel gsuite-invoice
+#
 IMAPAccount jasendk
     Host imap.gmail.com
     User jasen@jasen.dk
