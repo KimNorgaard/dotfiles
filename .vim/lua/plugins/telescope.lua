@@ -4,7 +4,7 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        buld = "make",
+        build = "make",
       },
     },
     lazy = true,

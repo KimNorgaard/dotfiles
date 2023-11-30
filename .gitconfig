@@ -36,7 +36,7 @@
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
 [credential]
-    helper = /usr/local/bin/git-credential-helper.sh
+	helper = /usr/local/share/gcm-core/git-credential-manager
 
 [include]
     path = ~/.gitconfig.local
@@ -49,3 +49,5 @@
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [init]
 	defaultBranch = main
+[credential "https://dev.azure.com"]
+	useHttpPath = true

@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export PATH=${PATH}:~/netic-bin:~/.local/bin:~/bin
+export PATH=/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin
 
 export ANSIBLE_NOCOWS=1
 export PYTHONSTARTUP="$HOME/.pystartup"
@@ -55,7 +55,7 @@ alias clock='tty-clock -b -c -C 6 -f \"%A %d/%m/%y\" -B -a 100000000 -d 0'
 
 alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
 
-alias dockerledger="docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /home/kn/data/accounting/:/data --user $(id --user) knhlg bash"
+alias dockerledger="docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /home/kn/data/accounting/:/data --user $UID knhlg bash"
 
 function CONFIG() {
    /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@
@@ -181,8 +181,10 @@ shopt -s cdspell 2> /dev/null
 # Define a variable containing a path and you will be able to cd into it regardless of the directory you're in
 # shopt -s cdable_vars
 
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash
+# source /usr/share/fzf/key-bindings.bash
+# source /usr/share/fzf/completion.bash
+source "/opt/homebrew/opt/fzf/shell/completion.bash"
+source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
 
 export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -192,3 +194,4 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 if [ -z ${TMUX} ] && [ -n "${DISPLAY}" ]; then
     (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
 fi
+
