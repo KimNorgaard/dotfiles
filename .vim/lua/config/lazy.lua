@@ -17,6 +17,9 @@ require("lazy").setup({
     { import = "plugins" },
   },
   -- defaults = { lazy = true },
+  change_detection = {
+		notify = false,
+	},
   concurrency = 10,
   performance = {
     -- disable_events = { 'VimEnter', 'BufReadPre' },

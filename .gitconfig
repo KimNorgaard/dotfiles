@@ -4,6 +4,14 @@
 [core]
     excludesfile = /Users/kn/.gitignore_global
     editor = nvim
+    pager = delta
+    sshCommand = /usr/bin/ssh
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    light = false
+    side-by-side = true
 [color]
     ui = true
     branch = auto
@@ -35,9 +43,6 @@
     lg = log --oneline --graph --decorate
     workprofile = config user.email "kn@netic.dk"
     privprofile = config user.email "jasen@jasen.dk"
-[credential]
-	helper = /usr/local/share/gcm-core/git-credential-manager
-
 [include]
     path = ~/.gitconfig.local
 
@@ -51,3 +56,13 @@
 	defaultBranch = main
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
+[merge]
+	conflictStyle = zdiff3
+[commit]
+    verbose = true
+[help]
+    autocorrect = 10

@@ -6,7 +6,7 @@ return {
   },
   {
     "tpope/vim-surround",
-    keys = { "ds", "cs", "ys", { "S", mode = 'v' }, { "gS", mode = 'v' } },
+    keys = { "ds", "cs", "ys", { "S", mode = "v" }, { "gS", mode = "v" } },
   },
   "tpope/vim-endwise",
   {
@@ -14,15 +14,20 @@ return {
     lazy = true,
     cmd = { "G" },
   },
-  "jlanzarotta/bufexplorer",
   "pangloss/vim-simplefold",
   {
-    "mhinz/vim-signify",
-    init = function()
-      vim.g.signify_realtime = 1
-      vim.g.signify_vc_list = {"git"}
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
     end,
   },
+  -- {
+  -- 	"mhinz/vim-signify",
+  -- 	init = function()
+  -- 		vim.g.signify_realtime = 1
+  -- 		vim.g.signify_vc_list = { "git" }
+  -- 	end,
+  -- },
   {
     "numToStr/Comment.nvim",
     config = function()
@@ -33,21 +38,21 @@ return {
   {
     "godlygeek/tabular",
     lazy = true,
-    cmd = {'Tabularize'},
+    cmd = { "Tabularize" },
     init = function()
       vim.keymap.set("n", "<leader>a=", ":Tabularize /=<CR>")
       vim.keymap.set("v", "<leader>a=", ":Tabularize /=<CR>")
       vim.keymap.set("n", "<leader>a:", ":Tabularize /:\\zs=<CR>")
       vim.keymap.set("v", "<leader>a:", ":Tabularize /:\\zs=<CR>")
-    end
+    end,
   },
   {
     "voldikss/vim-floaterm",
     init = function()
       vim.g.floaterm_width = 0.9
       vim.g.floaterm_height = 0.9
-      vim.g.floaterm_keymap_toggle = "<leader>g"
-    end
+      vim.g.floaterm_keymap_toggle = "<leader>gt"
+    end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -60,51 +65,40 @@ return {
       --     show_current_context = true,
       --     show_current_context_start = true,
       -- })
-    end
+    end,
   },
   {
     "vimwiki/vimwiki",
     branch = "dev",
     keys = {
-      '<leader>ww',
-      '<leader>ws',
-      '<leader>w<leader>w',
+      "<leader>ww",
+      "<leader>ws",
+      "<leader>w<leader>w",
     },
     init = function()
-      vim.g.vimwiki_custom_wiki2html = '~/data/vimwiki/wiki2html.py'
+      vim.g.vimwiki_custom_wiki2html = "~/data/vimwiki/wiki2html.py"
       vim.g.vimwiki_global_ext = 0
       vim.g.vimwiki_list = {
         {
           path = "~/data/vimwiki",
           syntax = "markdown",
           ext = ".md",
-          template_path = "~/data/vimwiki/templates"
-        }
+          template_path = "~/data/vimwiki/templates",
+        },
       }
       vim.g.vimwiki_folding = "expr"
-    end
+    end,
   },
-
   "sheerun/vim-polyglot",
   {
     "rodjek/vim-puppet",
     ft = "puppet",
   },
-
   {
     "ledger/vim-ledger",
     ft = "ledger",
     init = function()
       vim.g.ledger_is_hledger = true
-    end,
-  },
-  {
-    "fatih/vim-go",
-    ft = "go",
-    init = function()
-      vim.g.go_fmt_command = "goimports"
-      vim.g.go_doc_popup_window = 1
-      vim.g.go_doc_window_popup_window = 1
     end,
   },
   {

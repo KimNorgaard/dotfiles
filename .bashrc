@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export PATH=/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin
+export PATH="/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin:${KREW_ROOT:-$HOME/.krew}/bin"
 
 export ANSIBLE_NOCOWS=1
 export PYTHONSTARTUP="$HOME/.pystartup"
@@ -29,6 +29,7 @@ export PROJECT_HOME=~/src
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export GOPATH=~/src/go
+export PATH="${PATH}:${GOPATH}/bin"
 
 [ -f ~/.env.local ] && source ~/.env.local
 
@@ -37,12 +38,13 @@ alias ovi="\vi"
 alias vim=nvim
 alias ovim="\vim"
 alias vimdiff="nvim -d"
-alias open=xdg-open
+# alias open=xdg-open
 alias netctl='sudo netctl'
-alias ls='ls --color=auto -F'
+alias ls="ls --color=auto -F"
 alias ll='ls -lFh'
 alias lla='ls -lFhA'
 alias llrt='ls -lFhArt'
+alias lpcp='lpass show -c --password'
 
 alias k=kubectl
 alias tf=terraform
@@ -55,7 +57,7 @@ alias clock='tty-clock -b -c -C 6 -f \"%A %d/%m/%y\" -B -a 100000000 -d 0'
 
 alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
 
-alias dockerledger="docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /home/kn/data/accounting/:/data --user $UID knhlg bash"
+alias dockerledger='docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /Users/kn/src/accounting/:/data --user ${UID} knhlg bash'
 
 function CONFIG() {
    /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@
@@ -98,7 +100,7 @@ function __prompt_command() {
 }
 
 # Record each line as it gets issued
-PROMPT_COMMAND='__prompt_command; history -a; history -n'
+PROMPT_COMMAND='__prompt_command; history -a; history -c; history -r'
 
 # Prevent file overwrite on stdout redirection
 # Use `>|` to force redirection to an existing file
@@ -183,6 +185,7 @@ shopt -s cdspell 2> /dev/null
 
 # source /usr/share/fzf/key-bindings.bash
 # source /usr/share/fzf/completion.bash
+source "/opt/homebrew/etc/profile.d/bash_completion.sh"
 source "/opt/homebrew/opt/fzf/shell/completion.bash"
 source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
 
@@ -191,7 +194,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # not in a TMUX session but in an X session
-if [ -z ${TMUX} ] && [ -n "${DISPLAY}" ]; then
-    (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
-fi
+#if [ -z ${TMUX} ] && [ -n "${DISPLAY}" ]; then
+# if [ -z ${TMUX} ]; then
+#     (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
+# fi
 

@@ -25,6 +25,8 @@ km.set("n", "<leader>j", "ddp")
 km.set("v", "<leader>k", "xkP`[V`]")
 km.set("v", "<leader>j", "xp`[V`]")
 
+km.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+
 -- Select pasted text
 km.set("n", "<leader>v", "V`]", { noremap = true })
 
@@ -68,3 +70,11 @@ km.set("x", "<leader>P", '"+P', { noremap = true })
 
 -- Ledger
 km.set("n", "<leader>A", "vip:LedgerAlign<cr>", { noremap = true })
+--
+-- LSP
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+km.set('n', '<leader>e', ":lua vim.diagnostic.open_float()<CR>", opts)
+km.set('n', '[d', ":lua vim.diagnostic.goto_prev()<CR>", opts)
+km.set('n', ']d', ":lua vim.diagnostic.goto_next()<CR>", opts)
+km.set('n', '<leader>Q', ":lua vim.diagnostic.setloclist()<CR>", opts)
