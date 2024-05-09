@@ -25,7 +25,7 @@ km.set("n", "<leader>j", "ddp")
 km.set("v", "<leader>k", "xkP`[V`]")
 km.set("v", "<leader>j", "xp`[V`]")
 
-km.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+km.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
 
 -- Select pasted text
 km.set("n", "<leader>v", "V`]", { noremap = true })
@@ -41,11 +41,13 @@ km.set("v", "<space>", "za", { noremap = true })
 km.set("n", "<leader>.", ":lcd %:p:h<CR>", { noremap = true })
 
 -- Resolve symlink in order to use fugitive
-km.set("n", "<leader>L", ":<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar> \
-            call fugitive#detect(fnameescape(expand('%:p:h')))<CR>", { noremap = true })
-
--- Show syntax highlighting groups for word under cursor
-km.set("n", "<C-S-P>", ":call theming#SynStack()<CR>")
+km.set(
+	"n",
+	"<leader>L",
+	":<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar> \
+            call fugitive#detect(fnameescape(expand('%:p:h')))<CR>",
+	{ noremap = true }
+)
 
 -- Easy buffer/window/tab navigation
 km.set("", "<C-h>", "<C-w>h", { noremap = true })
@@ -73,8 +75,8 @@ km.set("n", "<leader>A", "vip:LedgerAlign<cr>", { noremap = true })
 --
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-km.set('n', '<leader>e', ":lua vim.diagnostic.open_float()<CR>", opts)
-km.set('n', '[d', ":lua vim.diagnostic.goto_prev()<CR>", opts)
-km.set('n', ']d', ":lua vim.diagnostic.goto_next()<CR>", opts)
-km.set('n', '<leader>Q', ":lua vim.diagnostic.setloclist()<CR>", opts)
+local opts = { noremap = true, silent = true }
+km.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>", opts)
+km.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
+km.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)
+km.set("n", "<leader>Q", ":lua vim.diagnostic.setloclist()<CR>", opts)

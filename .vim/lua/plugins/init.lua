@@ -21,13 +21,6 @@ return {
       require("gitsigns").setup()
     end,
   },
-  -- {
-  -- 	"mhinz/vim-signify",
-  -- 	init = function()
-  -- 		vim.g.signify_realtime = 1
-  -- 		vim.g.signify_vc_list = { "git" }
-  -- 	end,
-  -- },
   {
     "numToStr/Comment.nvim",
     config = function()
@@ -67,28 +60,28 @@ return {
       -- })
     end,
   },
-  {
-    "vimwiki/vimwiki",
-    branch = "dev",
-    keys = {
-      "<leader>ww",
-      "<leader>ws",
-      "<leader>w<leader>w",
-    },
-    init = function()
-      vim.g.vimwiki_custom_wiki2html = "~/data/vimwiki/wiki2html.py"
-      vim.g.vimwiki_global_ext = 0
-      vim.g.vimwiki_list = {
-        {
-          path = "~/data/vimwiki",
-          syntax = "markdown",
-          ext = ".md",
-          template_path = "~/data/vimwiki/templates",
-        },
-      }
-      vim.g.vimwiki_folding = "expr"
-    end,
-  },
+  -- {
+  --   "vimwiki/vimwiki",
+  --   branch = "dev",
+  --   keys = {
+  --     "<leader>ww",
+  --     "<leader>ws",
+  --     "<leader>w<leader>w",
+  --   },
+  --   init = function()
+  --     -- vim.g.vimwiki_custom_wiki2html = "~/vimwiki/vimwiki/wiki2html.py"
+  --     vim.g.vimwiki_global_ext = 0
+  --     vim.g.vimwiki_list = {
+  --       {
+  --         path = "~/vimwiki",
+  --         syntax = "markdown",
+  --         ext = ".md",
+  --         template_path = "~/vimwiki/templates",
+  --       },
+  --     }
+  --     vim.g.vimwiki_folding = "expr"
+  --   end,
+  -- },
   "sheerun/vim-polyglot",
   {
     "rodjek/vim-puppet",

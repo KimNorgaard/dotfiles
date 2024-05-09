@@ -1,0 +1,2 @@
+#!/bin/sh
+lpass show --clip --password $(lpass ls  | fzf | awk '{gsub("]$", ""); print $(NF)}')

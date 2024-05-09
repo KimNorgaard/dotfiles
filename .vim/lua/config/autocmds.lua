@@ -23,6 +23,22 @@ autocmd("FileType", {
 	desc = "Start git messages in insert mode",
 })
 
+augroup("hidelistcharsoninsert", {
+	clear = true,
+})
+
+autocmd({ "InsertEnter" }, {
+	group = "hidelistcharsoninsert",
+	command = "set listchars-=trail:⌴ | set listchars-=eol:¬",
+	desc = "Hide listchars on insert",
+})
+
+autocmd({ "InsertLeave" }, {
+	group = "hidelistcharsoninsert",
+	command = "set listchars+=trail:⌴ | set listchars+=eol:¬",
+	desc = "Show listchars on insert",
+})
+
 local format_sync_grp = api.nvim_create_augroup("GoFormat", {})
 api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.go",

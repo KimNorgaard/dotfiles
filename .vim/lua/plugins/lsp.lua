@@ -22,22 +22,22 @@ local config = function()
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set("n", "<space>wl", function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+    -- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+    -- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    -- vim.keymap.set("n", "<space>wl", function()
+    --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    -- end, bufopts)
+    -- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+    -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+    -- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<space>f", function()
-      vim.lsp.buf.format({ async = true })
-    end, bufopts)
+    -- vim.keymap.set("n", "<space>f", function()
+    --   vim.lsp.buf.format({ async = true })
+    -- end, bufopts)
   end
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local servers = { "gopls", "pyright", "ruff_lsp", "lua_ls", "tsserver", "eslint", "jsonls" }
+  local servers = { "gopls", "pyright", "ruff_lsp", "lua_ls", "tsserver", "eslint", "jsonls", "terraformls" }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
       capabilities = lsp_defaults.capabilities,
@@ -54,6 +54,16 @@ local config = function()
         },
         validate = {
           enable = true,
+        },
+      },
+    },
+  })
+
+  lspconfig.lua_ls.setup({
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { "vim" },
         },
       },
     },
@@ -112,6 +122,8 @@ local config = function()
     --   })
     --   require("lsp-inlayhints").on_attach(client, bufnr)
     -- end,
+    capabilities = lsp_defaults.capabilities,
+    on_attach = on_attach,
     settings = {
       -- https://go.googlesource.com/vscode-go/+/HEAD/docs/settings.md#settings-for
       gopls = {
@@ -121,6 +133,7 @@ local config = function()
           unusedwrite = true,
           useany = true,
         },
+        completeUnimported = true,
         experimentalPostfixCompletions = true,
         gofumpt = true,
         -- staticcheck = true,

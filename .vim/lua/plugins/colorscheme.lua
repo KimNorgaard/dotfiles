@@ -1,8 +1,7 @@
 return {
   {
     "fenetikm/falcon",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     name = "falcon",
     config = function()
       vim.opt.background = "dark"
@@ -37,8 +36,7 @@ return {
   },
   {
     "KimNorgaard/munu",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     name = "munu",
     config = function()
       vim.opt.background = "dark"
@@ -47,12 +45,22 @@ return {
   {
     "dundargoc/fakedonalds.nvim",
   },
+  { "sainnhe/gruvbox-material" },
   {
-    "savq/melange-nvim",
+    "theJian/nvim-moonwalk",
+    priority = 1000,
     lazy = false,
     config = function()
+      vim.opt.background = "light"
+      vim.cmd([[colorscheme moonwalk]])
+    end,
+  },
+  {
+    "savq/melange-nvim",
+    lazy = true,
+    config = function()
+      vim.opt.background = "dark"
       vim.cmd([[colorscheme melange]])
     end,
   },
-  { "sainnhe/gruvbox-material" },
 }

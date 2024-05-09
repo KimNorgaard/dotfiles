@@ -1,8 +1,8 @@
+# Various application settings
+export LPASS_AGENT_TIMEOUT=28800
 export ANSIBLE_NOCOWS=1
 export PYTHONSTARTUP="$HOME/.pystartup"
-export TODOTXT_DEFAULT_ACTION=ls
 
-export LPASS_AGENT_TIMEOUT=28800
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -17,24 +17,32 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'          # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m'       # begin underline
 
-export TERMINAL=termite
-
+# Print timing for commands that run more that N seconds
 export REPORTTIME=5
 
 export GOPATH=~/src/go
-
-export PROJECT_HOME=~/src
 
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
 export BROWSER=firefox
+#
+# Reduce latency when pressing <Esc>
+export KEYTIMEOUT=1
+
+export HISTFILE=~/.zsh_history
+export HISTORY_IGNORE="(exit|cd|pwd|l[sal]|[bf]g|history|clear)"
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_OPTS="--walker-skip .git"
+export FZF_ALT_C_OPTS="--walker-skip .git"
+export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+
+export MANPAGER='nvim +Man!'
+
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ENV_HINTS=1
 
 [ -f ~/.env.local ] && source ~/.env.local
-
-#AWSume alias to source the AWSume script
-alias awsume=". awsume"
-
-#Auto-Complete function for AWSume
-#Auto-Complete function for AWSume
-fpath=(~/.awsume/zsh-autocomplete/ ~/.zsh/autocomp $fpath)

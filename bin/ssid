@@ -1,0 +1,3 @@
+#!/bin/sh
+which iwgetid >/dev/null 2>&1 && iwgetid --raw && exit
+which wdutil >/dev/null 2>&1 && sudo wdutil info | grep SSID | grep -v BSSID | awk '{print $3}'

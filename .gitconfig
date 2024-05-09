@@ -54,10 +54,7 @@
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [init]
 	defaultBranch = main
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [credential]
-	helper = /usr/local/share/gcm-core/git-credential-manager
 	helper = 
 	helper = /usr/local/bin/git-credential-manager
 [merge]
@@ -66,3 +63,10 @@
     verbose = true
 [help]
     autocorrect = 10
+
+[url "git@git.netic.dk:7999:"]
+    insteadOf = https://git.netic.dk/
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential "https://git.netic.dk"]
+	provider = bitbucket

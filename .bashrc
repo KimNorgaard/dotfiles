@@ -16,13 +16,13 @@ export PAGER=less
 export LPASS_AGENT_TIMEOUT=28800
 export BROWSER=firefox
 export LESS='-RM'
-export LESS_TERMCAP_mb=$'\E[01;31m'             # begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'        # begin bold
-export LESS_TERMCAP_me=$'\E[0m'                 # end mode
-export LESS_TERMCAP_se=$'\E[0m'                 # end standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'          # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m'       # begin underline
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 export TERMINAL=alacritty
 export REPORTTIME=5
 export PROJECT_HOME=~/src
@@ -38,7 +38,6 @@ alias ovi="\vi"
 alias vim=nvim
 alias ovim="\vim"
 alias vimdiff="nvim -d"
-# alias open=xdg-open
 alias netctl='sudo netctl'
 alias ls="ls --color=auto -F"
 alias ll='ls -lFh'
@@ -53,50 +52,41 @@ alias lg=lazygit
 alias gp='git pull'
 alias gP='git push'
 alias gits='git status -s'
-alias clock='tty-clock -b -c -C 6 -f \"%A %d/%m/%y\" -B -a 100000000 -d 0'
-
-alias novpn='/opt/cisco/anyconnect/bin/vpn disconnect'
-
-alias dockerledger='docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /Users/kn/src/accounting/:/data --user ${UID} knhlg bash'
-
-function CONFIG() {
-   /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" $@
-}
 
 function parse_git_dirty() {
-   local yellow=$'\001\e[33m\002'
-   [[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]] && echo -n "${yellow}*"
+	local yellow=$'\001\e[33m\002'
+	[[ -n $(git status --porcelain --ignore-submodules=dirty 2>/dev/null) ]] && echo -n "${yellow}*"
 }
 
 function parse_git_info() {
-   local ref
-   local color=$'\001\e[36m\002'
+	local ref
+	local color=$'\001\e[36m\002'
 
-   ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-      ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-   ref=${ref#refs/heads/}
-   dirty=$(parse_git_dirty)
-   echo -n " ${color}(${ref}${dirty}${color})"
+	ref=$(command git symbolic-ref HEAD 2>/dev/null) ||
+		ref=$(command git rev-parse --short HEAD 2>/dev/null) || return 0
+	ref=${ref#refs/heads/}
+	dirty=$(parse_git_dirty)
+	echo -n " ${color}(${ref}${dirty}${color})"
 }
 
 function __prompt_command() {
-   local exit="$?"
+	local exit="$?"
 
-   local reset=$'\001\e[0m\002'
-   local blue=$'\001\e[34m\002'
-   local red=$'\001\e[31m\002'
+	local reset=$'\001\e[0m\002'
+	local blue=$'\001\e[34m\002'
+	local red=$'\001\e[31m\002'
 
-   local ret=''
-   if [ $exit -eq 0 ]; then
-      ret=$blue
-   else
-      ret=$red
-   fi
+	local ret=''
+	if [ $exit -eq 0 ]; then
+		ret=$blue
+	else
+		ret=$red
+	fi
 
-   local git_info
-   git_info=$(parse_git_info)
+	local git_info
+	git_info=$(parse_git_info)
 
-   PS1="\t ${ret}\w${git_info}${reset} "
+	PS1="\t ${ret}\w${git_info}${reset} "
 }
 
 # Record each line as it gets issued
@@ -117,10 +107,10 @@ PROMPT_DIRTRIM=2
 bind Space:magic-space
 
 # Turn on recursive globbing (enables ** to recurse all directories)
-shopt -s globstar 2> /dev/null
+shopt -s globstar 2>/dev/null
 
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
+shopt -s nocaseglob
 
 ## SMARTER TAB-COMPLETION (Readline bindings) ##
 
@@ -168,11 +158,11 @@ bind '"\e[D": backward-char'
 ## BETTER DIRECTORY NAVIGATION ##
 
 # Prepend cd to directory names automatically
-shopt -s autocd 2> /dev/null
+shopt -s autocd 2>/dev/null
 # Correct spelling errors during tab-completion
-shopt -s dirspell 2> /dev/null
+shopt -s dirspell 2>/dev/null
 # Correct spelling errors in arguments supplied to cd
-shopt -s cdspell 2> /dev/null
+shopt -s cdspell 2>/dev/null
 
 # This defines where cd looks for targets
 # Add the directories you want to have fast access to, separated by colon
@@ -189,13 +179,14 @@ source "/opt/homebrew/etc/profile.d/bash_completion.sh"
 source "/opt/homebrew/opt/fzf/shell/completion.bash"
 source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
 
-export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_OPTS="--walker-skip .git"
+export FZF_ALT_C_OPTS="--walker-skip .git"
 
 # not in a TMUX session but in an X session
 #if [ -z ${TMUX} ] && [ -n "${DISPLAY}" ]; then
 # if [ -z ${TMUX} ]; then
 #     (tmux ls | grep -vq attached && exec tmux -2 at) || exec tmux -2
 # fi
-
