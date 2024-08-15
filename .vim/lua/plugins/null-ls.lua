@@ -24,47 +24,29 @@ return {
       "gbprod/none-ls-shellcheck.nvim",
       "nvimtools/none-ls-extras.nvim",
     },
-    config = function()
-      local null_ls = require("null-ls")
-
-      local formatting = null_ls.builtins.formatting
-      local diagnostics = null_ls.builtins.diagnostics
-
-      null_ls.setup({
-        sources = {
-          -- python
-          formatting.black.with({ extra_args = { "--fast" } }),
-          formatting.isort,
-          diagnostics.yamllint,
-          -- lua
-          formatting.stylua,
-          -- golang
-          -- formatting.gofmt,
-          -- formatting.gofumpt,
-          -- formatting.goimports,
-          -- formatting.goimports_reviser,
-          diagnostics.staticcheck,
-          -- terraform
-          formatting.terraform_fmt,
-          -- shell
-          formatting.shfmt,
-          -- ansible
-          -- javascript
-          -- formatting.eslint,
-          -- diagnostics.eslint,
-          -- general
-          formatting.prettier,
-          -- prose
-          diagnostics.proselint.with({
-            filetypes = { "markdown", "tex", "text", "mail" },
-          }),
-        },
-
-        -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
-        on_attach = on_attach,
-      })
-      null_ls.register(require("none-ls-shellcheck.diagnostics"))
-      null_ls.register(require("none-ls-shellcheck.code_actions"))
+    opts = function(_, opts)
+      local nls = require "null-ls"
+      opts.sources = {}
+      table.insert(opts.sources, nls.builtins.formatting.stylua)
+      table.insert(opts.sources, nls.builtins.formatting.isort)
+      table.insert(opts.sources, nls.builtins.formatting.black.with({ extra_args = { "--fast" } }))
+      table.insert(opts.sources, nls.builtins.formatting.terraform_fmt)
+      table.insert(opts.sources, nls.builtins.formatting.shfmt)
+      table.insert(opts.sources, nls.builtins.formatting.prettier)
+      table.insert(opts.sources, nls.builtins.diagnostics.yamllint)
+      table.insert(opts.sources, nls.builtins.diagnostics.staticcheck)
+      table.insert(opts.sources, nls.builtins.diagnostics.vale.with({
+        filetypes = { "markdown", "tex", "text", "mail" },
+      }))
+      opts.on_attach = on_attach
     end,
+    -- config = function()
+    --   local nls = require("null-ls")
+    --
+    --   -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
+    --   nls.register(require("none-ls-shellcheck.diagnostics"))
+    --   nls.register(require("none-ls-shellcheck.code_actions"))
+    --   require("null-ls").setup()
+    -- end,
   },
 }

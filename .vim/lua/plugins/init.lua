@@ -1,33 +1,18 @@
 return {
   {
-    "tpope/vim-repeat",
-    lazy = true,
-    vent = "VeryLazy",
-  },
-  {
-    "tpope/vim-surround",
-    keys = { "ds", "cs", "ys", { "S", mode = "v" }, { "gS", mode = "v" } },
-  },
-  "tpope/vim-endwise",
-  {
     "tpope/vim-fugitive",
     lazy = true,
     cmd = { "G" },
   },
-  "pangloss/vim-simplefold",
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-    end,
+    event = { "BufReadPre", "BufNewFile" },
+    lazy = false,
+    config = true,
+    keys = {
+      { "gb", ":Gitsigns blame_line<CR>" },
+    },
   },
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-  "BurntSushi/ripgrep",
   {
     "godlygeek/tabular",
     lazy = true,
@@ -40,54 +25,6 @@ return {
     end,
   },
   {
-    "voldikss/vim-floaterm",
-    init = function()
-      vim.g.floaterm_width = 0.9
-      vim.g.floaterm_height = 0.9
-      vim.g.floaterm_keymap_toggle = "<leader>gt"
-    end,
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    init = function()
-      vim.g.indent_blankline_use_treesitter = true
-      -- require("indent_blankline").setup({
-      --     show_current_context = true,
-      --     show_current_context_start = true,
-      -- })
-    end,
-  },
-  -- {
-  --   "vimwiki/vimwiki",
-  --   branch = "dev",
-  --   keys = {
-  --     "<leader>ww",
-  --     "<leader>ws",
-  --     "<leader>w<leader>w",
-  --   },
-  --   init = function()
-  --     -- vim.g.vimwiki_custom_wiki2html = "~/vimwiki/vimwiki/wiki2html.py"
-  --     vim.g.vimwiki_global_ext = 0
-  --     vim.g.vimwiki_list = {
-  --       {
-  --         path = "~/vimwiki",
-  --         syntax = "markdown",
-  --         ext = ".md",
-  --         template_path = "~/vimwiki/templates",
-  --       },
-  --     }
-  --     vim.g.vimwiki_folding = "expr"
-  --   end,
-  -- },
-  "sheerun/vim-polyglot",
-  {
-    "rodjek/vim-puppet",
-    ft = "puppet",
-  },
-  {
     "ledger/vim-ledger",
     ft = "ledger",
     init = function()
@@ -95,8 +32,43 @@ return {
     end,
   },
   {
-    "hashivim/vim-terraform",
-    ft = "terraform",
+    "echasnovski/mini.icons",
+    opts = {},
+    lazy = true,
+    specs = {
+      { "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+    },
+    init = function()
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    end,
   },
-  "vim-pandoc/vim-pandoc-syntax",
+  {
+    "echasnovski/mini.surround",
+    event = "VeryLazy",
+    version = false,
+    config = true,
+  },
+  {
+    "echasnovski/mini.bufremove",
+    keys = {
+      {
+        "<leader>bd",
+        function()
+          require("mini.bufremove").delete(0, false)
+        end,
+        desc = "Delete Buffer",
+      },
+      {
+        "<leader>bD",
+        function()
+          require("mini.bufremove").delete(0, true)
+        end,
+        desc = "Delete Buffer (Force)",
+      },
+    },
+  },
+  -- "sheerun/vim-polyglot",
 }

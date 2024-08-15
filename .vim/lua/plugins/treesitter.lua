@@ -4,11 +4,17 @@ end
 
 return {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = {
+    { "RRethy/nvim-treesitter-endwise" },
+  },
   build = ":TSUpdate",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  lazy = true,
   config = config,
   opts = {
     -- ensure_installed = { "lua", "vim", "go", "terraform", "python" },
+    endwise = { enabled = true },
+    indent = { enable = true },
     highlight = {
       enable = true,
       disable = function(lang, buf)
@@ -21,6 +27,15 @@ return {
           return true
         end
       end,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<C-space>",
+        node_incremental = "<C-space>",
+        scope_incremental = false,
+        node_decremental = "<bs>",
+      },
     },
   },
 }

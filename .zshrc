@@ -112,13 +112,14 @@ function git_prompt_info() {
     local branch
     branch=$(command git rev-parse --abbrev-ref HEAD 2>/dev/null) || return 0
 
-    echo -n "%{$fg[black]%}${branch}$(parse_git_dirty)%{$reset_color%} "
+    # echo -n "%{$fg[brred]%}${branch}$(parse_git_dirty)%{$reset_color%} "
+    echo -n "%F{9}${branch}$(parse_git_dirty)%{$reset_color%} "
 }
 
 VIMODE=""
 
 current_dir() {
-    echo -n "%{$fg[blue]%}%c "
+    echo -n "%{$fg[white]%}%c "
 }
 
 return_status() {

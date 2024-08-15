@@ -1,83 +1,72 @@
-[colors.bright]
-# black = "0x363a49"
-# blue = "0x6cb6eb"
-# cyan = "0x5dbbc1"
-# green = "0xa0c980"
-# magenta = "0xd38aea"
-# red = "0xec7279"
-# white = "0xc5cdd9"
-# yellow = "0xdeb974"
-black = "0x020221"
-red = "0xff8e78"
-green = "0xb2bc55"
-yellow = "0xffd392"
-blue = "0x99a4bc"
-magenta = "0xffb07b"
-cyan = "0x8bccbf"
-white = "0xf8f8ff"
+[env]
+TERM = "xterm-256color"
 
-[colors.normal]
-# black = "0x363a49"
-# blue = "0x6cb6eb"
-# cyan = "0x5dbbc1"
-# green = "0xa0c980"
-# magenta = "0xd38aea"
-# red = "0xec7279"
-# white = "0xc5cdd9"
-# yellow = "0xdeb974"
-black = "0x000004"
-red = "0xff3600"
-green = "0x859933"
-yellow = "0xffc552"
-blue = "0x635196"
-magenta = "0xff761a"
-cyan = "0x34bfa4"
-white = "0xb4b4b9"
-
-[colors.primary]
-# background = "0x242424"
-# foreground = "0xc8c8c8"
-background = "0x020221"
-foreground = "0xb4b4b9"
-
-[colors.cursor]
-text = "0x020221"
-cursor = "0xffe8c0"
+[window]
+decorations = "None"
+dynamic_title = true
+option_as_alt = "OnlyLeft"
+dimensions = { columns = 120, lines = 50 }
 
 [font]
 size = 16
+normal.family = "GoMono Nerd Font Mono"
+normal.style = "Regular"
+bold.family = "GoMono Nerd Font Mono"
+bold.style = "Bold"
+italic.family = "GoMono Nerd Font Mono"
+italic.style = "Italic"
 
-[font.normal]
-family = "JetBrainsMono NFM"
-style = "Regular"
+[colors.normal]
+black = "0x596c77"
+red = "0xeb5f59"
+green = "0x8eedb3"
+yellow = "0xf8d85e"
+blue = "0x68c1f9"
+magenta = "0xeb5181"
+cyan = "0x8ff8db"
+white = "0xfefefe"
+
+[colors.bright]
+black = "0xb2bcc3"
+red = "0xef9084"
+green = "0xc5f4cd"
+yellow = "0xfae58d"
+blue = "0x94d5fa"
+magenta = "0xee86aa"
+cyan = "0xbafaeb"
+white = "0xfefefe"
+
+[colors.primary]
+foreground = "0xeceef0"
+background = "0x282522"
+
+[colors.cursor]
+text = "0xe8e8e8"
+cursor = "0xb69d43"
+
+[colors.selection]
+cursor = "0x657c89"
+text = "0xeceef0"
+
+[bell]
+animation = "EaseOutExpo"
+duration = 50
 
 [hints]
 alphabet = "jfkdls;ahgurieowpq"
 
 [[hints.enabled]]
-command = "xdg-open"
+command = "open"
 post_processing = true
 regex = "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
-
-[hints.enabled.binding]
-# enabled = true
-key = "U"
-mods = "Control|Shift"
-
-[hints.enabled.mouse]
-enabled = true
-mods = "None"
+mouse.enabled = true
+mouse.mods = "None"
+binding.key = "u"
+binding.mods = "Control|Shift"
 
 [mouse]
-hide_when_typing = false
-
-[scrolling]
-history = 0
+hide_when_typing = true
 
 [selection]
-save_to_clipboard = true
+save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t¬"
-
-[window]
-decorations = "none"
-dynamic_title = true

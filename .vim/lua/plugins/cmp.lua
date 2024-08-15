@@ -1,8 +1,6 @@
 local config = function()
-  local cmp = require('cmp')
-  local lspconfig = require('lspconfig')
-  local luasnip = require('luasnip')
-  local compare = require("cmp.config.compare")
+  local cmp = require("cmp")
+  local luasnip = require("luasnip")
 
   local has_words_before = function()
     unpack = unpack or table.unpack
@@ -10,10 +8,15 @@ local config = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
   end
 
-  cmp.setup {
+  cmp.setup({
+    preselect = cmp.PreselectMode.None,
+    confirm_opts = {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
+    },
     experimental = {
-			ghost_text = true,
-		},
+      ghost_text = true,
+    },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -24,7 +27,7 @@ local config = function()
       documentation = cmp.config.window.bordered(),
     },
     mapping = {
-      ['<Tab>'] = cmp.mapping(function(fallback)
+      ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
@@ -34,8 +37,8 @@ local config = function()
         else
           fallback()
         end
-      end, { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
@@ -43,54 +46,54 @@ local config = function()
         else
           fallback()
         end
-      end, { 'i', 's' }),
-      ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+      end, { "i", "s" }),
+      ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
       ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-      ['<CR>'] = cmp.mapping.confirm { select = true },
+      ["<CR>"] = cmp.mapping.confirm({ select = false }),
     },
     sources = cmp.config.sources({
-      { name = 'path' },
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' },
+      { name = "path" },
+      { name = "nvim_lsp" },
+      { name = "luasnip" },
       {
-        name = 'buffer',
+        name = "buffer",
         option = {
           get_bufnrs = function()
             return vim.api.nvim_list_bufs()
-          end
-        }
+          end,
+        },
       },
     }),
-  }
+  })
 
-  cmp.setup.cmdline('/', {
-      completion = { autocomplete = false },
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = 'buffer' }
-      }
-    })
+  cmp.setup.cmdline("/", {
+    completion = { autocomplete = false },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "buffer" },
+    },
+  })
 
-  cmp.setup.cmdline(':', {
-      completion = { autocomplete = false },
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-          { name = 'cmdline' }
-        })
-    })
+  cmp.setup.cmdline(":", {
+    completion = { autocomplete = false },
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = "cmdline" },
+    }),
+  })
 end
 
 return {
-    "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
-    priority = 200,
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = config,
+  "hrsh7th/nvim-cmp",
+  event = { "InsertEnter", "CmdlineEnter" },
+  priority = 200,
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "saadparwaiz1/cmp_luasnip",
+  },
+  config = config,
 }
