@@ -70,38 +70,10 @@ return {
       },
     },
   },
-  -- "sheerun/vim-polyglot",
-  {
-    "gera2ld/ai.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
-    opts = {
-      models = {
-        {
-          provider = "gemini",
-          model = "gemini-1.5-pro-latest",
-          result_tpl = "## Gemini\n\n{{output}}",
-        },
-      },
-      gemini = {
-        api_key = "AIzaSyAUc2FN0whm7yXJfd9a4II7ySfLqXAVyKs",
-        model = "gemini-1.5-pro-latest",
-        -- model = 'gemini-pro',
-        -- proxy = '',
-      },
-    },
-    -- config = function()
-    --   local ai = require("ai")
-    --   local ok, opts = pcall(vim.fn.json_decode, os.getenv("AI_NVIM_PROVIDER_CONFIG"))
-    --   opts = ok and opts or {}
-    --   ai.setup(opts)
-    -- end,
-    event = "VeryLazy",
-  },
   {
     "airpods69/yagp.nvim",
     dependencies = "nvim-lua/plenary.nvim",
   },
-  -- { "github/copilot.vim" },
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -123,12 +95,6 @@ return {
       vim.keymap.set("n", "<leader>cs", toggle_auto_trigger, { desc = "Copilot Suggestion Toggle" })
     end,
   },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- },
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
