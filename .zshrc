@@ -41,6 +41,7 @@ alias gits='git status -s'
 alias gp='git pull'
 alias history='fc -l 1'
 alias k=kubectl
+alias k8s='nvim +"set background=dark | lua require(\"kubectl\").open()"'
 alias lg=lazygit
 alias ll='ls -lFh'
 alias lla='ls -lFhA'
@@ -53,6 +54,7 @@ alias tf=terraform
 alias vi=nvim
 alias vim=nvim
 alias vimdiff="nvim -d"
+alias brwe=brew
 # http verbs
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
     alias "$method"="curl -X \"$method\""
@@ -160,11 +162,11 @@ zle -N zle-line-init
 function zle-keymap-select {
   VIMODE="${${KEYMAP/vicmd/[NORMAL] }/(main|viins)/}"
   PS1="${PS1_TEMPLATE}"
-  if [ $KEYMAP = vicmd ]; then
-      echo -ne '\e[2 q'
-  else
-      echo -ne '\e[6 q'
-  fi
+  #if [ $KEYMAP = vicmd ]; then
+  #    echo -ne '\e[2 q'
+  #else
+  #    echo -ne '\e[6 q'
+  #fi
   zle reset-prompt
 }
 zle -N zle-keymap-select

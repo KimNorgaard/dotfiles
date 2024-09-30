@@ -21,7 +21,7 @@ set.expandtab = true -- never use hard tabs
 set.autoindent = true -- keep indenting on <CR>
 
 set.textwidth = 80 -- wrap after 80 columns
-set.colorcolumn = "+1" -- highlight 81st column
+-- set.colorcolumn = "+1" -- highlight 81st column
 set.linebreak = true -- break on what looks like boundaries
 set.showbreak = "↳\\" -- shown at the start of a wrapped line
 set.formatoptions = "qrn1"

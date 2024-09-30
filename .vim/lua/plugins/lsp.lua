@@ -37,7 +37,8 @@ local config = function()
   end
 
   -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-  local servers = { "gopls", "pyright", "ruff_lsp", "lua_ls", "tsserver", "eslint", "jsonls", "terraformls" }
+  local servers =
+  { "gopls", "pyright", "ruff_lsp", "lua_ls", "ts_ls", "eslint", "jsonls", "terraformls", "jsonnet_ls" }
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup({
       capabilities = lsp_defaults.capabilities,
@@ -85,7 +86,7 @@ local config = function()
     },
   })
 
-  lspconfig.tsserver.setup({
+  lspconfig.ts_ls.setup({
     single_file_support = false,
     settings = {
       typescript = {

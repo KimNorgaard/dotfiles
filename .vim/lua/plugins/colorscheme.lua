@@ -1,5 +1,14 @@
 return {
   {
+    "KimNorgaard/nvim-moonwalk",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      vim.opt.background = "light"
+      -- vim.cmd([[colorscheme moonwalk]])
+    end,
+  },
+  {
     "KimNorgaard/munu",
     lazy = true,
     name = "munu",
@@ -16,12 +25,11 @@ return {
     end,
   },
   {
-    "KimNorgaard/nvim-moonwalk",
-    priority = 1000,
-    lazy = false,
-    config = function()
-      vim.opt.background = "light"
-      vim.cmd([[colorscheme moonwalk]])
-    end,
+    "slugbyte/lackluster.nvim",
+    -- name = "lackcluster",
+    lazy = true,
+    -- config = function()
+    --   vim.opt.background = "dark"
+    -- end,
   },
 }

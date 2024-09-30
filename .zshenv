@@ -25,7 +25,7 @@ export GOPATH=~/src/go
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-export BROWSER=firefox
+export BROWSER=/Applications/Firefox.app/Contents/MacOS/firefox
 #
 # Reduce latency when pressing <Esc>
 export KEYTIMEOUT=1

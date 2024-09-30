@@ -28,10 +28,14 @@ local config = function()
     },
     mapping = {
       ["<Tab>"] = cmp.mapping(function(fallback)
+        -- local copilot_keys = vim.fn["copilot#Accept"]()
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
+          -- elseif copilot_keys ~= "" then -- prioritise copilot over snippets
+          --   -- Copilot keys do not need to be wrapped in termcodes
+          --   vim.api.nvim_feedkeys(copilot_keys, "i", true)
         elseif has_words_before() then
           cmp.complete()
         else
@@ -39,12 +43,17 @@ local config = function()
         end
       end, { "i", "s" }),
       ["<S-Tab>"] = cmp.mapping(function(fallback)
+        -- local copilot_keys = vim.fn["copilot#Accept"]()
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
+          -- if copilot_keys ~= "" then
+          --   vim.api.nvim_feedkeys(copilot_keys, "i", true)
+          -- else
           fallback()
+          -- end
         end
       end, { "i", "s" }),
       ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
@@ -53,6 +62,7 @@ local config = function()
       ["<CR>"] = cmp.mapping.confirm({ select = false }),
     },
     sources = cmp.config.sources({
+      -- { name = "copilot", group_index = 2 },
       { name = "path" },
       { name = "nvim_lsp" },
       { name = "luasnip" },
