@@ -16,15 +16,12 @@ km.set("n", "/", "/\\v", { noremap = true })
 km.set("v", "/", "/\\v", { noremap = true })
 
 -- Bubble single lines (kicks butt)
--- http://vimcasts.org/episodes/bubbling-text/
 km.set("n", "<leader>k", "ddkP")
 km.set("n", "<leader>j", "ddp")
 
 -- Bubble multiple lines
 km.set("v", "<leader>k", "xkP`[V`]")
 km.set("v", "<leader>j", "xp`[V`]")
-
-km.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
 
 -- Select pasted text
 km.set("n", "<leader>v", "V`]", { noremap = true })
@@ -38,15 +35,6 @@ km.set("v", "<space>", "za", { noremap = true })
 
 -- Set working directory
 km.set("n", "<leader>.", ":lcd %:p:h<CR>", { noremap = true })
-
--- Resolve symlink in order to use fugitive
-km.set(
-	"n",
-	"<leader>L",
-	":<C-u>execute 'file '.fnameescape(resolve(expand('%:p')))<bar> \
-            call fugitive#detect(fnameescape(expand('%:p:h')))<CR>",
-	{ noremap = true }
-)
 
 -- Easy buffer/window/tab navigation
 km.set("", "<C-h>", "<C-w>h", { noremap = true })
@@ -69,12 +57,13 @@ km.set("x", "<leader>y", '"+y', { noremap = true })
 km.set("x", "<leader>p", '"+p', { noremap = true })
 km.set("x", "<leader>P", '"+P', { noremap = true })
 
--- Ledger
-km.set("n", "<leader>A", "vip:LedgerAlign<cr>", { noremap = true })
---
+-- Duplicate a line and comment out the first line
+km.set("n", "yc", "yy<cmd>normal gcc<CR>p", { noremap = true, desc = "Duplicate line and comment original" })
+
 -- LSP
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
+km.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
 km.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>", opts)
 km.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
 km.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)

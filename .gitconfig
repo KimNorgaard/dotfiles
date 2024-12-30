@@ -1,67 +1,107 @@
 [user]
-	name = Kim Nørgaard
-	email = kn@netic.dk
+  name = Kim Nørgaard
+  email = kn@netic.dk
+
+[includeIf "gitdir:~/src/"]
+    path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/src/github/KimNorgaard/"]
+    path = ~/.gitconfig-private
+
+[include]
+    path = ~/.gitconfig.local
+
+[alias]
+    amend = commit --amend --no-edit
+    br = branch
+    ci = commit -v
+    cii = commit --all -m 'Initial commit.'
+    co = checkout
+    df = diff
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    lg = log --pretty=format:'%C(yellow)%h%Creset %ad %Cgreen(%ar)%Creset - %s %C(blue)<%an>%Creset' --date=short --graph
+    committers = shortlog -nse --no-merges
+    st = status
+
 [core]
     excludesfile = /Users/kn/.gitignore_global
     editor = nvim
     pager = delta
     sshCommand = /usr/bin/ssh
+
 [interactive]
     diffFilter = delta --color-only
+
 [delta]
     navigate = true
     light = false
     side-by-side = true
+
 [color]
     ui = true
     branch = auto
     diff = auto
     status = auto
+
 [color "branch"]
     current = yellow reverse
     local = 241
     remote = green
+
 [color "diff"]
     meta = yellow bold
     frag = magenta bold
     old = red bold
     new = green bold
+
 [color "status"]
     added = green
     changed = yellow
     untracked = magenta
+
+[fetch]
+  prune = true
+  tagOpt = --tags
+
 [push]
     default = simple
     autoSetupRemote = true
-[alias]
-    st = status
-    ci = commit -v
-    cii = commit --all -m 'Initial commit.'
-    br = branch
-    co = checkout
-    df = diff
-    lg = log --oneline --graph --decorate
-    workprofile = config user.email "kn@netic.dk"
-    privprofile = config user.email "jasen@jasen.dk"
-[include]
-    path = ~/.gitconfig.local
 
 [difftool]
   prompt = true
+
 [diff]
   tool = nvimdiff
+
 [difftool "nvimdiff"]
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
 [init]
-	defaultBranch = main
+    defaultBranch = main
+
 [merge]
-	conflictStyle = zdiff3
+    conflictStyle = zdiff3
+
 [commit]
     verbose = true
+
 [help]
     autocorrect = 10
+
 [credential]
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
+    helper = /usr/local/share/gcm-core/git-credential-manager
+    helper = /usr/local/bin/git-credential-manager
+
 [credential "https://dev.azure.com"]
-	useHttpPath = true
+    useHttpPath = true
+
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
+
+[mergetool "sourcetree"]
+    cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+
+[safe]
+    bareRepository = explicit

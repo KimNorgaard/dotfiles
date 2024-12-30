@@ -1,3 +1,2 @@
 #!/bin/sh
-docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v /Users/kn/src/accounting/:/data --user ${UID} knhlg bash
-
+docker run --rm -it -e LEDGER_FILE=/data/main.ldg -v ~/src/github/KimNorgaard/accounting/:/data --user ${UID} knhlg bash

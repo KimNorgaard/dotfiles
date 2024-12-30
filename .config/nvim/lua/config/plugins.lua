@@ -1,8 +1,26 @@
 ---@diagnostic disable:undefined-global
 --- vim: foldmethod=marker foldlevel=0
 
-local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 local map = require("util").map
+
+-- mini.nvim {{{
+-- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
+local path_package = vim.fn.stdpath("data") .. "/site/"
+local mini_path = path_package .. "pack/deps/start/mini.nvim"
+if not vim.loop.fs_stat(mini_path) then
+	vim.cmd('echo "Installing `mini.nvim`" | redraw')
+	local clone_cmd = { "git", "clone", "--filter=blob:none", "https://github.com/echasnovski/mini.nvim", mini_path }
+	vim.fn.system(clone_cmd)
+	vim.cmd("packadd mini.nvim | helptags ALL")
+	vim.cmd('echo "Installed `mini.nvim`" | redraw')
+end
+-- }}}
+
+-- mini.deps {{{
+-- Set up 'mini.deps' (customize to your liking)
+require("mini.deps").setup({ path = { package = path_package } })
+local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
+-- }}}
 
 -- mini.ai {{{
 now(function()
@@ -35,6 +53,12 @@ end)
 -- mini.surround {{{
 later(function()
 	require("mini.surround").setup()
+end)
+-- }}}
+--
+-- mini.files {{{
+now(function()
+	require("mini.files").setup()
 end)
 -- }}}
 
@@ -237,7 +261,7 @@ now(function()
 		source = "nvim-treesitter/nvim-treesitter",
 		-- Use 'master' while monitoring updates in 'main'
 		checkout = "master",
-		monitor = "main",
+		-- monitor = "main",
 		-- Perform action after every checkout
 		hooks = {
 			post_checkout = function()
@@ -474,8 +498,7 @@ later(function()
 	end
 
 	-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-	local servers =
-		{ "gopls", "pyright", "ruff_lsp", "lua_ls", "ts_ls", "eslint", "jsonls", "terraformls", "jsonnet_ls" }
+	local servers = { "gopls", "pyright", "ruff", "lua_ls", "ts_ls", "eslint", "jsonls", "terraformls", "jsonnet_ls" }
 	for _, lsp in ipairs(servers) do
 		lspconfig[lsp].setup({
 			capabilities = lsp_defaults.capabilities,
@@ -854,7 +877,8 @@ later(function()
 	})
 	local opts = {
 		extensions = {
-			"ldg",
+			"commodities.ldg",
+			"accounts.ldg",
 		},
 		-- snippets = {
 		-- 	cmp = {
@@ -872,11 +896,31 @@ later(function()
 	-- 	return true
 	-- end
 	require("ledger").setup(opts)
+	map("n", "<leader>A", "vip:LedgerAlign<cr>", "Ledger align")
+end)
+
+later(function()
+	Hledger = require("hledger")
+
+	vim.keymap.set(
+		{ "n", "v" },
+		"<leader>h",
+		":<c-u>lua Hledger.hledger_align_entry()<cr>",
+		{ noremap = true, silent = true }
+	)
+	vim.keymap.set(
+		"n",
+		"<leader>H",
+		"vip:<c-u>lua Hledger.hledger_align_entry()<cr>",
+		{ noremap = true, silent = true }
+	)
+
+	vim.g.ledger_align_at = 80
 end)
 -- }}}
 
 -- kubectl {{{
-later(function()
+now(function()
 	add({ source = "ramilito/kubectl.nvim" })
 	require("kubectl").setup()
 end)
@@ -890,9 +934,14 @@ later(function()
 	require("copilot").setup({
 		suggestion = { enabled = false },
 		panel = { enabled = false },
-		-- filetypes = {
-		-- 	["*"] = false,
-		-- },
+		filetypes = {
+			go = true,
+			python = true,
+			sh = true,
+			yaml = true,
+			terraform = true,
+			["*"] = false,
+		},
 	})
 	map("n", "<leader>ca", ":Copilot! attach<CR>", "Attach Copilot")
 	map("n", "<leader>cs", ":Copilot toggle<CR>", "Copilot Suggestion Toggle")
@@ -912,6 +961,7 @@ later(function()
 			-- "nvim-telescope/telescope.nvim",
 		},
 	})
+	map("n", "<leader>cc", ":CodeCompanionChat Toggle<CR>", "Copilot Suggestion Toggle")
 	require("codecompanion").setup({
 		strategies = {
 			chat = {
@@ -967,3 +1017,15 @@ now(function()
 	})
 end)
 -- }}}
+
+-- neotree {{{
+later(function()
+	add({
+		source = "nvim-neo-tree/neo-tree.nvim",
+		depends = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+		},
+	})
+end)
