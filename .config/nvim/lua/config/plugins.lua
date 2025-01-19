@@ -62,6 +62,12 @@ now(function()
 end)
 -- }}}
 
+-- mini.diff {{{
+later(function()
+	require("mini.diff").setup()
+end)
+-- }}}
+
 -- mini.git {{{
 later(function()
 	vim.g.minigit_disable = true
@@ -980,12 +986,20 @@ later(function()
 					env = {
 						api_key = "GEMINI_API_KEY",
 					},
+					schema = {
+						model = {
+							default = "gemini-1.5-pro-latest",
+						},
+					},
 				})
 			end,
 		},
 		display = {
 			action_palette = {
 				provider = "mini_pick",
+			},
+			diff = {
+				provider = "mini_diff",
 			},
 		},
 	})
@@ -1028,4 +1042,60 @@ later(function()
 			"MunifTanjim/nui.nvim",
 		},
 	})
+end)
+
+--- beepboop
+now(function()
+	add({ source = "EggbertFluffle/beepboop.nvim" })
+	require("beepboop").setup({
+		audio_player = "ffplay",
+		max_sounds = 20,
+		sound_enabled = false,
+		sound_map = {
+			{ key_map = { mode = "n", key_chord = "<leader>pv" }, sound = "chestopen.oga" },
+			{ key_map = { mode = "n", key_chord = "<C-Enter>" }, sound = "chestopen.oga" },
+			{ auto_command = "VimEnter", sound = "chestopen.oga" },
+			{ auto_command = "VimLeave", sound = "chestclosed.oga" },
+			{ auto_command = "InsertCharPre", sounds = { "stone1.oga", "stone2.oga", "stone3.oga", "stone4.oga" } },
+			{ auto_command = "TextYankPost", sounds = { "hit1.oga", "hit2.oga", "hit3.oga" } },
+			{ auto_command = "BufWrite", sounds = { "open_flip1.oga", "open_flip2.oga", "open_flip3.oga" } },
+		},
+	})
+end)
+
+now(function()
+	add({ source = "https://github.com/RRethy/base16-nvim" })
+	local bg = "#0F1919"
+	local accent = "#102121"
+	local accent2 = "#0D2525" -- highlight
+
+	local text = "#abb2bf"
+	local dark_text = "#3E4451" -- comments, line numbers
+
+	local keyword = "#8F939A"
+	local func = "#B6AB8B"
+	local types = "#65838E"
+	local constant = "#A06057"
+
+	local for_tesing = "#FF0000"
+
+	require("base16-colorscheme").setup({
+		base00 = bg,
+		base01 = accent,
+		base02 = accent2,
+		base03 = dark_text,
+		base04 = dark_text,
+		base05 = text,
+		base06 = for_tesing,
+		base07 = for_tesing,
+		base08 = text,
+		base09 = constant,
+		base0A = types,
+		base0B = constant,
+		base0C = text,
+		base0D = func,
+		base0E = keyword,
+		base0F = text,
+	})
+	vim.api.nvim_set_hl(0, "@comment", { fg = dark_text, italic = false })
 end)

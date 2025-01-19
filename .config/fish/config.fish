@@ -29,6 +29,7 @@ if status is-interactive
   abbr -a gp git push
   abbr -a gpl git pull
   abbr -a gc git commit -asm
+  abbr -a gpb "git branch -vv | grep 'gone]' | awk '{print \$1}' | xargs git branch -D"
   abbr -a --set-cursor='%' -- gcm 'git commit -m "%"'
   abbr -a gst git status -s
   abbr -a g git
