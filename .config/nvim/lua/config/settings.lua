@@ -11,6 +11,7 @@ set.cursorline = true -- highlight current line
 set.title = true
 set.titlestring = [[ %{expand("%t")} ]]
 set.helpheight = 0 -- Height of help screen is 50%
+set.laststatus = 2 -- always show status line
 
 -- Clipboard
 -- set.clipboard = "unnamedplus"
@@ -108,9 +109,6 @@ set.listchars = {
 	trail = "⌴",
 	eol = "¬",
 }
-
--- Statusline
-set.laststatus = 2 -- always show status line
 
 -- Diff
 set.diffopt:append("vertical")

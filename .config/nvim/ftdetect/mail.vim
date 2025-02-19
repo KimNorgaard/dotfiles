@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *temp/mutt-* setfiletype mail
+"autocmd BufRead,BufNewFile *temp/mutt-* setfiletype mail

@@ -352,6 +352,9 @@ later(function()
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			lua = { "stylua" },
 		},
+		default_format_opts = {
+			lsp_format = "fallback",
+		},
 		format_on_save = function(bufnr)
 			local ignore_filetypes = { "html", "go" }
 			if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
@@ -362,11 +365,11 @@ later(function()
 				return
 			end
 
-			return { timeout_ms = 500, lsp_fallback = true }
+			return { timeout_ms = 500, lsp_format = "fallback" }
 		end,
 	})
 	map({ "n", "x", "o" }, "<leader>bf", function()
-		require("conform").format({ async = true, lsp_fallback = true })
+		require("conform").format({ async = true, lsp_format = "fallback" })
 	end, "Format buffer")
 end)
 -- }}}
@@ -495,7 +498,7 @@ later(function()
 		--   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		-- end, bufopts)
 		-- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-		-- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
 		-- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 		-- vim.keymap.set("n", "<space>f", function()
@@ -527,6 +530,8 @@ later(function()
 	})
 
 	lspconfig.lua_ls.setup({
+		capabilities = lsp_defaults.capabilities,
+		on_attach = on_attach,
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -538,6 +543,7 @@ later(function()
 
 	lspconfig.pyright.setup({
 		on_attach = on_attach,
+		capabilities = lsp_defaults.capabilities,
 		settings = {
 			pyright = {
 				-- Using Ruff's import organizer
@@ -553,6 +559,8 @@ later(function()
 	})
 
 	lspconfig.ts_ls.setup({
+		on_attach = on_attach,
+		capabilities = lsp_defaults.capabilities,
 		single_file_support = false,
 		settings = {
 			typescript = {
@@ -671,7 +679,36 @@ later(function()
 	table.insert(sources, nls.builtins.formatting.black.with({ extra_args = { "--fast" } }))
 	table.insert(sources, nls.builtins.formatting.terraform_fmt)
 	table.insert(sources, nls.builtins.formatting.shfmt)
-	table.insert(sources, nls.builtins.formatting.prettier)
+	-- table.insert(sources, nls.builtins.formatting.prettierd)
+	table.insert(
+		sources,
+		nls.builtins.formatting.prettierd.with({
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"css",
+				"scss",
+				"less",
+				"html",
+				"json",
+				"jsonc",
+				"yaml",
+				-- 'markdown',
+				-- 'markdown.mdx',
+				"graphql",
+				"handlebars",
+			},
+		})
+	)
+	table.insert(
+		sources,
+		nls.builtins.diagnostics.markdownlint.with({
+			extra_args = { "--disable", "MD013", "MD033" },
+		})
+	)
 	table.insert(sources, nls.builtins.diagnostics.yamllint)
 	table.insert(sources, nls.builtins.diagnostics.staticcheck)
 	table.insert(
@@ -683,6 +720,7 @@ later(function()
 			},
 		})
 	)
+	table.insert(sources, nls.builtins.hover.dictionary)
 	nls.setup({
 		on_attach = on_nls_attach,
 		sources = sources,
@@ -925,12 +963,12 @@ later(function()
 end)
 -- }}}
 
--- kubectl {{{
-now(function()
-	add({ source = "ramilito/kubectl.nvim" })
-	require("kubectl").setup()
-end)
--- }}}
+-- -- kubectl {{{
+-- now(function()
+-- 	add({ source = "ramilito/kubectl.nvim" })
+-- 	require("kubectl").setup()
+-- end)
+-- -- }}}
 
 -- llm/ai {{{
 later(function()
@@ -967,11 +1005,22 @@ later(function()
 			-- "nvim-telescope/telescope.nvim",
 		},
 	})
-	map("n", "<leader>cc", ":CodeCompanionChat Toggle<CR>", "Copilot Suggestion Toggle")
+	map("n", "<leader>cc", ":CodeCompanionChat Toggle<CR>", "CodeCompanionChat")
+	map({ "n", "v" }, "<leader>cb", ":CodeCompanion /buffer ", "CodeCompanion")
 	require("codecompanion").setup({
 		strategies = {
 			chat = {
 				adapter = "gemini",
+				slash_commands = {
+					["file"] = {
+						callback = "strategies.chat.slash_commands.file",
+						description = "Select a file using mini.pick",
+						opts = {
+							provider = "mini_pick", -- Other options include 'default', 'mini_pick', 'fzf_lua'
+							contains_code = true,
+						},
+					},
+				},
 			},
 			inline = {
 				adapter = "copilot",
@@ -1001,10 +1050,55 @@ later(function()
 			diff = {
 				provider = "mini_diff",
 			},
+			chat = {
+				diff = {
+					enabled = true,
+					provider = "mini_diff", -- default|mini_diff
+				},
+			},
 		},
 	})
 end)
 -- }}}
+
+-- --base16-nvim {{{
+-- now(function()
+-- 	add({ source = "RRethy/base16-nvim" })
+-- 	local bg = "#0F1919"
+-- 	local accent = "#102121"
+-- 	local accent2 = "#0D2525" -- highlight
+--
+-- 	local text = "#abb2bf"
+-- 	local dark_text = "#525965" -- comments, line numbers
+--
+-- 	local keyword = "#8F939A"
+-- 	local func = "#B6AB8B"
+-- 	local types = "#65838E"
+-- 	local constant = "#A06057"
+--
+-- 	local for_tesing = "#FF0000"
+--
+-- 	require("base16-colorscheme").setup({
+-- 		base00 = bg,
+-- 		base01 = accent,
+-- 		base02 = accent2,
+-- 		base03 = dark_text,
+-- 		base04 = dark_text,
+-- 		base05 = text,
+-- 		base06 = for_tesing,
+-- 		base07 = for_tesing,
+-- 		base08 = text,
+-- 		base09 = constant,
+-- 		base0A = types,
+-- 		base0B = constant,
+-- 		base0C = text,
+-- 		base0D = func,
+-- 		base0E = keyword,
+-- 		base0F = text,
+-- 	})
+-- 	vim.api.nvim_set_hl(0, "@comment", { fg = dark_text, italic = false })
+-- end)
+-- -- }}}
 
 -- markdown {{{
 now(function()
@@ -1025,9 +1119,22 @@ now(function()
 	})
 	local presets = require("markview.presets")
 	require("markview").setup({
-		headings = presets.headings.glow,
-		checkboxes = presets.checkboxes.nerd,
-		max_file_length = 5000,
+		enable = true,
+		markdown = {
+			enable = true,
+			headings = presets.headings.glow,
+		},
+		markdown_inline = {
+			enable = true,
+			checkboxes = presets.checkboxes.nerd,
+		},
+		preview = {
+			enable = true,
+			icon_provider = "devicons",
+			filetypes = { "md", "markdown", "codecompanion" },
+			max_buf_lines = 5000,
+			ignore_buftypes = {},
+		},
 	})
 end)
 -- }}}
@@ -1042,60 +1149,6 @@ later(function()
 			"MunifTanjim/nui.nvim",
 		},
 	})
+	map("n", "<leader>F", ":Neotree toggle<CR>", "Toggle Neotree")
 end)
-
---- beepboop
-now(function()
-	add({ source = "EggbertFluffle/beepboop.nvim" })
-	require("beepboop").setup({
-		audio_player = "ffplay",
-		max_sounds = 20,
-		sound_enabled = false,
-		sound_map = {
-			{ key_map = { mode = "n", key_chord = "<leader>pv" }, sound = "chestopen.oga" },
-			{ key_map = { mode = "n", key_chord = "<C-Enter>" }, sound = "chestopen.oga" },
-			{ auto_command = "VimEnter", sound = "chestopen.oga" },
-			{ auto_command = "VimLeave", sound = "chestclosed.oga" },
-			{ auto_command = "InsertCharPre", sounds = { "stone1.oga", "stone2.oga", "stone3.oga", "stone4.oga" } },
-			{ auto_command = "TextYankPost", sounds = { "hit1.oga", "hit2.oga", "hit3.oga" } },
-			{ auto_command = "BufWrite", sounds = { "open_flip1.oga", "open_flip2.oga", "open_flip3.oga" } },
-		},
-	})
-end)
-
-now(function()
-	add({ source = "https://github.com/RRethy/base16-nvim" })
-	local bg = "#0F1919"
-	local accent = "#102121"
-	local accent2 = "#0D2525" -- highlight
-
-	local text = "#abb2bf"
-	local dark_text = "#3E4451" -- comments, line numbers
-
-	local keyword = "#8F939A"
-	local func = "#B6AB8B"
-	local types = "#65838E"
-	local constant = "#A06057"
-
-	local for_tesing = "#FF0000"
-
-	require("base16-colorscheme").setup({
-		base00 = bg,
-		base01 = accent,
-		base02 = accent2,
-		base03 = dark_text,
-		base04 = dark_text,
-		base05 = text,
-		base06 = for_tesing,
-		base07 = for_tesing,
-		base08 = text,
-		base09 = constant,
-		base0A = types,
-		base0B = constant,
-		base0C = text,
-		base0D = func,
-		base0E = keyword,
-		base0F = text,
-	})
-	vim.api.nvim_set_hl(0, "@comment", { fg = dark_text, italic = false })
-end)
+-- }}}

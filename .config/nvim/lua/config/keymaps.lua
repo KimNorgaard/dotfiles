@@ -49,11 +49,16 @@ km.set("", "<A-j>", ":bp<cr>", { noremap = true })
 
 -- Copy/Pasting
 km.set("n", "<leader>d", '"+d', { noremap = true })
+km.set("n", "<leader>D", '"+D', { noremap = true })
 km.set("n", "<leader>y", '"+y', { noremap = true })
+km.set("n", "<leader>Y", '"+Y', { noremap = true })
 km.set("n", "<leader>p", '"+p', { noremap = true })
 km.set("n", "<leader>P", '"+P', { noremap = true })
+
 km.set("x", "<leader>d", '"+d', { noremap = true })
+km.set("x", "<leader>D", '"+D', { noremap = true })
 km.set("x", "<leader>y", '"+y', { noremap = true })
+km.set("x", "<leader>Y", '"+Y', { noremap = true })
 km.set("x", "<leader>p", '"+p', { noremap = true })
 km.set("x", "<leader>P", '"+P', { noremap = true })
 
@@ -68,3 +73,5 @@ km.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>", opts)
 km.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
 km.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)
 km.set("n", "<leader>Q", ":lua vim.diagnostic.setloclist()<CR>", opts)
+km.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+km.set("n", "gS", ":vsplit<CR>gd", opts)

@@ -21,7 +21,8 @@
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
     lg = log --pretty=format:'%C(yellow)%h%Creset %ad %Cgreen(%ar)%Creset - %s %C(blue)<%an>%Creset' --date=short --graph
     committers = shortlog -nse --no-merges
-    st = status
+    s = status -s
+    st = status -s
 
 [core]
     excludesfile = /Users/kn/.gitignore_global
@@ -90,17 +91,10 @@
 
 [credential]
     helper = /usr/local/bin/git-credential-manager
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path = 
-
-[mergetool "sourcetree"]
-    cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-    trustExitCode = true
+    helper = /usr/local/share/gcm-core/git-credential-manager
 
 [safe]
     bareRepository = explicit
+
 [credential "https://dev.azure.com"]
-	useHttpPath = true
+    useHttpPath = true

@@ -12,6 +12,16 @@ autocmd({ "BufRead", "BufNewFile" }, {
 	desc = "Spell check markdown files",
 })
 
+autocmd("BufReadPost", {
+	callback = function()
+		local mark = vim.api.nvim_buf_get_mark(0, [["]])
+		if 0 < mark[1] and mark[1] <= vim.api.nvim_buf_line_count(0) then
+			vim.api.nvim_win_set_cursor(0, mark)
+		end
+	end,
+	desc = "open file with cursor on last position",
+})
+
 autocmd("FileType", {
 	group = "buffer",
 	pattern = { "gitcommit", "gitrebase" },

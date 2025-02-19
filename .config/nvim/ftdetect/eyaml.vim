@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.eyaml setfiletype yaml
+"au BufRead,BufNewFile *.eyaml setfiletype yaml
