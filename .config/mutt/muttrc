@@ -2,37 +2,26 @@
 
 # settings ---------------------------------------------------------------------
 set folder               = ~/mail
-set alias_file           = ~/.mutt/alias
-set header_cache         = ~/.mutt/cache/headers
-set message_cachedir     = ~/.mutt/cache/bodies
-set certificate_file     = ~/.mutt/certificates
-set mailcap_path         = ~/.mutt/mailcap
-set tmpdir               = ~/.mutt/temp
+set alias_file           = ~/.config/mutt/alias
+set header_cache         = ~/.config/mutt/cache/headers
+set message_cachedir     = ~/.config/mutt/cache/bodies
+set certificate_file     = ~/.config/mutt/certificates
+set mailcap_path         = ~/.config/mutt/mailcap
+set tmpdir               = ~/.config/mutt/temp
 
 set realname             = "Kim Nørgaard"
 set envelope_from
 alternates jasen@jasen.dk kk@jasen.dk junk@jasen.dk
 
-# mailboxes +netic/INBOX
-# mailboxes +netic/Sent
-# mailboxes +netic/Drafts
-# mailboxes +netic/JIRA
-# mailboxes +netic/Lists
-# mailboxes +netic/Invoice
-# mailboxes +netic/Car
-# mailboxes +netic/Employment
-# mailboxes +netic/Alerts
-# mailboxes +netic/Trash
 mailboxes +jasendk/INBOX
 mailboxes +jasendk/Sent
 mailboxes +jasendk/Trash
 mailboxes +jasendk/Drafts
 mailboxes +../temporary/search
 
-source ~/.mutt/jasendk
+source ~/.config/mutt/jasendk
 
-# folder-hook netic/ 'source ~/.mutt/netic'
-folder-hook jasendk/ 'source ~/.mutt/jasendk'
+folder-hook jasendk/ 'source ~/.config/mutt/jasendk'
 
 set mbox_type            = Maildir
 
@@ -63,7 +52,7 @@ set quote_regexp         = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 set reply_regexp         = "^(([RrSs][EeVv]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 set reply_to                                        # reply to Reply to: field
 set reverse_name                                    # reply as whomever it was to
-set sendmail             = "/usr/bin/msmtp -a netic-gmail"
+set sendmail             = "/usr/bin/msmtp -a gmail"
 set sidebar_divider_char = '  │'
 set sidebar_visible      = no
 set sidebar_width        = 24
@@ -115,10 +104,8 @@ macro index,pager  H  ":toggle help<enter>"
 macro index        O  "<shell-escape>systemctl --user start mbsync<enter>"
 macro index        C  "<copy-message>?<toggle-mailboxes>"
 macro index        M  "<save-message>?<toggle-mailboxes>"
-macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+~/mail/temporary/search<enter>"
-# macro index,pager  gi "<change-folder>=netic/INBOX<enter>" "Go to inbox"
+macro index        S  "<enter-command>unset wait_key<enter><shell-escape>~/.config/mutt/mutt-notmuch-py ~/mail/temporary/search<enter><change-folder-readonly>+~/mail/temporary/search<enter>"
 macro index,pager  gj "<change-folder>=jasendk/INBOX<enter>" "Go to jasendk inbox"
-# macro index,pager  gsi "<change-folder>=netic/Sent<enter>" "Go to sent"
 macro index,pager  gss "<change-folder>=jasendk/Sent<enter>" "Go to jasendk sent"
 macro pager        w ":set wrap=80<enter>"
 macro pager        W ":set wrap=0<enter>"
@@ -184,4 +171,4 @@ color body         blue            default   "( *[-+=#*~_]){6,}"
 # URLs -------------------------------------------------------------------------
 color body         brightblue      default   "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
 
-source ~/.mutt/solarized_dark_16.mutt
+source ~/.config/mutt/solarized_dark_16.mutt
