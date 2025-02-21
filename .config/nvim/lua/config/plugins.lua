@@ -963,13 +963,6 @@ later(function()
 end)
 -- }}}
 
--- -- kubectl {{{
--- now(function()
--- 	add({ source = "ramilito/kubectl.nvim" })
--- 	require("kubectl").setup()
--- end)
--- -- }}}
-
 -- llm/ai {{{
 later(function()
 	add({ source = "nvim-lua/plenary.nvim" })
@@ -1006,7 +999,8 @@ later(function()
 		},
 	})
 	map("n", "<leader>cc", ":CodeCompanionChat Toggle<CR>", "CodeCompanionChat")
-	map({ "n", "v" }, "<leader>cb", ":CodeCompanion /buffer ", "CodeCompanion")
+	map({ "n", "v" }, "<leader>cb", ":CodeCompanion #buffer ", "CodeCompanion")
+	vim.cmd([[cab cc CodeCompanion]])
 	require("codecompanion").setup({
 		strategies = {
 			chat = {
@@ -1060,45 +1054,6 @@ later(function()
 	})
 end)
 -- }}}
-
--- --base16-nvim {{{
--- now(function()
--- 	add({ source = "RRethy/base16-nvim" })
--- 	local bg = "#0F1919"
--- 	local accent = "#102121"
--- 	local accent2 = "#0D2525" -- highlight
---
--- 	local text = "#abb2bf"
--- 	local dark_text = "#525965" -- comments, line numbers
---
--- 	local keyword = "#8F939A"
--- 	local func = "#B6AB8B"
--- 	local types = "#65838E"
--- 	local constant = "#A06057"
---
--- 	local for_tesing = "#FF0000"
---
--- 	require("base16-colorscheme").setup({
--- 		base00 = bg,
--- 		base01 = accent,
--- 		base02 = accent2,
--- 		base03 = dark_text,
--- 		base04 = dark_text,
--- 		base05 = text,
--- 		base06 = for_tesing,
--- 		base07 = for_tesing,
--- 		base08 = text,
--- 		base09 = constant,
--- 		base0A = types,
--- 		base0B = constant,
--- 		base0C = text,
--- 		base0D = func,
--- 		base0E = keyword,
--- 		base0F = text,
--- 	})
--- 	vim.api.nvim_set_hl(0, "@comment", { fg = dark_text, italic = false })
--- end)
--- -- }}}
 
 -- markdown {{{
 now(function()

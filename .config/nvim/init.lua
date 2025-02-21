@@ -5,7 +5,7 @@ vim.g.mapleader = ","
 
 -- UI
 vim.o.termguicolors = true
-vim.o.guifont = "Go Mono:16"
+vim.o.guifont = "GoMono Nerd Font:16"
 vim.o.lazyredraw = true -- don't update screen inside macros, etc
 vim.o.cursorline = true -- highlight current line
 vim.o.title = true
