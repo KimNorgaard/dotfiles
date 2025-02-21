@@ -6,34 +6,7 @@
 [[ $- != *i* ]] && return
 
 export XDG_CONFIG_HOME="$HOME/.config"
-export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
-
-export PATH="/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin:${KREW_ROOT:-$HOME/.krew}/bin"
-
-export ANSIBLE_NOCOWS=1
-export PYTHONSTARTUP="$HOME/.pystartup"
-
-export EDITOR=nvim
-export VISUAL=nvim
-export PAGER=less
-export LPASS_AGENT_TIMEOUT=28800
-export BROWSER=firefox
-export LESS='-RM'
-export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-export LESS_TERMCAP_me=$'\E[0m'           # end mode
-export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-export TERMINAL=alacritty
-export REPORTTIME=5
-export PROJECT_HOME=~/src
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export GOPATH=~/src/go
-export PATH="${PATH}:${GOPATH}/bin"
-
+source "$XDG_CONFIG_HOME/shell/env"
 [ -f ~/.env.local ] && source ~/.env.local
 
 alias vi=nvim
@@ -181,12 +154,6 @@ shopt -s cdspell 2>/dev/null
 source "/opt/homebrew/etc/profile.d/bash_completion.sh"
 source "/opt/homebrew/opt/fzf/shell/completion.bash"
 source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
-
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -t d --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_OPTS="--walker-skip .git"
-export FZF_ALT_C_OPTS="--walker-skip .git"
 
 # not in a TMUX session but in an X session
 #if [ -z ${TMUX} ] && [ -n "${DISPLAY}" ]; then

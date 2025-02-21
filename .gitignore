@@ -6,6 +6,7 @@
 .msmtp.log
 .pyhistory
 .sqlite_history
+.env.local
 
 .cache/
 .calendar/

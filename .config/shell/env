@@ -1,0 +1,49 @@
+export PROJECT_HOME=~/src
+export GOPATH="$PROJECT_HOME/go"
+export PATH="/opt/homebrew/bin:$PATH:$GOPATH:~/.local/bin:~/netic-bin:~/bin:~/.krew/bin"
+
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
+
+# Various application settings
+export LPASS_AGENT_TIMEOUT=28800
+export ANSIBLE_NOCOWS=1
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pystartup"
+export PYLINTRC=$XDG_CONFIG_HOME/pylint/pylintrc
+export PYTHONSTARTUP=$XDG_CONFIG_HOME/python/pystartup
+export NOTMUCH_CONFIG=$XDG_CONFIG_HOME/notmuch/config
+export MBSYNCRC=$XDG_CONFIG_HOME/mbsync/mbsyncrc
+export LEDGER_INIT=$XDG_CONFIG_HOME/ledger/ledgerrc
+export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
+
+
+export EDITOR=nvim
+export VISUAL=nvim
+export MANPAGER='nvim +Man!'
+export PAGER=less
+export TERMINAL=ghostty
+
+export LESS='-RM'
+export LESS_TERMCAP_mb="[01;31m"             # begin blinking
+export LESS_TERMCAP_mb="[01;31m"             # begin blinking
+export LESS_TERMCAP_mb="[01;31m"             # begin blinking
+export LESS_TERMCAP_md="[01;38;5;74m"        # begin bold
+export LESS_TERMCAP_me="[0m"                 # end mode
+export LESS_TERMCAP_se="[0m"                 # end standout-mode
+export LESS_TERMCAP_so="[38;5;246m"          # begin standout-mode - info box
+export LESS_TERMCAP_ue="[0m"                 # end underline
+export LESS_TERMCAP_us="[04;38;5;146m"       # begin underline
+
+export BROWSER=~/bin/browser
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_OPTS="--walker-skip .git"
+export FZF_ALT_C_OPTS="--walker-skip .git"
+export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_ENV_HINTS=1

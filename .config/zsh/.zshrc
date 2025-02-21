@@ -173,6 +173,6 @@ zle -N zle-keymap-select
 
 eval "$(fzf --zsh)"
 
-if [ -f ~/.zshrc.local ]; then
-  source ~/.zshrc.local
+if [ -f $ZDOTDIR/.zshrc.local ]; then
+  source $ZDOTDIR/.zshrc.local
 fi
