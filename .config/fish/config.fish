@@ -88,7 +88,8 @@ if test -e "$HOMEBREW_PREFIX/share/fish/completions"
 end
 
 set -x LPASS_AGENT_TIMEOUT 28800
-set -x PYTHONSTARTUP ~/.config/python/pystartup
+set -x PYLINTRC $XDG_CONFIG_HOME/pylint/pylintrc
+set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pystartup
 
 if test -f ~/.config/fish/local.fish
   source ~/.config/fish/local.fish
