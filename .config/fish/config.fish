@@ -87,7 +87,7 @@ if test -e "$HOMEBREW_PREFIX/share/fish/completions"
 end
 
 set -x LPASS_AGENT_TIMEOUT 28800
-set -x PYTHONSTARTUP ~/.pystartup
+set -x PYTHONSTARTUP ~/.config/python/pystartup
 
 if test -f ~/.config/fish/local.fish
   source ~/.config/fish/local.fish
