@@ -1,6 +1,8 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+export INPUTRC="$XDG_CONFIG_HOME/inputrc/inputrc"
+
 # Various application settings
 export LPASS_AGENT_TIMEOUT=28800
 export ANSIBLE_NOCOWS=1

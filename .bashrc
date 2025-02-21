@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 export PATH="/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin:${KREW_ROOT:-$HOME/.krew}/bin"
 
 export ANSIBLE_NOCOWS=1
