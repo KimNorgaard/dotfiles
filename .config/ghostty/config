@@ -1,0 +1,44 @@
+#theme = Dracula
+theme = NvimDark
+
+#background = 14161b
+
+#font-family = IosevkaTerm Nerd Font Mono
+# font-family = CommitMono Nerd Font
+font-family = "TX-02"
+#font-family = GoMono Nerd Font Mono
+font-size = 16
+# font-style = Normal
+font-style = Medium
+#font-style-bold = Extrabold
+#font-style-italic = Medium Italic
+#font-style-bold-italic = Extrabold Italic
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+# font-feature = ss01 777
+font-feature = +ss06
+#adjust-cell-width = 5%
+
+cursor-style = block
+shell-integration-features = no-cursor,sudo,no-title
+mouse-hide-while-typing = true
+# mouse-scroll-multiplier = 2
+scrollback-limit = 3000000
+
+window-height = 50
+window-width = 120
+window-padding-x = 2
+window-padding-y = 2
+window-padding-balance = true
+window-colorspace = display-p3
+
+clipboard-paste-protection = true
+macos-non-native-fullscreen = visible-menu
+macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
+macos-window-shadow = true
+macos-option-as-alt = left
+
+# scrollback_lines 5000
+# url_excluded_characters ⌴¬
