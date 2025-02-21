@@ -1,3 +1,6 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
 # Various application settings
 export LPASS_AGENT_TIMEOUT=28800
 export ANSIBLE_NOCOWS=1
@@ -45,4 +48,4 @@ export MANPAGER='nvim +Man!'
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_ENV_HINTS=1
 
-[ -f ~/.env.local ] && source ~/.env.local
+[ -f ${ZDOTDIR}/.env.local ] && source ${ZDOTDIR}/.env.local

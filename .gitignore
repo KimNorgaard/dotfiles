@@ -8,8 +8,6 @@
 .msmtp.log
 .pyhistory
 .sqlite_history
-.zsh_history
-.zshenv.local
 
 .cache/
 .calendar/

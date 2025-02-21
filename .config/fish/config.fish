@@ -79,6 +79,7 @@ if not set -q HOMEBREW_PREFIX
   end
 end
 
+set -q XDG_CONFIG_HOME || set -x XDG_CONFIG_HOME ~/.config
 set -p MANPATH (path filter /opt/homebrew/share/man)
 set -x HOMEBREW_NO_ANALYTICS 1
 set -x HOMEBREW_NO_ENV_HINTS 1
