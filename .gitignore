@@ -1,9 +1,7 @@
 .viminfo
-
 .Xauthority
 .bash_history
 .cvspass
-.gitconfig.local
 .lesshst
 .msmtp.log
 .pyhistory

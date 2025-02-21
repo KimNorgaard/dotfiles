@@ -3,13 +3,13 @@
   email = kn@netic.dk
 
 [includeIf "gitdir:~/src/"]
-    path = ~/.gitconfig-work
+    path = ~/.config/git/config-work
 
 [includeIf "gitdir:~/src/github/KimNorgaard/"]
-    path = ~/.gitconfig-private
+    path = ~/.config/git/config-private
 
 [include]
-    path = ~/.gitconfig.local
+    path = ~/.config/git/config-local
 
 [alias]
     amend = commit --amend --no-edit
@@ -25,7 +25,7 @@
     st = status -s
 
 [core]
-    excludesfile = /Users/kn/.gitignore_global
+    excludesfile = ~/.config/git/gitignore-global
     editor = nvim
     pager = delta
     sshCommand = /usr/bin/ssh
