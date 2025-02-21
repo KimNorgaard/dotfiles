@@ -93,6 +93,7 @@ set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pystartup
 set -x NOTMUCH_CONFIG $XDG_CONFIG_HOME/notmuch/config
 set -x MBSYNCRC $XDG_CONFIG_HOME/mbsync/mbsyncrc
 set -x LEDGER_INIT $XDG_CONFIG_HOME/ledger/ledgerrc
+set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
 
 if test -f ~/.config/fish/local.fish
   source ~/.config/fish/local.fish

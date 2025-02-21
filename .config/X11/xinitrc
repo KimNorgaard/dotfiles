@@ -1,6 +1,8 @@
-xrdb -merge ~/.Xresources
+xrdb -merge $XDG_CONFIG_HOME/X11/Xresources
 hotplug_display.sh
 xsetroot -solid "#333333"
+
+[[ -f $XDG_CONFIG_HOME/X11/Xmodmap ]] && xmodmap $XDG_CONFIG_HOME/X11/Xmodmap
 
 xrandr --dpi 144
 
@@ -48,7 +50,7 @@ xautolock -detectsleep \
           -killtime 60 -killer "systemctl suspend" &
 
 # alacritty --title mutt -e mutt &
-alacritty -e ~/bin/tmux-work.sh &
+# alacritty -e ~/bin/tmux-work.sh &
 firefox &
 
 exec dwm
