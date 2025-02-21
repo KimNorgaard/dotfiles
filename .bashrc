@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 
 export XDG_CONFIG_HOME="$HOME/.config"
+export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 
 export PATH="/opt/homebrew/bin:${PATH}:~/netic-bin:~/.local/bin:~/bin:${KREW_ROOT:-$HOME/.krew}/bin"
 
