@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+reset=$(tput sgr0)
+orangebold=$(
+	tput bold
+	tput setaf 166
+)
+
+echo -e "${orangebold}Updating nvim packages...${reset}"
+nvim --headless -c +'lua MiniDeps.update(nil, { force = true })' +TSUpdateSync +qa
+echo
+
+if [[ ! "$(softwareupdate -l 2>&1)" =~ 'No new software' ]]; then
+	echo -e "${orangebold}Updating system software...${reset}"
+	sudo softwareupdate -ia --verbose
+fi
+
+if [ -n "$(mas outdated)" ]; then
+	echo -e "${orangebold}Updating Mac App Store apps...${reset}"
+	mas upgrade
+fi
+
+HOMEBREW_NO_INSTALL_CLEANUP=1
+echo -e "${orangebold}Updating and upgrading Brew...${reset}"
+brew upgrade --quiet --greedy
+echo -e "${orangebold}Cleaning Brew...${reset}"
+brew cleanup -s --prune=0
+echo -e "${orangebold}Doctoring Brew...${reset}"
+brew doctor
+echo -e "${orangebold}Missing Brew...${reset}"
+brew missing
