@@ -91,6 +91,7 @@ set -x LPASS_AGENT_TIMEOUT 28800
 set -x PYLINTRC $XDG_CONFIG_HOME/pylint/pylintrc
 set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/pystartup
 set -x NOTMUCH_CONFIG $XDG_CONFIG_HOME/notmuch/config
+set -x MBSYNCRC $XDG_CONFIG_HOME/mbsync/mbsyncrc
 
 if test -f ~/.config/fish/local.fish
   source ~/.config/fish/local.fish
