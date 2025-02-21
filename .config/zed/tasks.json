@@ -1,0 +1,15 @@
+// Static tasks configuration.
+//
+// Example:
+[
+  {
+    "label": "Lazygit",
+    "command": "lazygit",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "hide": "on_success",
+    "args": [],
+    "env": {},
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false
+  }
+]
