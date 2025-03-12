@@ -20,9 +20,9 @@ if [ -n "$(mas outdated)" ]; then
 	mas upgrade
 fi
 
-HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
 echo -e "${orangebold}Updating and upgrading Brew...${reset}"
-brew upgrade --quiet --greedy
+brew upgrade --quiet --greedy --fetch-HEAD
 echo -e "${orangebold}Cleaning Brew...${reset}"
 brew cleanup -s --prune=0
 echo -e "${orangebold}Doctoring Brew...${reset}"

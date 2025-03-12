@@ -1,100 +1,130 @@
 [user]
-  name = Kim Nørgaard
-  email = kn@netic.dk
+	name = Kim Nørgaard
+	email = kn@netic.dk
 
 [includeIf "gitdir:~/src/"]
-    path = ~/.config/git/config-work
+	path = ~/.config/git/config-work
 
 [includeIf "gitdir:~/src/github/KimNorgaard/"]
-    path = ~/.config/git/config-private
+	path = ~/.config/git/config-private
 
 [include]
-    path = ~/.config/git/config-local
+	path = ~/.config/git/config-local
 
 [alias]
-    amend = commit --amend --no-edit
-    br = branch
-    ci = commit -v
-    cii = commit --all -m 'Initial commit.'
-    co = checkout
-    df = diff
-    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-    lg = log --pretty=format:'%C(yellow)%h%Creset %ad %Cgreen(%ar)%Creset - %s %C(blue)<%an>%Creset' --date=short --graph
-    committers = shortlog -nse --no-merges
-    s = status -s
-    st = status -s
+	amend = commit --amend --no-edit
+	br = branch
+	ci = commit -v
+	cii = commit --all -m 'Initial commit.'
+	co = checkout
+	df = diff
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	lg = log --pretty=format:'%C(yellow)%h%Creset %ad %Cgreen(%ar)%Creset - %s %C(blue)<%an>%Creset' --date=short --graph
+	committers = shortlog -nse --no-merges
+	s = status -s
+	st = status -s
 
 [core]
-    excludesfile = ~/.config/git/gitignore-global
-    editor = nvim
-    pager = delta
-    sshCommand = /usr/bin/ssh
+	excludesfile = ~/.config/git/gitignore-global
+	editor = nvim
+	pager = delta
+	sshCommand = /usr/bin/ssh
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
+
+[column]
+	ui = auto
+
+[branch]
+	sort = -committerdate
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+
+[tag]
+	sort = version:refname
 
 [delta]
-    navigate = true
-    light = false
-    side-by-side = true
+	navigate = true
+	light = false
+	diff-so-fancy = true
+	#side-by-side = true
 
 [color]
-    ui = true
-    branch = auto
-    diff = auto
-    status = auto
+	ui = true
+	branch = auto
+	diff = auto
+	status = auto
 
 [color "branch"]
-    current = yellow reverse
-    local = 241
-    remote = green
+	current = yellow reverse
+	local = 241
+	remote = green
 
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
 
 [color "status"]
-    added = green
-    changed = yellow
-    untracked = magenta
+	added = green
+	changed = yellow
+	untracked = magenta
 
 [fetch]
-  prune = true
-  tagOpt = --tags
+	prune = true
+	pruneTags = true
+	all = true
+	tagOpt = --tags
 
 [push]
-    default = simple
-    autoSetupRemote = true
+	default = simple
+	autoSetupRemote = true
+	followTags = true
 
 [difftool]
-  prompt = true
+	prompt = true
 
 [diff]
-  tool = nvimdiff
+	tool = nvimdiff
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 
 [difftool "nvimdiff"]
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+	cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 
 [init]
-    defaultBranch = main
+	defaultBranch = main
 
 [merge]
-    conflictStyle = zdiff3
+	conflictStyle = zdiff3
 
 [commit]
-    verbose = true
+	verbose = true
+
+[rerere]
+	enabled = true
+	autoupdate = true
 
 [help]
-    autocorrect = 10
+	autocorrect = prompt
 
 [credential]
-    helper = /usr/local/bin/git-credential-manager
-    helper = /usr/local/share/gcm-core/git-credential-manager
+	#helper = /usr/local/bin/git-credential-manager
+	helper = store
 
 [safe]
-    bareRepository = explicit
+	bareRepository = explicit
 
 [credential "https://dev.azure.com"]
-    useHttpPath = true
+	useHttpPath = true
+
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+	insteadOf = git@github.com:

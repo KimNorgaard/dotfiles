@@ -134,16 +134,6 @@ local function get_trl()
 	return msg
 end
 
-vim.api.nvim_create_autocmd({ "CursorHold", "BufWritePost" }, {
-	group = vim.api.nvim_create_augroup("statusline", {}),
-	callback = function()
-		if vim.bo.buftype ~= "" then
-			return
-		end
-		pcall(vim.api.nvim_buf_del_var, 0, "statusline_cache_trails")
-	end,
-})
-
 function _G.gen_statusline()
 	-- buffer name
 	local statusline = "%f"
@@ -166,8 +156,160 @@ end
 
 vim.o.statusline = "%!v:lua._G.gen_statusline()"
 
--- require("config.settings")
-require("config.keymaps")
-require("config.autocmds")
-require("config.commands")
-require("config.plugins")
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
+autocmd({ "CursorHold", "BufWritePost" }, {
+	group = augroup("statusline", {}),
+	callback = function()
+		if vim.bo.buftype ~= "" then
+			return
+		end
+		pcall(vim.api.nvim_buf_del_var, 0, "statusline_cache_trails")
+	end,
+})
+
+augroup("buffer", {
+	clear = true,
+})
+
+autocmd({ "BufRead", "BufNewFile" }, {
+	group = "buffer",
+	pattern = { "*.md", "*.txt" },
+	command = "setlocal spell spelllang=en_us,da",
+	desc = "Spell check markdown files",
+})
+
+autocmd("FileType", {
+	group = "buffer",
+	pattern = { "gitcommit", "gitrebase" },
+	command = "startinsert | 1",
+	desc = "Start git messages in insert mode",
+})
+
+augroup("mutt", {
+	clear = true,
+})
+
+autocmd({ "BufRead", "BufNewFile" }, {
+	group = "mutt",
+	pattern = "*temp/mutt-*",
+	command = "set ft=mail | normal /^$/\n | normal o | startinsert",
+	desc = "Mail type for mutt buffers",
+})
+
+autocmd("BufReadPost", {
+	callback = function()
+		local mark = vim.api.nvim_buf_get_mark(0, [["]])
+		if 0 < mark[1] and mark[1] <= vim.api.nvim_buf_line_count(0) then
+			vim.api.nvim_win_set_cursor(0, mark)
+		end
+	end,
+	desc = "open file with cursor on last position",
+})
+
+augroup("hidelistcharsoninsert", {
+	clear = true,
+})
+
+autocmd({ "InsertEnter" }, {
+	group = "hidelistcharsoninsert",
+	command = "set listchars-=trail:⌴ | set listchars-=eol:¬",
+	desc = "Hide listchars on insert",
+})
+
+autocmd({ "InsertLeave" }, {
+	group = "hidelistcharsoninsert",
+	command = "set listchars+=trail:⌴ | set listchars+=eol:¬",
+	desc = "Show listchars on insert",
+})
+
+local format_sync_grp = augroup("GoFormat", {})
+autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function()
+		require("go.format").goimport()
+	end,
+	group = format_sync_grp,
+})
+
+local km = vim.keymap
+
+local function o(desc, additional_opts)
+	local default_opts = { noremap = true, silent = true, desc = desc }
+	if additional_opts then
+		return vim.tbl_extend("force", default_opts, additional_opts)
+	end
+	return default_opts
+end
+
+-- clear search highlight
+km.set("", "<leader><space>", ":noh<cr>:call clearmatches()<cr>", o("Clear search highlight"))
+
+-- tab through parens
+km.set("", "<tab>", "%", o("Tab through parentheses"))
+
+-- reselect visual after indent
+km.set("v", "<", "<gv", o("Dedent and reselect visual"))
+km.set("v", ">", ">gv", o("Indent and reselect visual"))
+
+km.set("n", "<leader>q", "gqip", o("Format inner paragraph"))
+
+km.set({ "n", "v" }, "/", "/\\v", o("Search", { silent = false }))
+
+-- Bubble lines (kicks butt)
+km.set("n", "<leader>k", "ddkP", o("Bubble up line"))
+km.set("n", "<leader>j", "ddp", o("Bubble down line"))
+km.set("v", "<leader>k", "xkP`[V`]", o("Bubble up lines"))
+km.set("v", "<leader>j", "xp`[V`]", o("Bubble down lines"))
+
+-- Select pasted text
+km.set("n", "<leader>v", "V`]", o("Select pasted text"))
+
+-- sudo-trick.. Save precious changes as root, fuck yeah
+km.set("c", "w!!", "w !sudo tee % >/dev/null", o("Write using sudo", { silent = false }))
+
+-- Space to toggle folds.
+km.set({ "n", "v" }, "<space>", "za", o("Toggle fold"))
+
+-- Set working directory
+km.set("n", "<leader>.", ":lcd %:p:h<CR>", o("Set lcd to buffer's"))
+
+-- Easy buffer/window/tab navigation
+km.set("", "<C-h>", "<C-w>h", o("Select window left"))
+km.set("", "<C-l>", "<C-w>l", o("Select window right"))
+km.set("", "<C-j>", "<C-w>j", o("Select window below"))
+km.set("", "<C-k>", "<C-w>k", o("Select window above"))
+
+km.set("", "<M-k>", ":bn<cr>", o("Select next buffer"))
+km.set("", "<M-j>", ":bp<cr>", o("Select prev buffer"))
+km.set("", "<A-k>", ":bn<cr>", o("Select next buffer"))
+km.set("", "<A-j>", ":bp<cr>", o("Select prev buffer"))
+
+-- Copy/Pasting
+km.set({ "n", "x" }, "<leader>d", '"+d', o("Delete to clipboard"))
+km.set({ "n", "x" }, "<leader>D", '"+D', o("Delete to clipboard"))
+km.set({ "n", "x" }, "<leader>y", '"+y', o("Yank to clipboard"))
+km.set({ "n", "x" }, "<leader>Y", '"+Y', o("Yank to clipboard"))
+km.set({ "n", "x" }, "<leader>p", '"+p', o("Paste from clipboard"))
+km.set({ "n", "x" }, "<leader>P", '"+P', o("Paste from clipboard"))
+
+-- Duplicate a line and comment out the first line
+km.set("n", "yc", "yy<cmd>normal gcc<CR>p", o("Duplicate line and comment original"))
+
+-- LSP
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+km.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", { desc = "LSP hover" })
+km.set("n", "<leader>e", ":lua vim.diagnostic.open_float()<CR>", o("LSP diag float"))
+km.set("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", o("LSP diag prev"))
+km.set("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", o("LSP diag next"))
+km.set("n", "<leader>Q", ":lua vim.diagnostic.setloclist()<CR>", o("LSP diag set location list"))
+km.set("n", "<leader>rn", vim.lsp.buf.rename, o("LSP rename"))
+km.set("n", "gS", ":vsplit<CR>gd", o("LSP gtd vsplit"))
+
+vim.cmd([[command! Qa :qa]])
+vim.cmd([[command! Q :q]])
+vim.cmd([[command! W :w]])
+vim.cmd([[command! Wa :wa]])
+
+require("plugins")

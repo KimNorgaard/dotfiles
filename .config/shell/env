@@ -1,4 +1,4 @@
-export PROJECT_HOME=~/src
+export PROJECT_HOME=$HOME/src
 export GOPATH="$PROJECT_HOME/go"
 export PATH="/opt/homebrew/bin:$PATH:$GOPATH:~/.local/bin:~/netic-bin:~/bin:~/.krew/bin"
 
