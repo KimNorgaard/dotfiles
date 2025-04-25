@@ -4,7 +4,6 @@
 local map = require("util").map
 
 -- mini.nvim {{{
--- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath("data") .. "/site/"
 local mini_path = path_package .. "pack/deps/start/mini.nvim"
 if not vim.loop.fs_stat(mini_path) then
@@ -17,7 +16,6 @@ end
 -- }}}
 
 -- mini.deps {{{
--- Set up 'mini.deps' (customize to your liking)
 require("mini.deps").setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 -- }}}
@@ -47,7 +45,9 @@ now(function()
 	add({
 		source = "lewis6991/gitsigns.nvim",
 	})
-	require("gitsigns").setup()
+	require("gitsigns").setup({
+		signcolumn = false, -- mini.diff handles this
+	})
 	map("n", "gb", "<cmd>Gitsigns blame_line<CR>", "Show git blame for line")
 	-- }}}
 
@@ -130,6 +130,242 @@ now(function()
 		},
 	})
 	-- }}}
+
+	-- lsp {{{
+	add({
+		source = "neovim/nvim-lspconfig",
+		depends = {
+			"saghen/blink.cmp",
+		},
+	})
+
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+
+	vim.lsp.config("*", { capabilities = capabilities })
+
+	vim.lsp.config.jsonls = {
+		settings = {
+			provideFormatter = true,
+			json = {
+				format = {
+					enable = true,
+				},
+				validate = {
+					enable = true,
+				},
+			},
+		},
+	}
+
+	vim.lsp.config.lua_ls = {
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim" },
+				},
+			},
+		},
+	}
+
+	vim.lsp.config.pyright = {
+		settings = {
+			pyright = {
+				-- Using Ruff's import organizer
+				disableOrganizeImports = true,
+			},
+			python = {
+				analysis = {
+					-- Ignore all files for analysis to exclusively use Ruff for linting
+					ignore = { "*" },
+				},
+			},
+		},
+	}
+
+	vim.lsp.config.ts_ls = {
+		single_file_support = false,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "literal",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
+	}
+
+	vim.lsp.config.gopls = {
+		settings = {
+			gopls = {
+				analyses = {
+					nilness = true,
+					unusedparams = true,
+					unusedwrite = true,
+					useany = true,
+				},
+				completeUnimported = true,
+				experimentalPostfixCompletions = true,
+				gofumpt = true,
+				-- staticcheck = true,
+				usePlaceholders = true,
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = true,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				},
+			},
+		},
+	}
+
+	vim.lsp.enable({
+		"gopls",
+		"bashls",
+		"pyright",
+		"ruff",
+		"lua_ls",
+		"eslint",
+		"jsonls",
+		"terraformls",
+		"jsonnet_ls",
+	})
+
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+		callback = function()
+			local bufnr = vim.api.nvim_get_current_buf()
+
+			-- Enable completion triggered by <c-x><c-o>
+			vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+			-- See `:help vim.lsp.*` for documentation on any of the below functions
+			local bufopts = { noremap = true, silent = true, buffer = bufnr }
+			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+			vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+			vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+			-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+			-- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+			-- vim.keymap.set("n", "<space>wl", function()
+			--   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+			-- end, bufopts)
+			-- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+			-- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+			-- vim.keymap.set("n", "<space>f", function()
+			--   vim.lsp.buf.format({ async = true })
+			-- end, bufopts)
+		end,
+	})
+
+	add({
+		source = "nvimtools/none-ls.nvim",
+		depends = {
+			"nvim-lua/plenary.nvim",
+			"gbprod/none-ls-shellcheck.nvim",
+			"nvimtools/none-ls-extras.nvim",
+		},
+	})
+
+	local function is_null_ls_formatting_enabed(bufnr)
+		local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
+		local generators =
+			require("null-ls.generators").get_available(file_type, require("null-ls.methods").internal.FORMATTING)
+		return #generators > 0
+	end
+
+	local on_nls_attach = function(client, bufnr)
+		if client.server_capabilities.documentFormattingProvider then
+			if client.name == "null-ls" and is_null_ls_formatting_enabed(bufnr) or client.name ~= "null-ls" then
+				vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+				vim.keymap.set("n", "<leader>gq", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+			else
+				vim.api.nvim_buf_set_option(bufnr, "formatexpr", "")
+			end
+		end
+	end
+
+	local nls = require("null-ls")
+	local sources = {}
+	table.insert(sources, nls.builtins.formatting.isort)
+	table.insert(sources, nls.builtins.formatting.black.with({ extra_args = { "--fast" } }))
+	table.insert(sources, nls.builtins.formatting.terraform_fmt)
+	table.insert(sources, nls.builtins.formatting.shfmt)
+	table.insert(
+		sources,
+		nls.builtins.formatting.prettierd.with({
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"typescript",
+				"typescriptreact",
+				"vue",
+				"css",
+				"scss",
+				"less",
+				"html",
+				"json",
+				"jsonc",
+				"yaml",
+				"graphql",
+				"handlebars",
+			},
+		})
+	)
+	table.insert(
+		sources,
+		nls.builtins.diagnostics.markdownlint.with({
+			extra_args = { "--disable", "MD013", "MD033" },
+		})
+	)
+	table.insert(sources, nls.builtins.diagnostics.yamllint)
+	table.insert(sources, nls.builtins.diagnostics.staticcheck)
+	table.insert(
+		sources,
+		nls.builtins.diagnostics.vale.with({
+			filetypes = { "markdown", "tex", "text", "mail" },
+			diagnostic_config = {
+				virtual_text = false,
+			},
+		})
+	)
+	table.insert(sources, nls.builtins.hover.dictionary)
+	nls.setup({
+		on_attach = on_nls_attach,
+		sources = sources,
+	})
+	-- }}}
+
+	-- llm/ai {{{
+	add({ source = "copilotlsp-nvim/copilot-lsp" })
+	vim.g.copilot_nes_debounce = 500
+	vim.lsp.enable("copilot")
+	vim.keymap.set("n", "<tab>", function()
+		require("copilot-lsp.nes").apply_pending_nes()
+	end)
+	-- }}}
 end)
 
 later(function()
@@ -142,7 +378,11 @@ later(function()
 	-- }}}
 
 	-- mini.diff {{{
-	require("mini.diff").setup()
+	require("mini.diff").setup({
+		view = {
+			priority = 1, -- to allow diagnostics in the sign solumn
+		},
+	})
 	-- }}}
 
 	-- mini.git {{{
@@ -334,306 +574,39 @@ later(function()
 	})
 	-- }}}
 
-	-- lsp {{{
-	add({
-		source = "neovim/nvim-lspconfig",
-		depends = {
-			"saghen/blink.cmp",
-			"nvimtools/none-ls.nvim",
-		},
-	})
-
-	local lspconfig = require("lspconfig")
-
-	-- Use an on_attach function to only map the following keys
-	-- after the language server attaches to the current buffer
-	local on_attach = function(_, bufnr)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-		-- Mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local bufopts = { noremap = true, silent = true, buffer = bufnr }
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-		-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-		-- vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-		-- vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-		-- vim.keymap.set("n", "<space>wl", function()
-		--   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		-- end, bufopts)
-		-- vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-		-- vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-		vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-		-- vim.keymap.set("n", "<space>f", function()
-		--   vim.lsp.buf.format({ async = true })
-		-- end, bufopts)
-	end
-
-	-- Enable some language servers with the additional completion capabilities offered
-	local servers = {
-		"gopls",
-		"bashls",
-		"pyright",
-		"ruff",
-		"lua_ls",
-		"ts_ls",
-		"eslint",
-		"jsonls",
-		"terraformls",
-		"jsonnet_ls",
-	}
-	for _, lsp in ipairs(servers) do
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
-		lspconfig[lsp].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-	end
-
-	lspconfig.bashls.setup({})
-
-	lspconfig.jsonls.setup({
-		settings = {
-			provideFormatter = true,
-			json = {
-				format = {
-					enable = true,
-				},
-				validate = {
-					enable = true,
-				},
-			},
-		},
-	})
-
-	lspconfig.lua_ls.setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { "vim" },
-				},
-			},
-		},
-	})
-
-	lspconfig.pyright.setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		settings = {
-			pyright = {
-				-- Using Ruff's import organizer
-				disableOrganizeImports = true,
-			},
-			python = {
-				analysis = {
-					-- Ignore all files for analysis to exclusively use Ruff for linting
-					ignore = { "*" },
-				},
-			},
-		},
-	})
-
-	lspconfig.ts_ls.setup({
-		on_attach = on_attach,
-		capabilities = capabilities,
-		single_file_support = false,
-		settings = {
-			typescript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "literal",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-			javascript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
-			},
-		},
-	})
-
-	lspconfig.gopls.setup({
-		-- on_attach = function(client, bufnr)
-		--   require("lsp-inlayhints").setup({
-		--     inlay_hints = {
-		--       xonly_current_line = true,
-		--     },
-		--   })
-		--   require("lsp-inlayhints").on_attach(client, bufnr)
-		-- end,
-		capabilities = capabilities,
-		on_attach = on_attach,
-		settings = {
-			-- https://go.googlesource.com/vscode-go/+/HEAD/docs/settings.md#settings-for
-			gopls = {
-				analyses = {
-					nilness = true,
-					unusedparams = true,
-					unusedwrite = true,
-					useany = true,
-				},
-				completeUnimported = true,
-				experimentalPostfixCompletions = true,
-				gofumpt = true,
-				-- staticcheck = true,
-				usePlaceholders = true,
-				hints = {
-					assignVariableTypes = true,
-					compositeLiteralFields = true,
-					compositeLiteralTypes = true,
-					constantValues = true,
-					functionTypeParameters = true,
-					parameterNames = true,
-					rangeVariableTypes = true,
-				},
-			},
-		},
-	})
-	vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-	vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-	vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-	vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
-	vim.diagnostic.config({
-		virtual_text = true,
-		float = {
-			header = false,
-			style = "minimal",
-			border = "rounded",
-			focusable = false,
-		},
-	})
-
-	vim.b.lsp_diagnostic_enabled = false
-	local toggle_virtual_text = function()
-		vim.b.lsp_diagnostic_enabled = not vim.b.lsp_diagnostic_enabled
-		vim.notify(string.format("Virtualtext %s", vim.b.lsp_diagnostic_enabled and "on" or "off"))
-		vim.diagnostic.show(nil, 0, nil, { virtual_text = vim.b.lsp_diagnostic_enabled })
-	end
-	vim.keymap.set("n", "<leader>dt", toggle_virtual_text, { desc = "[diagnostic] toggle display of diagnostic" })
-
-	add({
-		source = "nvimtools/none-ls.nvim",
-		depends = {
-			"nvim-lua/plenary.nvim",
-			"gbprod/none-ls-shellcheck.nvim",
-			"nvimtools/none-ls-extras.nvim",
-		},
-	})
-	local function is_null_ls_formatting_enabed(bufnr)
-		local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
-		local generators =
-			require("null-ls.generators").get_available(file_type, require("null-ls.methods").internal.FORMATTING)
-		return #generators > 0
-	end
-
-	local on_nls_attach = function(client, bufnr)
-		if client.server_capabilities.documentFormattingProvider then
-			if client.name == "null-ls" and is_null_ls_formatting_enabed(bufnr) or client.name ~= "null-ls" then
-				vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-				vim.keymap.set("n", "<leader>gq", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
-			else
-				vim.api.nvim_buf_set_option(bufnr, "formatexpr", "")
-			end
-		end
-	end
-
-	local nls = require("null-ls")
-	local sources = {}
-	table.insert(sources, nls.builtins.formatting.isort)
-	table.insert(sources, nls.builtins.formatting.black.with({ extra_args = { "--fast" } }))
-	table.insert(sources, nls.builtins.formatting.terraform_fmt)
-	table.insert(sources, nls.builtins.formatting.shfmt)
-	-- table.insert(sources, nls.builtins.formatting.prettierd)
-	table.insert(
-		sources,
-		nls.builtins.formatting.prettierd.with({
-			filetypes = {
-				"javascript",
-				"javascriptreact",
-				"typescript",
-				"typescriptreact",
-				"vue",
-				"css",
-				"scss",
-				"less",
-				"html",
-				"json",
-				"jsonc",
-				"yaml",
-				-- 'markdown',
-				-- 'markdown.mdx',
-				"graphql",
-				"handlebars",
-			},
-		})
-	)
-	table.insert(
-		sources,
-		nls.builtins.diagnostics.markdownlint.with({
-			extra_args = { "--disable", "MD013", "MD033" },
-		})
-	)
-	table.insert(sources, nls.builtins.diagnostics.yamllint)
-	table.insert(sources, nls.builtins.diagnostics.staticcheck)
-	table.insert(
-		sources,
-		nls.builtins.diagnostics.vale.with({
-			filetypes = { "markdown", "tex", "text", "mail" },
-			diagnostic_config = {
-				virtual_text = false,
-			},
-		})
-	)
-	table.insert(sources, nls.builtins.hover.dictionary)
-	nls.setup({
-		on_attach = on_nls_attach,
-		sources = sources,
-	})
-
-	add({
-		source = "ray-x/lsp_signature.nvim",
-	})
-	require("lsp_signature").setup({
-		hints_enable = false,
-	})
-	-- }}}
-
 	-- cmp {{{
-	add({ source = "giuxtaposition/blink-cmp-copilot" })
+
+	add({ source = "fang2hou/blink-copilot" })
 
 	add({
 		source = "saghen/blink.cmp",
 		depends = {
 			"echasnovski/mini.snippets",
-			"giuxtaposition/blink-cmp-copilot",
+			"fang2hou/blink-copilot",
 		},
-		checkout = "v0.13.1",
+		checkout = "v1.1.1",
 	})
 
 	require("blink.cmp").setup({
-		-- keymap = { preset = "super-tab" },
 		keymap = {
 			preset = "default",
 			["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = {
+				function(cmp)
+					if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+						cmp.hide()
+						return require("copilot-lsp.nes").apply_pending_nes()
+					end
+					if cmp.snippet_active() then
+						return cmp.accept()
+					else
+						return cmp.select_and_accept()
+					end
+				end,
+				"snippet_forward",
+				"fallback",
+			},
 		},
 		completion = {
 			menu = {
@@ -642,12 +615,17 @@ later(function()
 					columns = { { "label", "label_description", gap = 1 }, { "kind_icon", gap = 1, "kind" } },
 					components = {
 						kind_icon = {
+							text = function(ctx)
+								local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+								return kind_icon
+							end,
+							highlight = function(ctx)
+								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+								return hl
+							end,
 							ellipsis = false,
-							-- text = function(ctx)
-							-- 	local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-							-- 	return kind_icon
-							-- end,
-							-- Optionally, you may also use the highlights from mini.icons
+						},
+						kind = {
 							highlight = function(ctx)
 								local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
 								return hl
@@ -656,7 +634,7 @@ later(function()
 					},
 				},
 			},
-			documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = "rounded" } },
+			documentation = { auto_show = true, auto_show_delay_ms = 501, window = { border = "rounded" } },
 			ghost_text = { enabled = true },
 			keyword = { range = "full" },
 			accept = { auto_brackets = { enabled = true } },
@@ -672,27 +650,35 @@ later(function()
 				show_in_snippet = true,
 			},
 		},
-		signature = { window = { border = "rounded" } },
+		signature = { enabled = true, window = { border = "rounded" } },
 		snippets = { preset = "mini_snippets" },
 		sources = {
 			default = { "lsp", "copilot", "path", "buffer", "snippets" },
 			providers = {
 				copilot = {
 					name = "copilot",
-					module = "blink-cmp-copilot",
+					module = "blink-copilot",
 					score_offset = 100,
 					async = true,
-					transform_items = function(_, items)
-						local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-						local kind_idx = #CompletionItemKind + 1
-						CompletionItemKind[kind_idx] = "Copilot"
-						for _, item in ipairs(items) do
-							item.kind = kind_idx
-						end
-						return items
-					end,
 				},
 			},
+			-- providers = {
+			-- 	copilot = {
+			-- 		name = "copilot",
+			-- 		module = "blink-cmp-copilot",
+			-- 		score_offset = 100,
+			-- 		async = true,
+			-- 		transform_items = function(_, items)
+			-- 			local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+			-- 			local kind_idx = #CompletionItemKind + 1
+			-- 			CompletionItemKind[kind_idx] = "Copilot"
+			-- 			for _, item in ipairs(items) do
+			-- 				item.kind = kind_idx
+			-- 			end
+			-- 			return items
+			-- 		end,
+			-- 	},
+			-- },
 		},
 		appearance = {
 			-- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
@@ -941,7 +927,8 @@ later(function()
 					},
 					schema = {
 						model = {
-							default = "gemini-1.5-pro-latest",
+							-- default = "gemini-1.5-pro-latest",
+							default = "gemini-2.5-pro-exp-03-25",
 						},
 					},
 				})
@@ -957,10 +944,64 @@ later(function()
 			chat = {
 				diff = {
 					enabled = true,
-					provider = "mini_diff", -- default|mini_diff
+					provider = "mini_diff",
 				},
 			},
 		},
+	})
+
+	local spinner_states = { "", "", "" }
+	local current_state = 1
+	local timer = vim.loop.new_timer()
+	local ns_id = vim.api.nvim_create_namespace("codecompanion_loading_spinner")
+	local spinner_line = nil
+
+	local function update_spinner()
+		if spinner_line then
+			vim.api.nvim_buf_clear_namespace(0, ns_id, spinner_line, spinner_line + 1)
+			vim.api.nvim_buf_set_virtual_text(
+				0,
+				ns_id,
+				spinner_line,
+				{ { " Loading " .. spinner_states[current_state], "Comment" } },
+				{}
+			)
+			current_state = current_state % #spinner_states + 1
+		end
+	end
+
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "CodeCompanionRequestStarted",
+		callback = function()
+			vim.defer_fn(function()
+				vim.cmd("stopinsert")
+			end, 1)
+			spinner_line = vim.api.nvim_win_get_cursor(0)[1] - 1
+			timer:start(0, 250, vim.schedule_wrap(update_spinner))
+		end,
+	})
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "CodeCompanionRequestStreaming",
+		callback = function()
+			timer:stop()
+			if spinner_line then
+				vim.api.nvim_buf_clear_namespace(0, ns_id, spinner_line, spinner_line + 1)
+				spinner_line = nil
+			end
+		end,
+	})
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "CodeCompanionRequestFinished",
+		callback = function()
+			if spinner_line then
+				-- /fetch doesn't trigger RequestStreaming event so we also clear spinner here
+				vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+				spinner_line = nil
+			end
+			vim.defer_fn(function()
+				vim.cmd("startinsert")
+			end, 1)
+		end,
 	})
 	-- }}}
 
@@ -1051,5 +1092,39 @@ later(function()
 
 	-- moonwalk {{{
 	add({ source = "theJian/nvim-moonwalk" })
+	-- }}}
+
+	-- diagnostic {{{
+	vim.diagnostic.config({
+		severity_sort = true,
+		virtual_text = {
+			current_line = true,
+		},
+		virtual_lines = false,
+		underline = true,
+		float = {
+			header = false,
+			prefix = "",
+			border = "rounded",
+			source = true,
+		},
+		signs = false,
+		-- signs = {
+		-- 	text = {
+		-- 		[vim.diagnostic.severity.ERROR] = "E",
+		-- 		[vim.diagnostic.severity.WARN] = "W",
+		-- 		[vim.diagnostic.severity.HINT] = "H",
+		-- 		[vim.diagnostic.severity.INFO] = "I",
+		-- 	},
+		-- },
+	})
+
+	vim.b.lsp_diagnostic_enabled = true
+	local toggle_virtual_text = function()
+		vim.b.lsp_diagnostic_enabled = not vim.b.lsp_diagnostic_enabled
+		vim.notify(string.format("Virtualtext %s", vim.b.lsp_diagnostic_enabled and "on" or "off"))
+		vim.diagnostic.show(nil, 0, nil, { virtual_text = vim.b.lsp_diagnostic_enabled })
+	end
+	vim.keymap.set("n", "<leader>dt", toggle_virtual_text, { desc = "[diagnostic] toggle display of diagnostic" })
 	-- }}}
 end)

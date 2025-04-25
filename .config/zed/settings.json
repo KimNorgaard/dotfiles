@@ -13,8 +13,8 @@
   "assistant": {
     "default_model": {
       // "provider": "zed.dev",
-      "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "provider": "google",
+      "model": "gemini-2.5-pro-exp-03-25"
     },
     "version": "2",
     "enable_experimental_live_diffs": true
@@ -28,8 +28,8 @@
   },
   "theme": {
     "mode": "system",
-    "dark": "Neovim default accented dark",
-    "light": "Neovim default accented dark"
+    "dark": "Blade Runner 2049 Dark User Imput",
+    "light": "Blade Runner 2049 Dark User Imput"
   },
   "telemetry": {
     "diagnostics": false,
@@ -96,8 +96,8 @@
     "button": true,
     "default_width": 240,
     "dock": "left",
-    "file_icons": true,
-    "folder_icons": true,
+    "file_icons": false,
+    "folder_icons": false,
     "git_status": true,
     "indent_size": 10,
     "auto_reveal_entries": true,
@@ -106,7 +106,18 @@
       "show": null
     },
     "indent_guides": {
-      "show": "always"
+      "show": "never"
+    }
+  },
+  "language_models": {
+    "google": {
+      "available_models": [
+        {
+          "name": "gemini-2.0-flash-exp",
+          "display_name": "Gemini 2.0 Flash (Experimental)",
+          "max_tokens": 1048576
+        }
+      ]
     }
   }
 }

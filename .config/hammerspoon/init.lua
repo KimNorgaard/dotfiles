@@ -1,305 +1,283 @@
+---@diagnostic disable:undefined-global
+
 hs.hotkey.alertDuration = 0
 hs.hints.showTitleThresh = 0
 hs.window.animationDuration = 0
 
-hsreload_keys = { { "cmd", "shift", "ctrl" }, "R" }
-if string.len(hsreload_keys[2]) > 0 then
-	hs.hotkey.bind(hsreload_keys[1], hsreload_keys[2], "Reload Configuration", function()
-		hs.reload()
-	end)
-end
+hs.alert.defaultStyle.strokeColor = { white = 1, alpha = 0 }
+hs.alert.defaultStyle.fillColor = { white = 0.05, alpha = 0.75 }
+hs.alert.defaultStyle.radius = 5
+-- hs.alert.defaultStyle.fadeOutDuration = 0.5
+-- hs.alert.defaultStyle.textFont = "FiraCode Nerd Font"
+-- hs.alert.defaultStyle.atScreenEdge = 2
+-- hs.alert.defaultStyle.textSize = 18
 
-hs.loadSpoon("ModalMgr")
-hs.loadSpoon("CountDown")
-hs.loadSpoon("WinWin")
+hs.hotkey.bind({ "cmd", "shift", "ctrl" }, "R", "Reload Configuration", function()
+	hs.reload()
+end)
 
--- countdownM modal environment
-if spoon.CountDown then
-	spoon.ModalMgr:new("countdownM")
-	local cmodal = spoon.ModalMgr.modal_list["countdownM"]
-	cmodal:bind("", "escape", "Deactivate countdownM", function()
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
-	cmodal:bind("", "Q", "Deactivate countdownM", function()
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
-	cmodal:bind("", "tab", "Toggle Cheatsheet", function()
-		spoon.ModalMgr:toggleCheatsheet()
-	end)
-	cmodal:bind("", "0", "1 Minute Countdown", function()
-		spoon.CountDown:startFor(1)
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
-	cmodal:bind("", "0", "5 Minutes Countdown", function()
-		spoon.CountDown:startFor(5)
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
-	for i = 1, 9 do
-		cmodal:bind("", tostring(i), string.format("%s Minutes Countdown", 10 * i), function()
-			spoon.CountDown:startFor(10 * i)
-			spoon.ModalMgr:deactivate({ "countdownM" })
-		end)
+local function axHotfix(win)
+	if not win then
+		win = hs.window.frontmostWindow()
 	end
-	cmodal:bind("", "return", "25 Minutes Countdown", function()
-		spoon.CountDown:startFor(25)
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
-	cmodal:bind("", "space", "Pause/Resume CountDown", function()
-		spoon.CountDown:pauseOrResume()
-		spoon.ModalMgr:deactivate({ "countdownM" })
-	end)
 
-	-- Register countdownM with modal supervisor
-	hscountdM_keys = hscountdM_keys or { "alt", "I" }
-	if string.len(hscountdM_keys[2]) > 0 then
-		spoon.ModalMgr.supervisor:bind(hscountdM_keys[1], hscountdM_keys[2], "Enter countdownM Environment", function()
-			spoon.ModalMgr:deactivateAll()
-			-- Show the keybindings cheatsheet once countdownM is activated
-			spoon.ModalMgr:activate({ "countdownM" }, "#FF6347", true)
+	local axApp = hs.axuielement.applicationElement(win:application())
+	local wasEnhanced = axApp.AXEnhancedUserInterface
+	axApp.AXEnhancedUserInterface = false
+
+	return function()
+		hs.timer.doAfter(hs.window.animationDuration * 2, function()
+			axApp.AXEnhancedUserInterface = wasEnhanced
 		end)
 	end
 end
 
-if spoon.WinWin then
-	spoon.ModalMgr:new("resizeM")
-	local cmodal = spoon.ModalMgr.modal_list["resizeM"]
-	cmodal:bind("", "escape", "Deactivate resizeM", function()
-		spoon.ModalMgr:deactivate({ "resizeM" })
-	end)
-	cmodal:bind("", "Q", "Deactivate resizeM", function()
-		spoon.ModalMgr:deactivate({ "resizeM" })
-	end)
-	cmodal:bind("", "tab", "Toggle Cheatsheet", function()
-		spoon.ModalMgr:toggleCheatsheet()
-	end)
-	cmodal:bind(
-		"",
-		"A",
-		"Move Leftward",
-		function()
-			spoon.WinWin:stepMove("left")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepMove("left")
-		end
-	)
-	cmodal:bind(
-		"",
-		"D",
-		"Move Rightward",
-		function()
-			spoon.WinWin:stepMove("right")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepMove("right")
-		end
-	)
-	cmodal:bind(
-		"",
-		"W",
-		"Move Upward",
-		function()
-			spoon.WinWin:stepMove("up")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepMove("up")
-		end
-	)
-	cmodal:bind(
-		"",
-		"S",
-		"Move Downward",
-		function()
-			spoon.WinWin:stepMove("down")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepMove("down")
-		end
-	)
-	cmodal:bind("", "H", "Lefthalf of Screen", function()
-		-- spoon.WinWin:mtash()
-		spoon.WinWin:moveAndResize("halfleft")
-	end)
-	cmodal:bind("", "L", "Righthalf of Screen", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("halfright")
-	end)
-	cmodal:bind("", "K", "Uphalf of Screen", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("halfup")
-	end)
-	cmodal:bind("", "J", "Downhalf of Screen", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("halfdown")
-	end)
-	cmodal:bind("", "Y", "NorthWest Corner", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("cornerNW")
-	end)
-	cmodal:bind("", "O", "NorthEast Corner", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("cornerNE")
-	end)
-	cmodal:bind("", "U", "SouthWest Corner", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("cornerSW")
-	end)
-	cmodal:bind("", "I", "SouthEast Corner", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("cornerSE")
-	end)
-	cmodal:bind("", "F", "Fullscreen", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("fullscreen")
-	end)
-	cmodal:bind("", "M", "Maximize", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("maximize")
-	end)
-	cmodal:bind("", "C", "Center Window", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveAndResize("center")
-	end)
-	cmodal:bind("", "6", "60% H 100% vert", function()
-		-- spoon.WinWin:stash()
-		local win = hs.window.focusedWindow()
-		local f = win:frame()
-		local max = win:screen():frame()
-		f.x = max.x
-		f.y = max.y
-		f.w = max.w * 0.6
-		f.h = max.h
-		win:setFrame(f)
-		spoon.WinWin:moveAndResize("center")
-	end)
-	cmodal:bind("", "8", "80% H 100% vert", function()
-		-- spoon.WinWin:stash()
-		local win = hs.window.focusedWindow()
-		local f = win:frame()
-		local max = win:screen():frame()
-		f.x = max.x
-		f.y = max.y
-		f.w = max.w * 0.8
-		f.h = max.h
-		win:setFrame(f)
-		spoon.WinWin:moveAndResize("center")
-	end)
-	cmodal:bind(
-		"",
-		"=",
-		"Stretch Outward",
-		function()
-			spoon.WinWin:moveAndResize("expand")
-		end,
-		nil,
-		function()
-			spoon.WinWin:moveAndResize("expand")
-		end
-	)
-	cmodal:bind(
-		"",
-		"-",
-		"Shrink Inward",
-		function()
-			spoon.WinWin:moveAndResize("shrink")
-		end,
-		nil,
-		function()
-			spoon.WinWin:moveAndResize("shrink")
-		end
-	)
-	cmodal:bind(
-		"shift",
-		"H",
-		"Move Leftward",
-		function()
-			spoon.WinWin:stepResize("left")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepResize("left")
-		end
-	)
-	cmodal:bind(
-		"shift",
-		"L",
-		"Move Rightward",
-		function()
-			spoon.WinWin:stepResize("right")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepResize("right")
-		end
-	)
-	cmodal:bind(
-		"shift",
-		"K",
-		"Move Upward",
-		function()
-			spoon.WinWin:stepResize("up")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepResize("up")
-		end
-	)
-	cmodal:bind(
-		"shift",
-		"J",
-		"Move Downward",
-		function()
-			spoon.WinWin:stepResize("down")
-		end,
-		nil,
-		function()
-			spoon.WinWin:stepResize("down")
-		end
-	)
-	cmodal:bind("", "left", "Move to Left Monitor", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveToScreen("left")
-	end)
-	cmodal:bind("", "right", "Move to Right Monitor", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveToScreen("right")
-	end)
-	cmodal:bind("", "up", "Move to Above Monitor", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveToScreen("up")
-	end)
-	cmodal:bind("", "down", "Move to Below Monitor", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveToScreen("down")
-	end)
-	cmodal:bind("", "space", "Move to Next Monitor", function()
-		-- spoon.WinWin:stash()
-		spoon.WinWin:moveToScreen("next")
-	end)
-	cmodal:bind("", "[", "Undo Window Manipulation", function()
-		spoon.WinWin:undo()
-	end)
-	cmodal:bind("", "]", "Redo Window Manipulation", function()
-		spoon.WinWin:redo()
-	end)
-	cmodal:bind("", "`", "Center Cursor", function()
-		spoon.WinWin:centerCursor()
-	end)
-
-	-- Register resizeM with modal supervisor
-	hsresizeM_keys = hsresizeM_keys or { "alt", "0" }
-	if string.len(hsresizeM_keys[2]) > 0 then
-		spoon.ModalMgr.supervisor:bind(hsresizeM_keys[1], hsresizeM_keys[2], "Enter resizeM Environment", function()
-			-- Deactivate some modal environments or not before activating a new one
-			spoon.ModalMgr:deactivateAll()
-			-- Show an status indicator so we know we're in some modal environment now
-			spoon.ModalMgr:activate({ "resizeM" }, "#B22222")
-		end)
+-- See https://github.com/Hammerspoon/hammerspoon/issues/3224
+local function withAxHotfix(fn, position)
+	if not position then
+		position = 1
+	end
+	return function(...)
+		local revert = axHotfix(select(position, ...))
+		fn(...)
+		revert()
 	end
 end
 
-spoon.ModalMgr.supervisor:enter()
+local windowMT = hs.getObjectMetatable("hs.window")
+windowMT.setFrame = withAxHotfix(windowMT.setFrame, 1)
+windowMT.setFrameInScreenBounds = withAxHotfix(windowMT.setFrameInScreenBounds)
+
+local wm = hs.hotkey.modal.new("alt", "0")
+local wmActive = false
+
+local function exitWm()
+	if wmActive then
+		wm:exit()
+		hs.alert.closeAll()
+		hs.alert("🙅", hs.alert.defaultStyle, hs.screen.mainScreen(), 0.5)
+	end
+end
+
+wm:bind({}, "escape", function()
+	exitWm()
+end)
+
+wm:bind({}, "q", function()
+	exitWm()
+end)
+
+local wmTimer = hs.timer
+
+local function resetTimer()
+	wmTimer = hs.timer.doAfter(2, exitWm)
+end
+
+function wm:entered()
+	wmActive = true
+	resetTimer()
+	hs.alert.closeAll()
+	hs.alert("🤔")
+end
+
+function wm:exited()
+	hs.alert.closeAll()
+	wmActive = false
+end
+
+local function center(xfactor, yfactor)
+	if yfactor == nil then
+		yfactor = 1
+	end
+	local win = hs.window.focusedWindow()
+	local f = win:frame()
+	local sf = win:screen():frame()
+
+	f.w = sf.w * xfactor
+	f.h = sf.h * yfactor
+	f.x = sf.x + (sf.w - f.w) / 2
+	f.y = sf.y + (sf.h - f.h) / 2
+
+	win:setFrame(f, 0)
+end
+
+local centerXNextIdx = 1
+local centerXFractions = { 0.8, 0.6, 0.5, 0.4 }
+wm:bind({}, "x", function()
+	wmTimer:stop()
+	center(centerXFractions[centerXNextIdx])
+	centerXNextIdx = centerXNextIdx + 1
+	if centerXNextIdx > #centerXFractions then
+		centerXNextIdx = 1
+	end
+	resetTimer()
+end)
+
+local centerNextIdx = 1
+local centerFractions = { { 0.8, 0.9 }, { 0.6, 0.8 }, { 0.4, 0.6 } }
+wm:bind({}, "c", function()
+	wmTimer:stop()
+	center(centerFractions[centerNextIdx][1], centerFractions[centerNextIdx][2])
+	centerNextIdx = centerNextIdx + 1
+	if centerNextIdx > #centerFractions then
+		centerNextIdx = 1
+	end
+	resetTimer()
+end)
+
+wm:bind({}, "0", function()
+	center(0.8)
+	exitWm()
+end)
+
+local function move(direction, distance)
+	local win = hs.window.focusedWindow()
+	local f = win:frame()
+	if direction == "l" then
+		f.x = f.x - distance
+	elseif direction == "r" then
+		f.x = f.x + distance
+	elseif direction == "u" then
+		f.y = f.y - distance
+	elseif direction == "d" then
+		f.y = f.y + distance
+	end
+	win:setFrame(f, 0)
+end
+
+wm:bind({}, "h", function()
+	wmTimer:stop()
+	move("l", 10)
+	resetTimer()
+end)
+
+wm:bind({}, "l", function()
+	wmTimer:stop()
+	move("r", 10)
+	resetTimer()
+end)
+
+wm:bind({}, "j", function()
+	wmTimer:stop()
+	move("d", 10)
+	resetTimer()
+end)
+
+wm:bind({}, "k", function()
+	wmTimer:stop()
+	move("u", 10)
+	resetTimer()
+end)
+
+wm:bind({}, "space", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+
+	win:moveToScreen(screen:next())
+end)
+
+wm:bind({}, "i", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+	local f = win:frame()
+	local stepw = res.w / 30
+	local steph = res.h / 30
+
+	win:setFrame({ x = f.x + stepw, y = f.y + steph, w = f.w - (stepw * 2), h = f.h - (steph * 2) })
+end)
+
+wm:bind({}, "o", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+	local f = win:frame()
+	local stepw = res.w / 30
+	local steph = res.h / 30
+
+	win:setFrame({ x = f.x - stepw, y = f.y - steph, w = f.w + (stepw * 2), h = f.h + (steph * 2) })
+end)
+
+wm:bind({ "shift" }, "h", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+
+	win:setFrame({ x = res.x, y = res.y, w = res.w / 2, h = res.h })
+	exitWm()
+end)
+
+wm:bind({ "shift" }, "k", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+
+	win:setFrame({ x = res.x, y = res.y, w = res.w, h = res.h / 2 })
+	exitWm()
+end)
+
+wm:bind({ "shift" }, "j", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+
+	win:setFrame({ x = res.x, y = res.y + res.h / 2, w = res.w, h = res.h / 2 })
+	exitWm()
+end)
+
+wm:bind({ "shift" }, "l", function()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+
+	win:setFrame({ x = res.x + res.w / 2, y = res.y, w = res.w / 2, h = res.h })
+	exitWm()
+end)
+
+wm:bind({}, "f", function()
+	local win = hs.window.focusedWindow()
+	if win:isFullScreen() then
+		win:setFullScreen(false)
+		hs.timer.usleep(999999)
+		exitWm()
+		return
+	end
+	win:setFullScreen(true)
+	exitWm()
+end)
+
+local winhist = {}
+wm:bind({}, "m", function()
+	local win = hs.window.focusedWindow()
+	if winhist[win:id()] ~= nil then
+		win:setFrame(winhist[win:id()])
+	else
+		if win:isMaximizable() then
+			winhist[win:id()] = win:frame()
+			win:maximize()
+		end
+	end
+	exitWm()
+end)
+
+local cornerNextID = 1
+wm:bind({}, "a", function()
+	wmTimer:stop()
+	local win = hs.window.focusedWindow()
+	local screen = win:screen()
+	local res = screen:frame()
+	if cornerNextID == 1 then
+		win:setFrame({ x = res.x, y = res.y, w = res.w / 2, h = res.h / 2 })
+	elseif cornerNextID == 2 then
+		win:setFrame({ x = res.x + res.w / 2, y = res.y, w = res.w / 2, h = res.h / 2 })
+	elseif cornerNextID == 3 then
+		win:setFrame({ x = res.x, y = res.y + res.h / 2, w = res.w / 2, h = res.h / 2 })
+	elseif cornerNextID == 4 then
+		win:setFrame({ x = res.x + res.w / 2, y = res.y + res.h / 2, w = res.w / 2, h = res.h / 2 })
+	end
+	cornerNextID = cornerNextID + 1
+	if cornerNextID > 4 then
+		cornerNextID = 1
+	end
+	resetTimer()
+end)

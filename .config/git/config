@@ -116,8 +116,8 @@
 	autocorrect = prompt
 
 [credential]
-	#helper = /usr/local/bin/git-credential-manager
-	helper = store
+	helper = /usr/local/bin/git-credential-manager
+        #helper = store
 
 [safe]
 	bareRepository = explicit

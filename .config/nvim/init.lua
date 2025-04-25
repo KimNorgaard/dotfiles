@@ -4,14 +4,13 @@ vim.loader.enable()
 vim.g.mapleader = ","
 
 -- UI
-vim.o.termguicolors = true
-vim.o.guifont = "GoMono Nerd Font:16"
-vim.o.lazyredraw = true -- don't update screen inside macros, etc
+-- vim.o.termguicolors = true
+-- vim.o.lazyredraw = true -- don't update screen inside macros, etc
 vim.o.cursorline = true -- highlight current line
 vim.o.title = true
 vim.o.titlestring = [[%{&modified?'● ':''}%{empty(expand('%:t'))?'nvim':expand('%:t')}]]
 vim.o.helpheight = 0 -- Height of help screen is 50%
-vim.o.laststatus = 2 -- always show status line
+-- vim.o.laststatus = 2 -- always show status line
 
 -- Clipboard
 -- vim.o.clipboard = "unnamedplus"
@@ -23,12 +22,12 @@ vim.o.timeoutlen = 500 -- mapped key sequence timeout
 vim.o.updatetime = 750
 
 -- Indentation
-vim.o.tabstop = 8 -- one tab = eight columns
+-- vim.o.tabstop = 8 -- one tab = eight columns
 vim.o.softtabstop = 2 -- one tab = two spaces (tab key)
 vim.o.shiftround = true -- round indent to multiple of shiftwidth
 vim.o.shiftwidth = 2 -- one tab = two spaces (autoindent)
 vim.o.expandtab = true -- never use hard tabs
-vim.o.autoindent = true -- keep indenting on <CR>
+-- vim.o.autoindent = true -- keep indenting on <CR>
 
 -- Files
 vim.o.history = 50 -- keep 50 lines of command line history
@@ -41,7 +40,7 @@ vim.o.autowrite = true
 vim.o.fileformats = "unix,dos,mac" -- unix linebreaks in new files please
 vim.o.fileencodings = "utf-8,iso-8859-1" -- order to detect Unicodeyness
 vim.o.modeline = true -- Check modeline in beginning of file
-vim.o.tags = "./tags;"
+-- vim.o.tags = "./tags;"
 
 -- Mouse
 vim.o.mouse = "a"
@@ -62,7 +61,7 @@ vim.o.linebreak = true -- break on what looks like boundaries
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.o.wildmode = "longest,list,full" -- complete longest common prefix first
 vim.opt.wildignore:append({ ".*.sw*", "__pycache__", "*.pyc" }) -- ignore junk files
-vim.o.wildmenu = true -- show a menu of completions like zsh
+-- vim.o.wildmenu = true -- show a menu of completions like zsh
 vim.o.pumheight = 15 -- max height of completion menu
 -- vim.o.omnifunc = "syntaxcomplete#Complete"
 

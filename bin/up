@@ -7,7 +7,10 @@ orangebold=$(
 )
 
 echo -e "${orangebold}Updating nvim packages...${reset}"
-nvim --headless -c +'lua MiniDeps.update(nil, { force = true })' +TSUpdateSync +qa
+tail -0f ~/.local/state/nvim/mini-deps.log &
+tail_pid=$!
+nvim --headless -c +"lua MiniDeps.later(function() MiniDeps.update(nil, { force = true }); vim.cmd('TSUpdateSync'); vim.cmd('qa') end); vim.wait(30000)"
+kill $tail_pid
 echo
 
 if [[ ! "$(softwareupdate -l 2>&1)" =~ 'No new software' ]]; then

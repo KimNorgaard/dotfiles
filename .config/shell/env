@@ -1,6 +1,6 @@
 export PROJECT_HOME=$HOME/src
 export GOPATH="$PROJECT_HOME/go"
-export PATH="/opt/homebrew/bin:$PATH:$GOPATH:~/.local/bin:~/netic-bin:~/bin:~/.krew/bin"
+export PATH="/opt/homebrew/bin:$PATH:$GOPATH:$HOME/.local/bin:$HOME/netic-bin:$HOME/bin:$HOME/.krew/bin:$HOME/src/node/node_modules/.bin"
 
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
